@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 //import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
@@ -22,13 +22,26 @@ const TabNavigator = () => {
       tabBarOptions={{
         style: styles.tabBar,
         activeTintColor: colors.primary,
-        inactiveTintColor: colors.grey,
+        inactiveTintColor: colors.blackText
+        
       }}
     >
-      <Tab.Screen name="Výzvy" component={Challenges} />
-      <Tab.Screen name="Znalosti" component={SkillTree} />
-      <Tab.Screen name="Žebříček" component={Leaderboard} />
-      <Tab.Screen name="Profil" component={Profile} />
+      <Tab.Screen name="Výzvy" component={Challenges} options={{
+        tabBarIcon: (tabInfo) => <Image source={tabInfo.focused ? require('./assets/images/tabBarIcons/challenges_active.png') : 
+        require('./assets/images/tabBarIcons/challenges_inactive.png')} />
+      }}/>
+      <Tab.Screen name="Znalosti" component={SkillTree} options={{
+        tabBarIcon: (tabInfo) => <Image source={tabInfo.focused ? require('./assets/images/tabBarIcons/skilltree_active.png') : 
+        require('./assets/images/tabBarIcons/skilltree_inactive.png')} />
+      }}/>
+      <Tab.Screen name="Žebříček" component={Leaderboard} options={{
+        tabBarIcon: (tabInfo) => <Image source={tabInfo.focused ? require('./assets/images/tabBarIcons/leaderboard_active.png') : 
+        require('./assets/images/tabBarIcons/leaderboard_inactive.png')} />
+      }}/>
+      <Tab.Screen name="Profil" component={Profile} options={{
+        tabBarIcon: (tabInfo) => <Image source={tabInfo.focused ? require('./assets/images/tabBarIcons/profile_active.png') : 
+        require('./assets/images/tabBarIcons/profile_inactive.png')} />
+      }}/>
     </Tab.Navigator>
   );
 };
@@ -62,6 +75,8 @@ const styles = StyleSheet.create({
     width: 375,
     height: 80,
     flex: 1,
-    backgroundColor: colors.white
+    backgroundColor: colors.white,
+    fontSize: 12,
+    //fontFamily: 'Mulish-Bold',
   }
 });
