@@ -1,51 +1,57 @@
 import React from "react";
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  Pressable,
-  TouchableOpacity,
-} from "react-native";
-import { loadAsync, useFonts } from "expo-font";
+import { View, Text, Image, StyleSheet } from "react-native";
 
 import colors from "../assets/colors/colors";
+import { BOLD32 } from "./atoms/typography";
 import BigButton from "./BigButton";
+import InputComp from "./InputComp";
 
 /**
  * component of the login screen
  */
 
 function Login(props) {
-  // doplnit co se stane když se nenačte font
-
-  /*loadAsync({
-    MulishBold: require("../assets/fonts/Mulish-Bold.ttf"),
-    MulishSemiBold: require("../assets/fonts/Mulish-SemiBold.ttf"),
-  });
-  */
+  const [username, setUsername] = React.useState("");
+  const [password, setPassword] = React.useState("");
 
   return (
     <View>
-      <Text style={styles.headline}>Vítejte v{"\n"} KYBERKOMPASU</Text>
+      <Text style={[styles.headline, BOLD32]}>
+        Vítejte v{"\n"} KYBERKOMPASU
+      </Text>
       <Image
         source={require("../assets/images/logo.png")}
         style={styles.logo}
       />
 
-      <Pressable
-        //onPress={() => props.navigation.navigate("TabNavigator")}
-        style={styles.button}
-      >
-        {BigButton("PŘIHLÁSIT SE", "TabNavigator")}
-      </Pressable>
+      <View style={styles.inputWrapper}>
+        <View style={styles.input}>
+          <InputComp
+            onChangeText={setUsername}
+            header="EMAIL"
+            name="jmeno@email.com"
+            source={require("../assets/images/mail.png")}
+          />
+        </View>
+        <InputComp
+          onChangeText={setPassword}
+          header="HESLO"
+          name="********"
+          source={require("../assets/images/lock.png")}
+        />
+      </View>
+
+      <View style={styles.button}>
+        <BigButton
+          name="PŘIHLÁSIT SE"
+          onPress={() => {
+            props.navigation.navigate("TabNavigator");
+          }}
+        />
+      </View>
 
       <View style={styles.signUpWrapper}>
-        <Text
-          style={styles.noAccountText}
-        >
-          Nemáte účet?
-        </Text>
+        <Text style={styles.noAccountText}>Nemáte účet?</Text>
         <Text
           style={styles.signUp}
           onPress={() => props.navigation.navigate("Signup")}
@@ -66,32 +72,35 @@ const styles = StyleSheet.create({
     alignItems: "center",
     top: 500,
   },
-
-  // style of the headline text
   headline: {
     textAlign: "center",
-    fontSize: 32,
-    //fontFamily: "MulishBold",
     top: 76,
   },
+  input: {
+    marginBottom: 20,
+  },
+  inputWrapper: {
+    position: "absolute",
+    top: 371,
+    alignSelf: "center",
+  },
   logo: {
-      position: 'absolute',
-      top: 190,
-      alignSelf: 'center'
+    position: "absolute",
+    top: 190,
+    alignSelf: "center",
   },
   noAccountText: {
     color: colors.grey,
-    //fontFamily: 'MulishSemiBold',
+    fontFamily: "Mulish_600SemiBold",
 
     marginRight: 17,
   },
   signUp: {
     color: colors.blackText,
-    //fontFamily: 'Mulish-Bold',
+    fontFamily: "Mulish_700Bold",
   },
   signUpWrapper: {
     flexDirection: "row",
-    marginRight: 17,
     fontSize: 16,
     top: 550,
     justifyContent: "center",
