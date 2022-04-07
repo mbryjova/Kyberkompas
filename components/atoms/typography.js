@@ -1,3 +1,4 @@
+import colors from "../../assets/colors/colors"
 
 
 export const EXTRABOLD12 = {
@@ -7,7 +8,8 @@ export const EXTRABOLD12 = {
 
 export const BOLD20 = {
         fontSize: 20,
-        fontFamily: 'Mulish_700Bold'
+        fontFamily: 'Mulish_700Bold',
+        color: colors.blackText
 }
 
 export const SEMIBOLD16 = {
@@ -20,3 +22,23 @@ export const BOLD32 = {
     fontFamily: 'Mulish_700Bold'
 }
 
+export const REGULAR16 = {
+    fontSize: 16,
+    fontFamily: "Mulish_400Regular"
+}
+
+export const REGULAR12 = {
+    fontSize: 12,
+    fontFamily: "Mulish_400Regular"
+}
+
+
+export const BOLD15 = {
+    fontSize: 15,
+    fontFamily: 'Mulish_700Bold'
+}
+
+export const BOLD25 = {
+    fontSize: 25,
+    fontFamily: 'Mulish_700Bold'
+}

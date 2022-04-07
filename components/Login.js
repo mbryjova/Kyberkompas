@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, KeyboardAvoidingView } from "react-native";
 
 import colors from "../assets/colors/colors";
 import { BOLD32 } from "./atoms/typography";
@@ -30,6 +30,7 @@ function Login(props) {
             onChangeText={setUsername}
             header="EMAIL"
             name="jmeno@email.com"
+            secureTextEmpty={false}
             source={require("../assets/images/mail.png")}
           />
         </View>
@@ -37,6 +38,7 @@ function Login(props) {
           onChangeText={setPassword}
           header="HESLO"
           name="********"
+          secureTextEmpty={true}
           source={require("../assets/images/lock.png")}
         />
       </View>

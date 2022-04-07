@@ -1,0 +1,111 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "first_name": "Robert",
+      "last_name": "Schwartz",
+      "email": "rob23@gmail.com",
+      "current_score": 400
+    },
+    {
+      "id": 2,
+      "first_name": "Lucy",
+      "last_name": "Ballmer",
+      "email": "lucyb56@gmail.com",
+      "current_score": 400
+    },
+    {
+      "id": 3,
+      "first_name": "Anna",
+      "last_name": "Smith",
+      "email": "annasmith23@gmail.com",
+      "current_score": 400
+    },
+    {
+      "id": 4,
+      "first_name": "Robert",
+      "last_name": "Brown",
+      "email": "bobbrown432@yahoo.com",
+      "current_score": 400
+    },
+    {
+      "id": 5,
+      "first_name": "Roger",
+      "last_name": "Bacon",
+      "email": "rogerbacon12@yahoo.com",
+      "current_score": 400
+    }
+  ],
+  "challenges": [
+    {
+      "id": 1,
+      "date_from": "4.10.2021",
+      "date_to": "15.11.2021",
+      "point_amount": "10",
+      "name": "Zkontroluj sílu svého hesla",
+      "description": "Za celou lekci jsme vás nepřesvědčili a petr1984 pořád považujete za bezpečné heslo? Pojďme si vyzkoušet za jak dlouho by se takové heslo prolomilo a případně jak jej vylepšit.",
+      "image": "../assets/images/challenge1.png"
+    },
+    {
+      "id": 2,
+      "date_from": "6.9.2021",
+      "date_to": "15.11.2021",
+      "point_amount": "10",
+      "name": "Poznáš phishing?",
+      "description": "Nejčastější typy phishingových zpráv bývají informace o nutnosti provedení nějakého úkonu, jako změna hesla nebo nutnost se někam přihlásit.",
+      "image": "../assets/images/challenge2.png"
+    },
+    {
+      "id": 3,
+      "date_from": "4.10.2021",
+      "date_to": "15.11.2021",
+      "point_amount": "10",
+      "name": "Zkontroluj sílu svého hesla",
+      "description": "Za celou lekci jsme vás nepřesvědčili a petr1984 pořád považujete za bezpečné heslo? Pojďme si vyzkoušet za jak dlouho by se takové heslo prolomilo a případně jak jej vylepšit.",
+      "image": "../assets/images/challenge1.png"
+    },
+    {
+      "id": 4,
+      "date_from": "4.10.2021",
+      "date_to": "15.11.2021",
+      "point_amount": "10",
+      "name": "Zkontroluj sílu svého hesla",
+      "description": "Za celou lekci jsme vás nepřesvědčili a petr1984 pořád považujete za bezpečné heslo? Pojďme si vyzkoušet za jak dlouho by se takové heslo prolomilo a případně jak jej vylepšit.",
+      "image": "../assets/images/challenge1.png"
+    },
+    {
+      "id": 5,
+      "date_from": "4.10.2021",
+      "date_to": "15.11.2021",
+      "point_amount": "10",
+      "name": "Zkontroluj sílu svého hesla",
+      "description": "Za celou lekci jsme vás nepřesvědčili a petr1984 pořád považujete za bezpečné heslo? Pojďme si vyzkoušet za jak dlouho by se takové heslo prolomilo a případně jak jej vylepšit.",
+      "image": "../assets/images/challenge1.png"
+    }
+  ],
+  "modules": [
+    {
+      "id": 1,
+      "name": "Hesla",
+      "image": ""
+    },
+    {
+      "id": 2,
+      "name": "Phishing",
+      "image": ""
+    },
+    {
+      "id": 3,
+      "name": "Kybertahák",
+      "image": ""
+    }
+  ],
+  "activities": [
+  {
+    "id": 1,
+    "type": "test",
+    "name": "Hesla základy",
+    "description": "Zkontroluj si svoji znalost ohledně základů funkce hesel."
+  }
+  ]
+}
