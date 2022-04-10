@@ -98,14 +98,93 @@
       "id": 3,
       "name": "Kybertahák",
       "image": ""
+    },
+    {
+      "id": 4,
+      "name": "Hesla",
+      "image": ""
+    },
+    {
+      "id": 5,
+      "name": "Phishing",
+      "image": ""
+    },
+    {
+      "id": 6,
+      "name": "Kybertahák",
+      "image": ""
+    },
+    {
+      "id": 7,
+      "name": "Sebeobrana",
+      "image": ""
     }
   ],
   "activities": [
-  {
+    {
+      "title": "dokončené:",
+      "id": 1,
+      "data": [{
+        "id": 1,
+        "type": "test",
+        "name": "Hesla základy",
+        "description": "Zkontroluj si svoji znalost ohledně základů funkce hesel.",
+        "status": "dokončené"
+      }]
+    },
+    {
+      "title": "následující:",
+      "id": 2,
+      "data": [{
+        "id": 2,
+        "type": "informační aktivita",
+        "name": "Zkontroluj sílu svého hesla",
+        "description": "Zkontroluj zda tvůj účet nebyl narušen při datovém úniku.",
+        "status": "následující"
+      }, {
+        "id": 3,
+        "type": "interaktivní čtení",
+        "name": "Jak vytvořit silné heslo",
+        "description": "Přečti si informace, jak správně vytvořit silné frázové heslo.",
+        "status": "následující"
+      }, {
+        "id": 4,
+        "type": "test",
+        "name": "Co nepatří mezi frázová hesla",
+        "description": "Zkontroluj si své znalosti ohledně frázových hesel.",
+        "status": "následující"
+      },
+      {
+        "id": 5,
+        "type": "ano nebo ne",
+        "name": "Jde o správné tvrzení?",
+        "description": "Zkuste si rychlou ano/ne aktivitu, kde se dozvíte něco nového.",
+        "status": "následující"
+      }
+    ]
+
+    }
+  ],
+  "not_finished": [{
+    "id": 2,
+    "type": "informační aktivita",
+    "name": "Zkontroluj sílu svého hesla",
+    "description": "Zkontroluj zda tvůj účet nebyl narušen při datovém úniku."
+  }, {
+    "id": 3,
+    "type": "interaktivní čtení",
+    "name": "Jak vytvořit silné heslo",
+    "description": "Přečti si informace, jak správně vytvořit silné frázové heslo."
+  }],
+  "finished_activities": [{
     "id": 1,
     "type": "test",
     "name": "Hesla základy",
     "description": "Zkontroluj si svoji znalost ohledně základů funkce hesel."
-  }
-  ]
+  }, {
+    "id": 4,
+    "type": "test",
+    "name": "Hesla základy",
+    "description": "Zkontroluj si svoji znalost ohledně základů funkce hesel."
+  }]
 }

@@ -20,6 +20,7 @@ import {
   Leaderboard,
   Profile,
   Challenge,
+  Module,
 } from "./components";
 import colors from "./assets/colors/colors";
 
@@ -29,22 +30,24 @@ const Tab = createBottomTabNavigator();
 const headerOptions = {
   headerTitleStyle: BOLD20,
   headerStyle: {
-    height: 96,
+    height: 96, // velikost horního navbaru
   },
   headerTitleAlign: "center",
-  tabBarLabelStyle: [REGULAR12, { marginBottom: 15 }], // ten text by měl být tlustší
+  tabBarLabelStyle: [REGULAR12, { marginBottom: 15 }], // ten text by měl být tlustší, margin bottom aby to líp sedělo k ikonce
   tabBarIconStyle: { marginTop: 15 },
-  tabBarStyle: { height: 80 },
+  tabBarStyle: { height: 80, backgroundColor: colors.white }, // velikost spodního navbaru
+  tabBarActiveTintColor: colors.primary,
+  tabBarInactiveTintColor: colors.blackText,
 };
 
 const TabNavigator = () => {
   return (
     <Tab.Navigator
-      tabBarOptions={{
+      /* tabBarOptions={{
         style: styles.tabBar,
-        activeTintColor: colors.primary,
-        inactiveTintColor: colors.blackText,
-      }}
+        //activeTintColor: colors.primary,
+        //inactiveTintColor: colors.blackText,
+      }}*/
       screenOptions={headerOptions}
     >
       <Tab.Screen
@@ -64,7 +67,7 @@ const TabNavigator = () => {
       />
       <Tab.Screen
         name="Znalosti"
-        component={SkillTree}
+        component={SkillTree} // nevím jestli dát do samostatnýho stacku? nevím
         options={{
           tabBarIcon: (tabInfo) => (
             <Image
@@ -120,14 +123,25 @@ export default function App() {
   });
 
   if (!fontsLoaded) {
-    return <Text style={{selfAlign: 'center'}}>App loading</Text>;
+    return <Text style={{ textAlign: "center" }}>App loading</Text>;
   }
+  const myTheme = {
+    colors: {
+      background: colors.white,
+    },
+  };
   return (
     <NavigationContainer>
-      <Stack.Navigator 
-      screenOptions={
-        headerStyle={height: 80} // nevím jak udělat nefunguje
-        }>
+      <Stack.Navigator
+        screenOptions={{
+          headerStyle: { height: 96 }, // nevím jak udělat nefunguje
+          headerTitleStyle: BOLD20,
+          headerTitleAlign: "center",
+          screenStyle: {
+            backgroundColor: colors.white, // změní pozadí obrazovky?
+          },
+        }}
+      >
         <Stack.Screen
           name="Login"
           component={Login}
@@ -148,23 +162,23 @@ export default function App() {
           component={Challenge}
           options={{
             title: "Výzva",
-            headerShown: true,
-            headerTitleStyle: BOLD20,
-            headerTitleAlign: "center"
           }}
+        />
+        <Stack.Screen
+          name="Module"
+          component={Module}
+          options={({ route }) => ({ title: route.params.name })}
         />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
+/*const styles = StyleSheet.create({ // můžu vymazat
   tabBar: {
     width: 375,
     height: 80,
     flex: 1,
     backgroundColor: colors.white,
-    fontSize: 12,
-    fontFamily: "Mulish_700Bold",
   },
-});
+});*/

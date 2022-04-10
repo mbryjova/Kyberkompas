@@ -43,5 +43,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontFamily: "Mulish_700Bold",
     fontSize: 15,
+    textTransform: 'uppercase'
   },
 });
