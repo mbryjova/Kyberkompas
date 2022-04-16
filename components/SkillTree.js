@@ -5,36 +5,6 @@ import colors from "../assets/colors/colors";
 import { SEMIBOLD16 } from "./atoms/typography";
 //import axios from "axios";
 
-/*
-function renderModuleItem2({item}) {
-  const sum_points_percent = 30;
-  return (
-    <View>
-      <View>
-      <TouchableOpacity onPress={() => props.navigation.navigate("Challenge")}>
-      <View style={[{height: 116, width: 88}, {transform: [{rotate: '270deg'}]}]}>
-      
-      <AnimatedProgressWheel
-      progress={sum_points_percent}
-      backgroundColor={colors.white}
-      color={colors.primary}
-      size={88}
-      width={14}
-       />
-
-      </View>
-
-      </TouchableOpacity>
-      <Text style={SEMIBOLD16}>
-        {item.name}
-      </Text>
-      </View>
-
-      
-    </View>
-    
-  )
-}*/
 
 function SkillTree(props) {
   //const [modules, setModules] = React.useState([]);
@@ -97,7 +67,6 @@ function SkillTree(props) {
                 color={colors.primary}
                 size={88}
                 width={8}
-                //fullColor={colors.correct}
               />
             </View>
             <Image
@@ -120,7 +89,7 @@ function SkillTree(props) {
   };
   return (
     <View
-      style={{ alignContent: "center", alignItems: "center", paddingTop: 17 }}
+      //style={{ alignContent: "center", alignItems: "center", paddingTop: 17 }}
     >
       <FlatList
         data={modules_data.modules}
@@ -128,6 +97,8 @@ function SkillTree(props) {
         showsVerticalScrollIndicator={false}
         renderItem={renderModuleItem}
         numColumns={2}
+        contentContainerStyle={{alignItems: 'center', paddingTop: 17}} // upravit
+        //style={{alignContent: 'center', alignItems: 'center'}}
       />
     </View>
   );

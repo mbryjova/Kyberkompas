@@ -42,3 +42,8 @@ export const BOLD25 = {
     fontSize: 25,
     fontFamily: 'Mulish_700Bold'
 }
+
+export const BOLD23 = {
+    fontSize: 23,
+    fontFamily: 'Mulish_700Bold'
+}

@@ -118,6 +118,16 @@
       "id": 7,
       "name": "Sebeobrana",
       "image": ""
+    },
+    {
+      "id": 8,
+      "name": "Sebeobrana",
+      "image": ""
+    },
+    {
+      "id": 9,
+      "name": "Sebeobrana",
+      "image": ""
     }
   ],
   "activities": [
@@ -160,31 +170,47 @@
         "name": "Jde o správné tvrzení?",
         "description": "Zkuste si rychlou ano/ne aktivitu, kde se dozvíte něco nového.",
         "status": "následující"
+      },
+      {
+        "id": 6,
+        "type": "ano nebo ne",
+        "name": "Jde o správné tvrzení?",
+        "description": "Zkuste si rychlou ano/ne aktivitu, kde se dozvíte něco nového.",
+        "status": "následující"
+      },
+      {
+        "id": 7,
+        "type": "ano nebo ne",
+        "name": "Jde o správné tvrzení?",
+        "description": "Zkuste si rychlou ano/ne aktivitu, kde se dozvíte něco nového.",
+        "status": "následující"
       }
     ]
 
     }
   ],
-  "not_finished": [{
-    "id": 2,
-    "type": "informační aktivita",
-    "name": "Zkontroluj sílu svého hesla",
-    "description": "Zkontroluj zda tvůj účet nebyl narušen při datovém úniku."
-  }, {
-    "id": 3,
-    "type": "interaktivní čtení",
-    "name": "Jak vytvořit silné heslo",
-    "description": "Přečti si informace, jak správně vytvořit silné frázové heslo."
-  }],
-  "finished_activities": [{
-    "id": 1,
-    "type": "test",
-    "name": "Hesla základy",
-    "description": "Zkontroluj si svoji znalost ohledně základů funkce hesel."
-  }, {
-    "id": 4,
-    "type": "test",
-    "name": "Hesla základy",
-    "description": "Zkontroluj si svoji znalost ohledně základů funkce hesel."
-  }]
+  "test_data": [
+    {
+      "id": 1,
+      "question": "Co nepatří mezi frázová hesla?",
+      "options": ["H0OPskočilzajícpřes2pole", "@H0JKy", "3karatovýprstenodM", "10%šancevsázcesPetrem"],
+      "correct": "@H0JKy",
+      "explanation": "Mezi frázová hesla nepatří @H0JKy.  Jde o heslo se zástupnými znaky, @ za a, 0 za O. Na prolomení takového hesla stačí útočníkům zhruba 4 týdny."
+    },
+    {
+      "id": 2,
+      "question": "Čím se frázová hesla vyznačují?",
+      "options": ["Jde o kombinaci známých slov", "Většinou jde o jedno známé slovo", "Jde o 1 slovo se zástupnými znaky.", "Lze je prolomit zhruba za 4 týdny"],
+      "correct": "Jde o kombinaci známých slov",
+      "explanation": "Frázová hesla se vyznačují tím, že jde o kombinaci nám dobře zapamatovatelných slov. Heslo jde vylepšit i tím, že na některá místa přidáme zástupné znaky, jako 0, ! nebo @. Příkladem je třeba heslo: třistaTřicet3stříbrných"
+    },
+    {
+      "id": 3,
+      "question": "Pokud máme frázová hesla, jak si dále ulehčit práci?",
+      "options": ["Všechny si je napsat na papírek", "Mít jedno heslo do více účtů", "Používat správce hesel.", "Sdílet heslo s někým, kdo jej nezapomene"],
+      "correct": "Jde o kombinaci známých slov",
+      "explanation": "Frázová hesla se vyznačují tím, že jde o kombinaci nám dobře zapamatovatelných slov. Heslo jde vylepšit i tím, že na některá místa přidáme zástupné znaky, jako 0, ! nebo @. Příkladem je třeba heslo: třistaTřicet3stříbrných"
+    }
+  ]
+  
 }

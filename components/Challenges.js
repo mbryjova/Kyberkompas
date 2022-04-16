@@ -5,6 +5,7 @@ import { EXTRABOLD12, BOLD20, REGULAR16, BOLD15 } from "./atoms/typography";
 
 /**
  * dát image přes get, získávám z databáze - někde ho získám
+ * udělat že kliknu na minulé a bude to click handler, ne navigator mezi stránkama, použít filtr, udělat si stav co je vybraný
  */
 
 function Challenges(props) {
@@ -54,7 +55,7 @@ function Challenges(props) {
   return (
     <View>
       <FlatList
-        data={ch_data.challenges}
+        data={ch_data.challenges} // sem dát filtr na onPress
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
         renderItem={renderChallengeItem}

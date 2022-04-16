@@ -11,8 +11,6 @@ import colors from "../assets/colors/colors";
 
 function Module({ route, navigation }) {
   const header = "aktivity";
-  //const finished_data = route.params.finished;
-  // const activities = route.params.activities;
   const data = require("../data/db.json");
 
   const renderActivityItem = ({ item }) => {
@@ -48,7 +46,7 @@ function Module({ route, navigation }) {
               textAlign: "center",
             },
           ]}
-          onPress={() => navigation.goBack()}
+          onPress={() => navigation.navigate("Quiz")} // tento text dát podmíněně
         >
           SPUSTIT
         </Text>
@@ -57,7 +55,7 @@ function Module({ route, navigation }) {
   };
 
   return (
-    <View style={{ paddingBottom: 54 }}>
+    <View style={{  }}>
       <SectionList
         sections={data.activities}
         keyExtractor={(item) => item.id}
@@ -79,27 +77,7 @@ function Module({ route, navigation }) {
         }
       />
 
-      {/* <Text style={[REGULAR16, {textTransform: 'capitalize'}]}>
-                {finished}
-            </Text>
-
-            <FlatList 
-                data={data.finished_activities}
-                keyExtractor={(item) => item.id}
-                renderItem={renderActivityItem}
-                //style={{alignContent: 'center', alignSelf: 'center'}}
-            />
-
-
-            
-            <Text style={[REGULAR16, {textTransform: 'capitalize'}]}>
-                {next}
-            </Text>
-            <FlatList
-                data={data.activities}
-                keyExtractor={(item) => item.id}
-                renderItem={renderActivityItem}
-            /> */}
+      
     </View>
   );
 }

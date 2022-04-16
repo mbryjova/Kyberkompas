@@ -19,7 +19,9 @@ function Challenge({route, navigation}) {
             {/* <Text>{props.navigation.getParam('body')}</Text> */}
             <BigButton
             name={button_name}
-            onPress={() => {navigation.goBack(); }} // plus ještě tam musí být funkcionalita co přičte body za výzvu
+            // plus ještě tam musí být funkcionalita co přičte body za výzvu, 
+            // pošlu do parent komponenty?
+            onPress={() => {navigation.goBack(); }}
             />
         </ScrollView>
     );

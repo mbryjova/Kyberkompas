@@ -21,6 +21,8 @@ import {
   Profile,
   Challenge,
   Module,
+  Quiz,
+  ActivityFinished
 } from "./components";
 import colors from "./assets/colors/colors";
 
@@ -43,11 +45,6 @@ const headerOptions = {
 const TabNavigator = () => {
   return (
     <Tab.Navigator
-      /* tabBarOptions={{
-        style: styles.tabBar,
-        //activeTintColor: colors.primary,
-        //inactiveTintColor: colors.blackText,
-      }}*/
       screenOptions={headerOptions}
     >
       <Tab.Screen
@@ -169,16 +166,25 @@ export default function App() {
           component={Module}
           options={({ route }) => ({ title: route.params.name })}
         />
+        <Stack.Screen
+        name="Quiz"
+        component={Quiz}
+        options={{
+          title: "Test"
+        }}
+        />
+        <Stack.Screen
+        name="ActivityFinished"
+        component={ActivityFinished}
+        options={{
+          title: "Aktivita dokončena"
+        }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
-/*const styles = StyleSheet.create({ // můžu vymazat
-  tabBar: {
-    width: 375,
-    height: 80,
-    flex: 1,
-    backgroundColor: colors.white,
-  },
-});*/
+const styles = StyleSheet.create({ // můžu vymazat
+  
+});
