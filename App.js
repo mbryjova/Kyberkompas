@@ -22,7 +22,8 @@ import {
   Challenge,
   Module,
   Quiz,
-  ActivityFinished
+  ActivityFinished,
+  InteractiveReading
 } from "./components";
 import colors from "./assets/colors/colors";
 
@@ -171,6 +172,13 @@ export default function App() {
         component={Quiz}
         options={{
           title: "Test"
+        }}
+        />
+        <Stack.Screen
+        name="InteractiveReading"
+        component={InteractiveReading}
+        options={{
+          title: "Interaktivní čtení"
         }}
         />
         <Stack.Screen

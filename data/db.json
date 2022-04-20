@@ -211,6 +211,34 @@
       "correct": "Jde o kombinaci známých slov",
       "explanation": "Frázová hesla se vyznačují tím, že jde o kombinaci nám dobře zapamatovatelných slov. Heslo jde vylepšit i tím, že na některá místa přidáme zástupné znaky, jako 0, ! nebo @. Příkladem je třeba heslo: třistaTřicet3stříbrných"
     }
+  ],
+  "interactive_reading": [
+    {
+      "type": "text",
+      "id": 1,
+      "content": "Část básně, scenerie cestou do práce, vzpomínka z dětství – to všechno může být základ frázového hesla. Tři až čtyři slova postačí."
+
+    },
+    {
+      "type": "question",
+      "id": 2,
+      "question": "Je heslo “MamRadPsy” dostatečně silné?",
+      "options": ["ano", "ne"],
+      "correct": "ne"
+    },
+    {
+      "type": "text",
+      "id": 3,
+      "content": "Pokud chcete heslo dovést k dokonalosti, přidejte na náhodná místa zástupné znaky (mezera, čísla, interpunkce, symboly). V našem příkladě trhatfialkyB00Mdynamitem jsme díky citoslovci B00M dostali do hesla číslice i velká písmena, a to na netradiční místo."
+
+    },
+    {
+      "type": "question",
+      "id": 4,
+      "question": "Je důležitá délka jakéhokoliv hesla?",
+      "options": ["ano", "ne", "Ano, ale nad hranici 12 Náhodných znaků, je to už jedno."],
+      "correct": "ano"
+    }
   ]
   
 }

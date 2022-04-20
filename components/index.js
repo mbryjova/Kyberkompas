@@ -8,3 +8,4 @@ export {default as Challenge} from './Challenge';
 export {default as Module} from './Module';
 export {default as Quiz} from './Quiz';
 export {default as ActivityFinished} from './ActivityFinished';
+export {default as InteractiveReading} from './InteractiveReading';

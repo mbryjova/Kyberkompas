@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, SectionList } from "react-native";
+import { Text, View, SectionList, StyleSheet } from "react-native";
 import {
   BOLD15,
   BOLD20,
@@ -14,6 +14,14 @@ function Module({ route, navigation }) {
   const data = require("../data/db.json");
 
   const renderActivityItem = ({ item }) => {
+
+    const activityType = {
+      "test": "Quiz",
+      "ano nebo ne": "YesOrNo",
+      "interaktivní čtení": "InteractiveReading",
+      "informační aktivita": "APIActivity"
+    }
+
     return (
       <View
         style={[
@@ -37,6 +45,8 @@ function Module({ route, navigation }) {
           <Text style={[BOLD20]}>{item.name}</Text>
           <Text style={REGULAR16}>{item.description}</Text>
         </View>
+        {
+          item.status == "následující" ? (
         <Text
           style={[
             BOLD15,
@@ -46,10 +56,27 @@ function Module({ route, navigation }) {
               textAlign: "center",
             },
           ]}
-          onPress={() => navigation.navigate("Quiz")} // tento text dát podmíněně
+          onPress={() => navigation.navigate(activityType[item.type], {header: item.name, moduleName: route.params.name})}
         >
           SPUSTIT
         </Text>
+
+          ) : (
+            /** onPress = {() => spustit znovu? pokud ano -> dát na aktivitu} */
+            <Text style={[
+              BOLD15,
+              {
+                textTransform: "uppercase",
+                color: colors.grey,
+                textAlign: "center",
+              },
+            ]}
+            
+            >
+              dokončena
+            </Text>
+          )
+        }
       </View>
     );
   };
@@ -83,3 +110,8 @@ function Module({ route, navigation }) {
 }
 
 export default Module;
+
+const styles = StyleSheet.create({
+  
+  
+})
