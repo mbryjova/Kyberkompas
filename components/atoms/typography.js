@@ -32,9 +32,18 @@ export const REGULAR12 = {
     fontFamily: "Mulish_400Regular"
 }
 
+export const REGULAR14 = {
+    fontSize: 14,
+    fontFamily: "Mulish_400Regular"
+}
 
 export const BOLD15 = {
     fontSize: 15,
+    fontFamily: 'Mulish_700Bold'
+}
+
+export const BOLD16 = {
+    fontSize: 16,
     fontFamily: 'Mulish_700Bold'
 }
 

@@ -24,20 +24,12 @@ function InteractiveReading(props) {
   const data = require("../data/db.json").interactive_reading;
 
   /** index of the current item so we can slice the array */
-  const [itemIndex, setItemIndex] = React.useState(3);
+  const [itemIndex, setItemIndex] = React.useState(0);
 
   /** points of the user */
   const [points, setPoints] = React.useState(0);
   
   //console.log(itemIndex)
-
-
-  /** wether to show the question or not */
-  //const [show, setShow] = React.useState(false);
-
-//   const textPressed = () => {
-//     setShow((show) => !show);
-//   };
 
 
   const Question = (props) => {

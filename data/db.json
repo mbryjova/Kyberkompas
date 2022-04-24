@@ -5,35 +5,77 @@
       "first_name": "Robert",
       "last_name": "Schwartz",
       "email": "rob23@gmail.com",
-      "current_score": 400
+      "total_score": 500,
+      "weekly_score": 10,
+      "monthly_score": 100,
+      "anual_score": 150,
+      "image": ""
     },
     {
       "id": 2,
       "first_name": "Lucy",
       "last_name": "Ballmer",
       "email": "lucyb56@gmail.com",
-      "current_score": 400
+      "total_score": 409,
+      "weekly_score": 10,
+      "monthly_score": 100,
+      "anual_score": 150,
+      "image": ""
     },
     {
       "id": 3,
       "first_name": "Anna",
       "last_name": "Smith",
       "email": "annasmith23@gmail.com",
-      "current_score": 400
+      "total_score": 406,
+      "weekly_score": 10,
+      "monthly_score": 100,
+      "anual_score": 150,
+      "image": ""
     },
     {
       "id": 4,
       "first_name": "Robert",
       "last_name": "Brown",
       "email": "bobbrown432@yahoo.com",
-      "current_score": 400
+      "total_score": 400,
+      "weekly_score": 10,
+      "monthly_score": 100,
+      "anual_score": 150,
+      "image": ""
     },
     {
       "id": 5,
       "first_name": "Roger",
       "last_name": "Bacon",
       "email": "rogerbacon12@yahoo.com",
-      "current_score": 400
+      "total_score": 200,
+      "weekly_score": 10,
+      "monthly_score": 100,
+      "anual_score": 150,
+      "image": ""
+    },
+    {
+      "id": 6,
+      "first_name": "Roger",
+      "last_name": "Bacon",
+      "email": "rogerbacon12@yahoo.com",
+      "total_score": 200,
+      "weekly_score": 10,
+      "monthly_score": 100,
+      "anual_score": 150,
+      "image": ""
+    },
+    {
+      "id": 7,
+      "first_name": "Roger",
+      "last_name": "Bacon",
+      "email": "rogerbacon12@yahoo.com",
+      "total_score": 200,
+      "weekly_score": 10,
+      "monthly_score": 100,
+      "anual_score": 150,
+      "image": ""
     }
   ],
   "challenges": [
@@ -42,92 +84,126 @@
       "date_from": "4.10.2021",
       "date_to": "15.11.2021",
       "point_amount": "10",
-      "name": "Zkontroluj sílu svého hesla",
+      "title": "Zkontroluj sílu svého hesla",
       "description": "Za celou lekci jsme vás nepřesvědčili a petr1984 pořád považujete za bezpečné heslo? Pojďme si vyzkoušet za jak dlouho by se takové heslo prolomilo a případně jak jej vylepšit.",
-      "image": "../assets/images/challenge1.png"
+      "image": "../assets/images/challenge1.png",
+      "finished": 1
+      
     },
     {
       "id": 2,
       "date_from": "6.9.2021",
-      "date_to": "15.11.2021",
+      "date_to": "15.11.2022",
       "point_amount": "10",
-      "name": "Poznáš phishing?",
+      "title": "Poznáš phishing?",
       "description": "Nejčastější typy phishingových zpráv bývají informace o nutnosti provedení nějakého úkonu, jako změna hesla nebo nutnost se někam přihlásit.",
-      "image": "../assets/images/challenge2.png"
+      "image": "../assets/images/challenge2.png",
+      "finished": 0
     },
     {
       "id": 3,
-      "date_from": "4.10.2021",
+      "date_from": "6.10.2021",
       "date_to": "15.11.2021",
       "point_amount": "10",
-      "name": "Zkontroluj sílu svého hesla",
+      "title": "Zkontroluj sílu svého hesla",
       "description": "Za celou lekci jsme vás nepřesvědčili a petr1984 pořád považujete za bezpečné heslo? Pojďme si vyzkoušet za jak dlouho by se takové heslo prolomilo a případně jak jej vylepšit.",
-      "image": "../assets/images/challenge1.png"
+      "image": "../assets/images/challenge1.png",
+      "finished": 1
     },
     {
       "id": 4,
       "date_from": "4.10.2021",
-      "date_to": "15.11.2021",
+      "date_to": "15.11.2022",
       "point_amount": "10",
-      "name": "Zkontroluj sílu svého hesla",
+      "title": "Zkontroluj sílu svého hesla",
       "description": "Za celou lekci jsme vás nepřesvědčili a petr1984 pořád považujete za bezpečné heslo? Pojďme si vyzkoušet za jak dlouho by se takové heslo prolomilo a případně jak jej vylepšit.",
-      "image": "../assets/images/challenge1.png"
+      "image": "../assets/images/challenge1.png",
+      "finished": 0
     },
     {
       "id": 5,
-      "date_from": "4.10.2021",
-      "date_to": "15.11.2021",
+      "date_from": "7.10.2021",
+      "date_to": "15.11.2022",
       "point_amount": "10",
-      "name": "Zkontroluj sílu svého hesla",
+      "title": "Zkontroluj sílu svého hesla",
       "description": "Za celou lekci jsme vás nepřesvědčili a petr1984 pořád považujete za bezpečné heslo? Pojďme si vyzkoušet za jak dlouho by se takové heslo prolomilo a případně jak jej vylepšit.",
-      "image": "../assets/images/challenge1.png"
+      "image": "../assets/images/challenge1.png",
+      "finished": 1
     }
   ],
   "modules": [
     {
       "id": 1,
       "name": "Hesla",
-      "image": ""
+      "image": "",
+      "current_score": 30,
+      "available": 1,
+      "max_score": 70
+
     },
     {
       "id": 2,
       "name": "Phishing",
-      "image": ""
+      "image": "",
+      "current_score": 30,
+      "available": 0,
+      "max_score": 100
     },
     {
       "id": 3,
       "name": "Kybertahák",
-      "image": ""
+      "image": "",
+      "current_score": 30,
+      "available": 1,
+      "max_score": 30
     },
     {
       "id": 4,
       "name": "Hesla",
-      "image": ""
+      "image": "",
+      "current_score": 30,
+      "available": 1,
+      "max_score": 35
     },
     {
       "id": 5,
       "name": "Phishing",
-      "image": ""
+      "image": "",
+      "current_score": 0,
+      "available": 0,
+      "max_score": 30
     },
     {
       "id": 6,
       "name": "Kybertahák",
-      "image": ""
+      "image": "",
+      "current_score": 0,
+      "available": 1,
+      "max_score": 70
     },
     {
       "id": 7,
       "name": "Sebeobrana",
-      "image": ""
+      "image": "",
+      "current_score": 30,
+      "available": 0,
+      "max_score": 70
     },
     {
       "id": 8,
       "name": "Sebeobrana",
-      "image": ""
+      "image": "",
+      "current_score": 30,
+      "available": 1,
+      "max_score": 70
     },
     {
       "id": 9,
       "name": "Sebeobrana",
-      "image": ""
+      "image": "",
+      "current_score": 30,
+      "available": 1,
+      "max_score": 70
     }
   ],
   "activities": [
@@ -139,7 +215,8 @@
         "type": "test",
         "name": "Hesla základy",
         "description": "Zkontroluj si svoji znalost ohledně základů funkce hesel.",
-        "status": "dokončené"
+        "status": "dokončené",
+        "score": 4
       }]
     },
     {
@@ -150,40 +227,46 @@
         "type": "informační aktivita",
         "name": "Zkontroluj sílu svého hesla",
         "description": "Zkontroluj zda tvůj účet nebyl narušen při datovém úniku.",
-        "status": "následující"
+        "status": "následující",
+        "score": 3
       }, {
         "id": 3,
         "type": "interaktivní čtení",
         "name": "Jak vytvořit silné heslo",
         "description": "Přečti si informace, jak správně vytvořit silné frázové heslo.",
-        "status": "následující"
+        "status": "následující",
+        "score": 1
       }, {
         "id": 4,
         "type": "test",
         "name": "Co nepatří mezi frázová hesla",
         "description": "Zkontroluj si své znalosti ohledně frázových hesel.",
-        "status": "následující"
+        "status": "následující",
+        "score": 5
       },
       {
         "id": 5,
         "type": "ano nebo ne",
         "name": "Jde o správné tvrzení?",
         "description": "Zkuste si rychlou ano/ne aktivitu, kde se dozvíte něco nového.",
-        "status": "následující"
+        "status": "následující",
+        "score": 8
       },
       {
         "id": 6,
         "type": "ano nebo ne",
         "name": "Jde o správné tvrzení?",
         "description": "Zkuste si rychlou ano/ne aktivitu, kde se dozvíte něco nového.",
-        "status": "následující"
+        "status": "následující",
+        "score": 8
       },
       {
         "id": 7,
         "type": "ano nebo ne",
         "name": "Jde o správné tvrzení?",
         "description": "Zkuste si rychlou ano/ne aktivitu, kde se dozvíte něco nového.",
-        "status": "následující"
+        "status": "následující",
+        "score": 8
       }
     ]
 
@@ -195,50 +278,121 @@
       "question": "Co nepatří mezi frázová hesla?",
       "options": ["H0OPskočilzajícpřes2pole", "@H0JKy", "3karatovýprstenodM", "10%šancevsázcesPetrem"],
       "correct": "@H0JKy",
-      "explanation": "Mezi frázová hesla nepatří @H0JKy.  Jde o heslo se zástupnými znaky, @ za a, 0 za O. Na prolomení takového hesla stačí útočníkům zhruba 4 týdny."
+      "explanation": "Mezi frázová hesla nepatří @H0JKy.  Jde o heslo se zástupnými znaky, @ za a, 0 za O. Na prolomení takového hesla stačí útočníkům zhruba 4 týdny.",
+      "points": 2
     },
     {
       "id": 2,
       "question": "Čím se frázová hesla vyznačují?",
       "options": ["Jde o kombinaci známých slov", "Většinou jde o jedno známé slovo", "Jde o 1 slovo se zástupnými znaky.", "Lze je prolomit zhruba za 4 týdny"],
       "correct": "Jde o kombinaci známých slov",
-      "explanation": "Frázová hesla se vyznačují tím, že jde o kombinaci nám dobře zapamatovatelných slov. Heslo jde vylepšit i tím, že na některá místa přidáme zástupné znaky, jako 0, ! nebo @. Příkladem je třeba heslo: třistaTřicet3stříbrných"
+      "explanation": "Frázová hesla se vyznačují tím, že jde o kombinaci nám dobře zapamatovatelných slov. Heslo jde vylepšit i tím, že na některá místa přidáme zástupné znaky, jako 0, ! nebo @. Příkladem je třeba heslo: třistaTřicet3stříbrných",
+      "points": 2
     },
     {
       "id": 3,
       "question": "Pokud máme frázová hesla, jak si dále ulehčit práci?",
       "options": ["Všechny si je napsat na papírek", "Mít jedno heslo do více účtů", "Používat správce hesel.", "Sdílet heslo s někým, kdo jej nezapomene"],
       "correct": "Jde o kombinaci známých slov",
-      "explanation": "Frázová hesla se vyznačují tím, že jde o kombinaci nám dobře zapamatovatelných slov. Heslo jde vylepšit i tím, že na některá místa přidáme zástupné znaky, jako 0, ! nebo @. Příkladem je třeba heslo: třistaTřicet3stříbrných"
+      "explanation": "Frázová hesla se vyznačují tím, že jde o kombinaci nám dobře zapamatovatelných slov. Heslo jde vylepšit i tím, že na některá místa přidáme zástupné znaky, jako 0, ! nebo @. Příkladem je třeba heslo: třistaTřicet3stříbrných",
+      "points": 2
     }
   ],
   "interactive_reading": [
     {
       "type": "text",
       "id": 1,
-      "content": "Část básně, scenerie cestou do práce, vzpomínka z dětství – to všechno může být základ frázového hesla. Tři až čtyři slova postačí."
-
-    },
-    {
-      "type": "question",
-      "id": 2,
-      "question": "Je heslo “MamRadPsy” dostatečně silné?",
-      "options": ["ano", "ne"],
-      "correct": "ne"
+      "content": "Část básně, scenerie cestou do práce, vzpomínka z dětství – to všechno může být základ frázového hesla. Tři až čtyři slova postačí.",
+      "question": {
+        "type": "question",
+        "id": 2,
+        "question": "Je heslo “MamRadPsy” dostatečně silné?",
+        "options": ["ano", "ne"],
+        "correct": "ne",
+        "points": 2
+      }
     },
     {
       "type": "text",
       "id": 3,
-      "content": "Pokud chcete heslo dovést k dokonalosti, přidejte na náhodná místa zástupné znaky (mezera, čísla, interpunkce, symboly). V našem příkladě trhatfialkyB00Mdynamitem jsme díky citoslovci B00M dostali do hesla číslice i velká písmena, a to na netradiční místo."
-
+      "content": "Pokud chcete heslo dovést k dokonalosti, přidejte na náhodná místa zástupné znaky (mezera, čísla, interpunkce, symboly). V našem příkladě trhatfialkyB00Mdynamitem jsme díky citoslovci B00M dostali do hesla číslice i velká písmena, a to na netradiční místo.",
+      "question": {
+        "type": "question",
+        "id": 4,
+        "question": "Je důležitá délka jakéhokoliv hesla?",
+        "options": ["ano", "ne", "Ano, ale nad hranici 12 Náhodných znaků, je to už jedno."],
+        "correct": "ano",
+        "points": 2
+      }
+    }
+  ],
+  "tinder_swipe": [
+    {
+      "type": "question",
+      "id": 1,
+      "image": "",
+      "question": {
+        "text": "Internetoví boti a algoritmy zkoušejí tisíce kombinací hesel za jednu každou minutu.",
+        "id": 1
+      },
+      "options": [
+        {
+          "text": "ano",
+          "logicalValue": 1,
+          "explanation": "Takové technologie nevidí vás jako konkrétního člověka, neznají empatii, nepřimhouří oči. Jediným cílem je dostat se k vašim cennostem, tajemstvím nebo vzpomínkám.",
+          "scoreAmount": 2
+        }, {
+          "text": "ne",
+          "logicalValue": 0,
+          "explanation": "Nástrojů jak generovat a zkoušet náhodná hesla je v dnešní době spousta. Za minutu jsou útočnící schopní vyzkoušet tisíce kombinací.",
+          "scoreAmount": 0
+        }]
+      
     },
     {
       "type": "question",
-      "id": 4,
-      "question": "Je důležitá délka jakéhokoliv hesla?",
-      "options": ["ano", "ne", "Ano, ale nad hranici 12 Náhodných znaků, je to už jedno."],
-      "correct": "ano"
+      "id": 2,
+      "image": "",
+      "question": {
+        "id": 2,
+        "text": "Kromě bezpečných frázových hesel a správce hesel pomůže třeba i dvoufázové ověřování - jde o doplnění klasického hesla daším identifikátorem."
+      },
+      "options": [
+        {
+          "text": "ano",
+          "logicalValue": 1,
+          "explanation": "Mezi takové identifikátory patří gesto nebo biometrický zámek, jako je například rozpoznání obličeje, PIN kód, ověřování přes aplikaci a další.",
+          "scoreAmount": 2
+        }, {
+          "text": "ne",
+          "logicalValue": 0,
+          "explanation": "Dvoufázové ověřování je silná metoda jak zabránit útočníkovi dostat se do vašeho účtu i po získání primárního hesla. Bude se totiž muset ověřit ještě jednou a to už nebude tak jednoduché, například pokud máte jako druhý identifikátor rozpoznání obličeje.",
+          "scoreAmount": 0
+        }]
+      
+    },
+    {
+      "type": "question",
+      "id": 3,
+      "image": "",
+      "question": {
+        "id": 1,
+        "text": "Všechny tyto identifikátory lze použít pro dvoufázové ověřování: otisk prstu, SMS zpráva, společné heslo pro sdílený účet."
+      },
+      "options": [
+        {
+          "text": "ano",
+          "logicalValue": 0,
+          "explanation": "Společné heslo pro sdílený účet nepatří mezi dobré identifikátory u dvoufázového ověřování a bývá často důvodem pro uniknutí hesla. Mezi další identifikátory  ale patří například rozpoznání obličeje, PIN kód, ověřování přes aplikaci, OTP autentizace, tedy one time password – heslo na jedno použití. ",
+          "scoreAmount": 0
+        }, {
+          "text": "ne",
+          "logicalValue": 1,
+          "explanation": "Kromě otisku prstu nebo SMS zprávy lze pro dvoufázové ověřování použít třeba rozpoznání obličeje, PIN kód nebo heslo na jedno použití jinak také one time password.",
+          "scoreAmount": 2
+        }]
     }
+
   ]
   
 }

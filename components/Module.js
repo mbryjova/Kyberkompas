@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, SectionList, StyleSheet } from "react-native";
+import { Text, View, SectionList, StyleSheet, Image } from "react-native";
 import {
   BOLD15,
   BOLD20,
@@ -27,14 +27,17 @@ function Module({ route, navigation }) {
         style={[
           {
             height: 179,
-            width: 341,
+            width: "91%",
+            flex: 1,
+            //height: "100%",
             borderRadius: 16,
             borderWidth: 0.5,
             borderColor: colors.blackText,
             alignSelf: "center",
-            marginBottom: 14,
+            //marginBottom: 14,
+            marginBottom: "4%",
             backgroundColor:
-              item.status === "dokončené" ? colors.correct : colors.white,
+              item.status === "dokončené" ? colors.correct_light : colors.white,
           },
         ]}
       >
@@ -54,6 +57,7 @@ function Module({ route, navigation }) {
               textTransform: "uppercase",
               color: colors.primary,
               textAlign: "center",
+
             },
           ]}
           onPress={() => navigation.navigate(activityType[item.type], {header: item.name, moduleName: route.params.name})}
@@ -63,18 +67,30 @@ function Module({ route, navigation }) {
 
           ) : (
             /** onPress = {() => spustit znovu? pokud ano -> dát na aktivitu} */
+            <View style={{flex:1, alignItems: "flex-end", backgroundColor: colors.primary, flexDirection: "row",
+            justifyContent: "center"
+            }}>
+
             <Text style={[
               BOLD15,
               {
                 textTransform: "uppercase",
                 color: colors.grey,
                 textAlign: "center",
+                marginBottom: "5%"
+                //flex: 1
               },
             ]}
             
             >
               dokončena
             </Text>
+
+            <Image 
+              style={{marginBottom: "4.5%", marginLeft: "4%"}}
+              source={require("../assets/images/testIcons/check.png")}
+            />
+            </View>
           )
         }
       </View>
@@ -82,7 +98,7 @@ function Module({ route, navigation }) {
   };
 
   return (
-    <View style={{  }}>
+    <View style={{ backgroundColor: colors.correct, flex: 1 }}>
       <SectionList
         sections={data.activities}
         keyExtractor={(item) => item.id}
@@ -91,14 +107,25 @@ function Module({ route, navigation }) {
           <Text
             style={[
               REGULAR16,
-              { textTransform: "capitalize", marginBottom: 14, marginLeft: 14 },
+              { textTransform: "capitalize", 
+              // marginBottom: 14, 
+              // marginLeft: 14 
+              marginBottom: "4%",
+              marginLeft: "4%"
+            },
             ]}
           >
             {title}
           </Text>
         )}
         ListHeaderComponent={
-          <Text style={[BOLD32, { textTransform: "capitalize", padding: 14 }]}>
+          <Text style={[BOLD32, { textTransform: "capitalize", 
+          //padding: 14 
+         // padding: "3%"
+         marginLeft: "4%",
+         marginTop: "4%"
+
+          }]}>
             {header}
           </Text>
         }

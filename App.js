@@ -23,7 +23,8 @@ import {
   Module,
   Quiz,
   ActivityFinished,
-  InteractiveReading
+  InteractiveReading,
+  YesOrNo
 } from "./components";
 import colors from "./assets/colors/colors";
 
@@ -179,6 +180,13 @@ export default function App() {
         component={InteractiveReading}
         options={{
           title: "Interaktivní čtení"
+        }}
+        />
+        <Stack.Screen
+        name="YesOrNo"
+        component={YesOrNo}
+        options={{
+          title: "Ano nebo ne?"
         }}
         />
         <Stack.Screen

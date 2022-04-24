@@ -34,7 +34,7 @@ function Quiz(props) {
 
   const renderQuestion = () => {
     return (
-      <View style={{}}>
+      <View style={{alignSelf: "center", marginTop: "15%"}}>
         <Text style={BOLD20}>
           {allQuestions[currentQuestionIndex].question}
         </Text>
@@ -45,10 +45,16 @@ function Quiz(props) {
   const renderOption = () => {
     return (
       <View
-        style={{ width: "81%", height: "30%", backgroundColor: colors.correct }}
+        style={{ marginTop: "30%", backgroundColor: colors.correct, height: "43%", width: "85%", 
+        justifyContent: "space-around", alignItems: "center",
+        marginBottom: "20%"
+      }}
       >
         {allQuestions[currentQuestionIndex].options.map((option) => (
           <TouchableOpacity
+          style={{width: "100%", borderRadius: 100, borderWidth: 0.5, 
+          borderColor: colors.blackText, height: "19%", backgroundColor: colors.white,
+        justifyContent: "center"}}
             key={option}
             onPress={() => {
               setCurrentOptionSelected(option);
@@ -60,7 +66,7 @@ function Quiz(props) {
 
                             </View> */}
 
-            <Text style={BOLD15}>{option}</Text>
+            <Text style={[BOLD15, {textAlign: "center"}]}>{option}</Text>
           </TouchableOpacity>
         ))}
       </View>
@@ -94,7 +100,7 @@ function Quiz(props) {
     //setExplanation(false);
 
     /** pokud je další otázka poslední, potom nastavím state na poslední otázku
-     * mělo by být +2
+     * 
      */
     {
       currentQuestionIndex + 1 == allQuestions.length // zatím nefunguje pro poslední otázku
@@ -103,19 +109,16 @@ function Quiz(props) {
     }
   };
 
-  const finish = () => {};
-
+  
   return (
     <View
       style={{
-        alignItems: "center",
-        alignContent: "center",
         backgroundColor: colors.wrong,
-        flex: 1,
+        flex: 1
       }}
     >
       {/**Question */}
-      <View style={{ flex: 1 }}>{renderQuestion()}</View>
+      {/* {renderQuestion()} */}
 
       {/**Options */}
       {/* {
@@ -125,10 +128,12 @@ function Quiz(props) {
       {/**Validate answer/next button height: '56%', width: '89%'*/}
 
       {quizState == 1 && (
-        <View style={{ backgroundColor: colors.correct, flex: 2 }}>
+        <View style={{ flex: 1, backgroundColor: colors.correct_light, alignItems: "center"
+        }}>
+          {renderQuestion()}
           {renderOption()}
           <Progress.Bar progress={0.3} />
-          <View style={{}}>
+          <View style={{backgroundColor: colors.blackText}}>
             <BigButton
               name="zkontrolovat"
               onPress={() => validate()} // {validate}
@@ -163,21 +168,6 @@ function Quiz(props) {
           />
         </View>
       )}
-
-      {/* {
-                explanation ? (<BigButton
-                    name="na další otázku"
-                    onPress={() => nextQuestion()} // {next question} // potom už se ale nepůjde vracet
-                    />) : (
-                        <BigButton
-                    name="zkontrolovat"
-                    onPress={() => validate()} // {validate}
-                    />
-                        
-                    )
-            } */}
-
-      {/**Progress bar */}
     </View>
   );
 }
