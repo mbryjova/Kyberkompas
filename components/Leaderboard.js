@@ -83,11 +83,6 @@ function Leaderboard(props) {
           [{backgroundColor: currentState == 1 ? colors.primary : colors.white, 
             borderColor: currentState == 1 ? colors.blackText : colors.white,
             borderWidth: currentState == 1 ? 0.5 : 0,
-            // width: "33.3%",
-            // height: "100%",
-            // borderRadius: 10,
-            // justifyContent: 'center',
-            // alignItems: 'center'
           }, styles.topNavigator]
         }
         >
@@ -108,11 +103,6 @@ function Leaderboard(props) {
           [{backgroundColor: currentState == 2 ? colors.primary : colors.white, 
             borderColor: currentState == 2 ? colors.blackText : colors.white,
             borderWidth: currentState == 2 ? 0.5 : 0,
-            // width: "33.3%",
-            // height: "100%",
-            // borderRadius: 10,
-            // justifyContent: 'center',
-            // alignItems: 'center'
           }, styles.topNavigator]
         }
         >
@@ -133,11 +123,6 @@ function Leaderboard(props) {
           [{backgroundColor: currentState == 3 ? colors.primary : colors.white, 
             borderColor: currentState == 3 ? colors.blackText : colors.white,
             borderWidth: currentState == 3 ? 0.5 : 0,
-            // width: "33.3%",
-            // height: "100%",
-            // borderRadius: 10,
-            // justifyContent: 'center',
-            // alignItems: 'center'
           }, styles.topNavigator]
         }
         >

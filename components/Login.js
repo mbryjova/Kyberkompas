@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image, StyleSheet, KeyboardAvoidingView } from "react-native";
+import { View, Text, Image, StyleSheet, KeyboardAvoidingView, ScrollView } from "react-native";
 
 import colors from "../assets/colors/colors";
 import { BOLD32 } from "./atoms/typography";
@@ -14,6 +14,45 @@ function Login(props) {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
 
+  const [wrongPassword, setWrongPassword] = React.useState(false);
+  const [wrongUsername, setWrongUsername] = React.useState(false);
+
+  const [users, setUsers] = React.useState([]);
+  const [currentUser, setCurrentUser] = React.useState(null);
+
+  //console.log(wrongPassword);
+  const handleLogin = () => {
+    if (password.length < 5) {
+      setWrongPassword(true);
+      console.log("password not given or short");
+    }
+    else if (username == "") {
+      setWrongUsername(true);
+      console.log("username not given");
+    }
+    else {
+      setUsers(require("../data/db.json").users);
+      const current = users.filter((user) => user.email == username);
+      if (current.length == 0) {
+        setWrongUsername(true);
+        console.log("email not in database")
+      }
+      else {
+        setWrongUsername(false);
+        console.log(current);
+        setCurrentUser(current[0]);
+        if (currentUser.password == password) {
+          setWrongPassword(false)
+          props.navigation.navigate("TabNavigator");
+        } else {
+          console.log("wrong password", password);
+          setWrongPassword(true);
+        }
+      }
+    }
+
+  }
+
   return (
     <View>
       <Text style={[styles.headline, BOLD32]}>
@@ -24,31 +63,40 @@ function Login(props) {
         style={styles.logo}
       />
 
-      <View style={styles.inputWrapper}>
-        <View style={styles.input}>
+      <KeyboardAvoidingView style={styles.inputWrapper}
+      behavior='position'
+      >
+        {/**tady bylo styles.input */}
+        <View style={{marginBottom: wrongUsername ? 0 : 20}}>
           <InputComp
             onChangeText={setUsername}
             header="EMAIL"
             name="jmeno@email.com"
             secureTextEmpty={false}
             source={require("../assets/images/mail.png")}
+            wrongInput={wrongUsername}
+            error="Nesprávný e-mail"
           />
         </View>
         <InputComp
           onChangeText={setPassword}
           header="HESLO"
           name="********"
-          secureTextEmpty={true}
+          secureTextEntry={true}
           source={require("../assets/images/lock.png")}
+          wrongInput={wrongPassword}
+          error="Nesprávné heslo"
         />
-      </View>
+      </KeyboardAvoidingView>
 
       <View style={styles.button}>
         <BigButton
           name="PŘIHLÁSIT SE"
-          onPress={() => {
-            props.navigation.navigate("TabNavigator");
-          }}
+          // onPress={() => {
+          //   //props.navigation.navigate("TabNavigator");
+          //   handleLogin;
+          // }}
+          onPress={handleLogin}
         />
       </View>
 
@@ -79,12 +127,14 @@ const styles = StyleSheet.create({
     top: 76,
   },
   input: {
-    marginBottom: 20,
+    marginBottom: 20 // dát jen když je input správně
   },
   inputWrapper: {
     position: "absolute",
     top: 371,
     alignSelf: "center",
+    backgroundColor: colors.primary,
+    width: "91%"
   },
   logo: {
     position: "absolute",
