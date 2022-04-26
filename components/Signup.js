@@ -13,6 +13,8 @@ function Signup(props) {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
 
+  
+
   return (
     <View style={styles.container}>
       <Text style={[styles.headline, BOLD32]}>Registrace</Text>
@@ -35,7 +37,8 @@ function Signup(props) {
       </View>
       <View style={styles.button}>
         <BigButton
-          onPress={() => props.navigation.navigate("TabNavigator")}
+          //onPress={() => props.navigation.navigate("TabNavigator")}
+          onPress={}
           name="POKRAČOVAT"
         />
       </View>
@@ -63,7 +66,8 @@ const styles = StyleSheet.create({
   inputWrapper: {
     position: 'absolute',
     top: 228,
-    alignSelf: 'center'
+    alignSelf: 'center',
+    width: "91%"
 
   },
   text: {
