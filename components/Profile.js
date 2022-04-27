@@ -10,6 +10,8 @@ function Profile(props) {
 
   console.log(photo); // dám tu photo rovnou do app jako image ke current_user
 
+  //console.log(userContext)
+
   const handleChoosePhoto = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,

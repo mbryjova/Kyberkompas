@@ -1,8 +1,11 @@
+import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { BOLD32 } from "./atoms/typography";
+import colors from "../assets/colors/colors";
+import { BOLD16, BOLD32, REGULAR16 } from "./atoms/typography";
 import BigButton from "./BigButton";
 import InputComp from "./InputComp";
+import Constants from "expo-constants";
 
 /**
  * component of the sign-up screen
@@ -13,32 +16,93 @@ function Signup(props) {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  
+  const [wrongPassword, setWrongPassword] = React.useState(false);
+  const [wrongUsername, setWrongUsername] = React.useState(false);
+
+  const users = props.route.params.data;
+
+  const handleSignup = () => {
+    
+    const current = users.filter((user) => user.email == username);
+    console.log(current.length, username)
+    if (current.length > 0) {
+      setWrongUsername(true);
+      setWrongPassword(false)
+    }
+    else {
+      setWrongUsername(false);
+      if (password.length < 5) {
+        setWrongPassword(true);
+      }
+      else {
+        setWrongPassword(false);
+        props.navigation.navigate("TabNavigator");
+      }
+      //setWrongUsername(false);
+    }
+
+
+  }
 
   return (
     <View style={styles.container}>
+      <View style={{width: "91%", backgroundColor: colors.primary, marginTop: "14%"}}>
       <Text style={[styles.headline, BOLD32]}>Registrace</Text>
-      <Text style={styles.text}>Zadejte svůj email a heslo pro registraci</Text>
+      <Text style={REGULAR16}>Zadejte svůj email a heslo pro registraci</Text>
+
+      </View>
+      <View style={{width: "100%", alignItems: 'center', marginTop: '14%'}}>
       <View style={styles.inputWrapper}>
-        <View style={styles.input}>
+        <View style={{marginBottom: wrongUsername ? 0 : 20}}>
           <InputComp
             onChangeText={setUsername}
             header="EMAIL"
             name="jmeno@email.com"
             source={require("../assets/images/mail.png")}
+            wrongInput={wrongUsername}
           />
         </View>
+        <View style={{marginBottom: wrongPassword ? 0 : 20}}>
         <InputComp
           onChangeText={setPassword}
           header="HESLO"
           name="********"
           source={require("../assets/images/lock.png")}
+          wrongInput={wrongPassword}
+          secureTextEntry={true}
         />
+
+        </View>
+
       </View>
+      </View>
+      {
+        wrongPassword && (
+          <View style={{width: "91%", backgroundColor: colors.wrong_light, padding: 15, borderRadius: 16}}>
+            <Text style={[REGULAR16]}>
+                Heslo musí mít alespoň 5 znaků.
+            </Text>
+
+          </View>
+        )
+      }
+      {
+        wrongUsername && (
+          <View style={{width: "91%", backgroundColor: colors.wrong_light, padding: 15, borderRadius: 16}}>
+            <Text style={[REGULAR16]}>
+            Tento e-mail už je zaregistrovaný. Zapomněli jste heslo?
+            <Text style={[BOLD16]}> Ano</Text>
+            </Text>
+            {/* <Text style={[BOLD16]}>
+              Ano
+            </Text> */}
+          </View>
+        )
+      }
       <View style={styles.button}>
         <BigButton
           //onPress={() => props.navigation.navigate("TabNavigator")}
-          onPress={}
+          onPress={handleSignup}
           name="POKRAČOVAT"
         />
       </View>
@@ -50,30 +114,31 @@ export default Signup;
 
 const styles = StyleSheet.create({
   button: {
-    alignSelf: "center",
-    top: 440,
+    //alignSelf: "center",
+    //top: 440,
+    marginTop: '60%'
   },
   container: {
+    backgroundColor: colors.correct,
     flex: 1,
+    alignItems: 'center',
+    marginTop: Constants.statusBarHeight
+    
   },
   headline: {
-    top: 100,
-    left: 16,
+    marginBottom: 10
+    //top: 100,
+    //margin: 16
+    //left: 16,
   },
   input: {
-    marginBottom: 20
+    //marginBottom: 20
   },
   inputWrapper: {
-    position: 'absolute',
-    top: 228,
-    alignSelf: 'center',
+    //position: 'absolute',
+    //top: 228,
+    //alignSelf: 'center',
     width: "91%"
 
-  },
-  text: {
-    fontSize: 16,
-    top: 110,
-    left: 16,
-    fontFamily: "Mulish_400Regular",
-  },
+  }
 });

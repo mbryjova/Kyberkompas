@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Image } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { BOLD20, REGULAR12 } from "./components/atoms/typography";
+import React from 'react';
 
 import {
   useFonts,
@@ -114,6 +115,10 @@ const TabNavigator = () => {
 };
 
 export default function App() {
+
+  // const [authUser, setAuthUser] = React.useState(null);
+  // const userContext = React.createContext(authUser);
+
   let [fontsLoaded] = useFonts({
     Mulish_700Bold,
     Mulish_600SemiBold,

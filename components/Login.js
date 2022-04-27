@@ -17,9 +17,10 @@ function Login(props) {
   const [wrongPassword, setWrongPassword] = React.useState(false);
   const [wrongUsername, setWrongUsername] = React.useState(false);
 
-  const [users, setUsers] = React.useState([]);
+  const [users, setUsers] = React.useState(require("../data/db.json").users);
   const [currentUser, setCurrentUser] = React.useState(null);
 
+  
   //console.log(wrongPassword);
   const handleLogin = () => {
     if (password.length < 5) {
@@ -31,18 +32,20 @@ function Login(props) {
       console.log("username not given");
     }
     else {
-      setUsers(require("../data/db.json").users);
+      //setUsers(require("../data/db.json").users);
       const current = users.filter((user) => user.email == username);
+      setCurrentUser(current[0]);
       if (current.length == 0) {
         setWrongUsername(true);
-        console.log("email not in database")
+        console.log("email not in database", username)
       }
       else {
         setWrongUsername(false);
         console.log(current);
-        setCurrentUser(current[0]);
+       // setCurrentUser(current[0]);
         if (currentUser.password == password) {
           setWrongPassword(false)
+          props.callback(currentUser)
           props.navigation.navigate("TabNavigator");
         } else {
           console.log("wrong password", password);
@@ -104,7 +107,7 @@ function Login(props) {
         <Text style={styles.noAccountText}>Nemáte účet?</Text>
         <Text
           style={styles.signUp}
-          onPress={() => props.navigation.navigate("Signup")}
+          onPress={() => props.navigation.navigate("Signup", {data: users})}
         >
           Zaregistrujte se
         </Text>

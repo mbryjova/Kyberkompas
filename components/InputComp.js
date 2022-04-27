@@ -1,7 +1,7 @@
 import React from "react";
 import { TextInput, StyleSheet, View, Text, Image } from "react-native";
 import colors from "../assets/colors/colors";
-import { EXTRABOLD12 } from "../components/atoms/typography";
+import { EXTRABOLD12, REGULAR12, REGULAR14 } from "../components/atoms/typography";
 
 function InputComp(props) {
   return (
@@ -14,7 +14,7 @@ function InputComp(props) {
         <TextInput placeholder={props.name} onChangeText={props.onChangeText} secureTextEntry={props.secureTextEntry}/>
       </View>
 
-      { props.wrongInput && <Text style={{color: colors.wrong, marginLeft: "66%"}}>
+      { props.wrongInput && <Text style={[REGULAR14, {color: colors.wrong, marginLeft: "60%"}]}>
         {props.error}
       </Text>}
 
