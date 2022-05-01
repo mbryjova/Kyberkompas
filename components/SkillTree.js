@@ -1,27 +1,35 @@
-import { React, useEffect } from "react";
+import React from "react";
 import { View, Text, FlatList, TouchableOpacity, Image } from "react-native";
 import AnimatedProgressWheel from "react-native-progress-wheel";
 import colors from "../assets/colors/colors";
 import { SEMIBOLD16 } from "./atoms/typography";
-//import axios from "axios";
+import axios from "axios";
 
 
 function SkillTree(props) {
-  //const [modules, setModules] = React.useState([]);
+  const [modules, setModules] = React.useState([]);
 
-  const modules_data = require("../data/db.json");
+  const modules_data = require("../data/db.json").modules;
 
-  /*useEffect(() => {
-    const fetchData = async () => {
+  React.useEffect(() => {
+
+    const fetchData = () => {
+      console.log("here");
       axios.get('http://192.168.1.106:3000/modules')
       .then((response) => {
         console.log(response);
         setModules(response.data);
-      });
+        console.log(modules);
+      }).catch(error => console.log(error));
+      
+    }
+    fetchData();
+    //console.log(modules);
       /*const data = await fetch('http://localhost:3000/modules'); // získá data
       const json = await data.json(); // převede na json
       setModules(json); // nastaví state modules na data*/
-  //}
+  }
+  , [])
 
   //fetchData().catch(error => console.log(error)); // zavolá fetchdata a případně catchne error
 
@@ -34,8 +42,9 @@ function SkillTree(props) {
     }).catch(error => console.log(error))
   */ //}, [])
   //{transform: [{rotate: '270deg'}]}
+
   const renderModuleItem = ({ item }) => {
-    const sum_points_percent = 30;
+    const sum_points_percent = (item.current_score / item.max_score) * 100;
     return (
       <View>
         <View
@@ -61,10 +70,11 @@ function SkillTree(props) {
                 { transform: [{ rotate: "270deg" }] },
               ]}
             >
+              
               <AnimatedProgressWheel
                 progress={sum_points_percent}
                 backgroundColor={colors.white}
-                color={colors.primary}
+                color={sum_points_percent == 100 ? colors.correct : (sum_points_percent == 0 ? colors.white : colors.primary)}
                 size={88}
                 width={8}
               />
@@ -87,12 +97,14 @@ function SkillTree(props) {
       </View>
     );
   };
+
+  //fetchData();
   return (
     <View
       //style={{ alignContent: "center", alignItems: "center", paddingTop: 17 }}
     >
       <FlatList
-        data={modules_data.modules}
+        data={modules_data}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
         renderItem={renderModuleItem}

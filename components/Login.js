@@ -95,11 +95,11 @@ function Login(props) {
       <View style={styles.button}>
         <BigButton
           name="PŘIHLÁSIT SE"
-          // onPress={() => {
-          //   //props.navigation.navigate("TabNavigator");
+           onPress={() => {
+             props.navigation.navigate("TabNavigator");
           //   handleLogin;
-          // }}
-          onPress={handleLogin}
+           }}
+          //onPress={handleLogin}
         />
       </View>
 
