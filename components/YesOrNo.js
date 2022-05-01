@@ -55,17 +55,7 @@ function YesOrNo(props) {
   };
 
   const renderQuestion = () => {
-    //console.log(currentIndex);
     return (
-    //   <View
-    //     style={{
-    //       flex: 1,
-    //       alignItems: "center",
-    //       justifyContent: "space-between",
-    //       backgroundColor: colors.blackText,
-    //       height: '100%', width: '100%'
-    //     }}
-    //   >
         <View style={styles.questionWrapper}>
           <View style={styles.textWrapper}>
             <Text style={[BOLD20, { marginBottom: "9%" }]}>
@@ -78,25 +68,6 @@ function YesOrNo(props) {
             source={require("../assets/images/yesno_1.png")}
           />
         </View>
-        // {/* <View style={styles.buttonWrapper}>
-        //                         <Button 
-        //                         name={data[currentIndex].options[1].text}
-        //                         //name={card.options[1].text}
-        //                         color={colors.wrong_light}
-        //                         textColor={colors.wrong}
-        //                         borderColor={colors.wrong}
-        //                         />
-
-                                
-        //                         <Button name={data[currentIndex].options[0].text} color={colors.correct_light}
-        //                         textColor={colors.blackText}
-        //                         borderColor={colors.correct}
-                                
-        //                         />
-
-                                
-        //                     </View> */}
-    //   {/* </View> */}
     );
   };
 
@@ -159,57 +130,40 @@ function YesOrNo(props) {
 
           </View>
         )
-
-        //</Swiper>
-        //renderQuestion()
-        // (   <View style={{flex: 1, alignItems: 'center', justifyContent: 'space-between',
-        // backgroundColor: colors.blackText
-        // }}>
-        //     <View style={styles.questionWrapper}>
-        //         <View style={styles.textWrapper}>
-        //         <Text style={[BOLD20, {marginBottom: "9%"}]}>
-        //             Jde o správné tvrzení?
-        //         </Text>
-        //         <Text style={REGULAR16}>
-        //             {data[currentIndex].question.text}
-        //         </Text>
-
-        //         </View>
-        //         <Image style={styles.image} source={require("../assets/images/yesno_1.png")}
-
-        //         />
-        //     </View>
-        //     <View style={styles.buttonWrapper}>
-        //             <Button name={data[currentIndex].options[1].text}
-        //             color={colors.wrong_light}
-        //             textColor={colors.wrong}
-        //             borderColor={colors.wrong}
-        //             />
-
-        //             <Button name={data[currentIndex].options[0].text} color={colors.correct_light}
-        //             textColor={colors.blackText}
-        //             borderColor={colors.correct}
-
-        //             />
-
-        //         </View>
-        //     </View>
-        // )
       }
 
       {currentState == 2 && (
-        <View>
-          <Text>
-            explanation
-            {optionSelected.text}
+        <View style={{flex: 1, justifyContent: 'space-evenly', alignItems: 'center'}}>
+            <View style={[{backgroundColor: optionSelected.logicalValue == 1 ? colors.correct_light : colors.wrong_light,
+                borderColor: optionSelected.logicalValue == 1 ? colors.correct : colors.wrong
+            }, styles.validation]}>
+                {optionSelected.logicalValue == 1
+                ? (
+                    <View style={{flexDirection: 'row', justifyContent: 'flex-start'}}>
+                        <Text style={[styles.textValidation, BOLD15]}>správně</Text> 
+                        <Image
+                        style={{marginLeft: '0%'}}
+                        source={require('../assets/images/testIcons/check.png')}/>
+                    </View>) :
+                    <View style={{flexDirection: 'row'}}>
+                        <Text style={[styles.textValidation, BOLD15]}>špatně</Text>
+                        <Image source={require('../assets/images/testIcons/cross.png')}/>
+
+                    </View>
+                }
+            </View>
+            <View style={styles.explanation}>
+          <Text style={[REGULAR16]}>
+            {optionSelected.explanation}
           </Text>
+            </View>
           <BigButton
             name="pokračovat"
             onPress={data.length == currentIndex ? lastQuestion : nextQuestion}
+                //optionSelected.logicalValue == 1 ? setPoints(points + optionSelected.scoreAmount) : null}
           ></BigButton>
         </View>
       )}
-      {currentState == 3 && <View></View>}
     </View>
   );
 }
@@ -219,6 +173,31 @@ export default YesOrNo;
 const styles = StyleSheet.create({
   image: {
     marginTop: "4%",
+  },
+  textValidation:
+    {textTransform: 'uppercase'
+}
+  ,
+  validation: {
+    height: "7%",
+    width: '91%',
+    borderRadius: 100,
+    //borderColor: colors.correct,
+    //backgroundColor: colors.correct_light,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 0.5,
+    marginTop: '5%'
+  },
+  explanation: {
+      height: '40%',
+      width: '91%',
+      padding: 10,
+      borderRadius: 16,
+      borderColor: colors.blackText,
+      borderWidth: 0.5,
+      marginBottom: '15%'
+
   },
   buttonWrapper: {
     flexDirection: "row",

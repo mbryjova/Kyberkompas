@@ -283,26 +283,98 @@
     {
       "id": 1,
       "question": "Co nepatří mezi frázová hesla?",
-      "options": ["H0OPskočilzajícpřes2pole", "@H0JKy", "3karatovýprstenodM", "10%šancevsázcesPetrem"],
-      "correct": "@H0JKy",
-      "explanation": "Mezi frázová hesla nepatří @H0JKy.  Jde o heslo se zástupnými znaky, @ za a, 0 za O. Na prolomení takového hesla stačí útočníkům zhruba 4 týdny.",
-      "points": 2
+      "options": [{
+        "id": 1,
+        "text": "H0OPskočilzajícpřes2pole",
+        "logicalValue": 0,
+        "explanation": "Mezi frázová hesla nepatří @H0JKy.  Jde o heslo se zástupnými znaky, @ za a, 0 za O. Na prolomení takového hesla stačí útočníkům zhruba 4 týdny.",
+        "scoreAmount": 0
+},
+{
+        "text": "@H0JKy",
+        "id": 2,
+        "logicalValue": 1,
+        "explanation": "Mezi frázová hesla nepatří @H0JKy.  Jde o heslo se zástupnými znaky, @ za a, 0 za O. Na prolomení takového hesla stačí útočníkům zhruba 4 týdny.",
+        "scoreAmount": 2
+},
+{
+        "text": "3karatovýprstenodM",
+        "logicalValue": 0,
+        "id": 3,
+        "explanation": "Mezi frázová hesla nepatří @H0JKy.  Jde o heslo se zástupnými znaky, @ za a, 0 za O. Na prolomení takového hesla stačí útočníkům zhruba 4 týdny.",
+        "scoreAmount": 0
+},
+{
+        "text": "10%šancevsázcesPetrem",
+        "logicalValue": 0,
+        "id": 4,
+        "explanation": "Mezi frázová hesla nepatří @H0JKy.  Jde o heslo se zástupnými znaky, @ za a, 0 za O. Na prolomení takového hesla stačí útočníkům zhruba 4 týdny.",
+        "scoreAmount": 0
+}]
     },
     {
       "id": 2,
       "question": "Čím se frázová hesla vyznačují?",
-      "options": ["Jde o kombinaci známých slov", "Většinou jde o jedno známé slovo", "Jde o 1 slovo se zástupnými znaky.", "Lze je prolomit zhruba za 4 týdny"],
-      "correct": "Jde o kombinaci známých slov",
-      "explanation": "Frázová hesla se vyznačují tím, že jde o kombinaci nám dobře zapamatovatelných slov. Heslo jde vylepšit i tím, že na některá místa přidáme zástupné znaky, jako 0, ! nebo @. Příkladem je třeba heslo: třistaTřicet3stříbrných",
-      "points": 2
+      "options": [{
+        "text": "Jde o kombinaci známých slov",
+        "id": 1,
+        "logicalValue": 1,
+        "explanation": "Frázová hesla se vyznačují tím, že jde o kombinaci nám dobře zapamatovatelných slov. Heslo jde vylepšit i tím, že na některá místa přidáme zástupné znaky, jako 0, ! nebo @. Příkladem je třeba heslo: třistaTřicet3stříbrných",
+        "scoreAmount": 2
+},
+{
+        "text": "Většinou jde o jedno známé slovo",
+        "id": 2,
+        "logicalValue": 0,
+        "explanation": "Frázová hesla se vyznačují tím, že jde o kombinaci nám dobře zapamatovatelných slov. Heslo jde vylepšit i tím, že na některá místa přidáme zástupné znaky, jako 0, ! nebo @. Příkladem je třeba heslo: třistaTřicet3stříbrných",
+        "scoreAmount": 0
+},
+{
+        "text": "Jde o 1 slovo se zástupnými znaky.",
+        "id": 3,
+        "logicalValue": 0,
+        "explanation": "Frázová hesla se vyznačují tím, že jde o kombinaci nám dobře zapamatovatelných slov. Heslo jde vylepšit i tím, že na některá místa přidáme zástupné znaky, jako 0, ! nebo @. Příkladem je třeba heslo: třistaTřicet3stříbrných",
+        "scoreAmount": 0
+},
+{
+        "text": "Lze je prolomit zhruba za 4 týdny",
+        "logicalValue": 0,
+        "id": 4,
+        "explanation": "Frázová hesla se vyznačují tím, že jde o kombinaci nám dobře zapamatovatelných slov. Heslo jde vylepšit i tím, že na některá místa přidáme zástupné znaky, jako 0, ! nebo @. Příkladem je třeba heslo: třistaTřicet3stříbrných",
+        "scoreAmount": 0
+}]
     },
     {
       "id": 3,
       "question": "Pokud máme frázová hesla, jak si dále ulehčit práci?",
-      "options": ["Všechny si je napsat na papírek", "Mít jedno heslo do více účtů", "Používat správce hesel.", "Sdílet heslo s někým, kdo jej nezapomene"],
-      "correct": "Jde o kombinaci známých slov",
-      "explanation": "Frázová hesla se vyznačují tím, že jde o kombinaci nám dobře zapamatovatelných slov. Heslo jde vylepšit i tím, že na některá místa přidáme zástupné znaky, jako 0, ! nebo @. Příkladem je třeba heslo: třistaTřicet3stříbrných",
-      "points": 2
+      "options": [{
+        "text": "Všechny si je napsat na papírek",
+        "id": 1,
+        "logicalValue": 0,
+        "explanation": "Pokud se bojíme, že heslo zapomeneme, nebo se nám pořád zdá těžce zapamatovatelné, je dobré používat správce hesel. Ten má všechna naše hesla pohromadě a jde o bezpečný způsob přihlašování. Dočtěte se více v interaktivním čtení o správci hesel.",
+        "scoreAmount": 0
+},
+{
+        "text": "Mít jedno heslo do více účtů",
+        "id": 2,
+        "logicalValue": 0,
+        "explanation": "Pokud se bojíme, že heslo zapomeneme, nebo se nám pořád zdá těžce zapamatovatelné, je dobré používat správce hesel. Ten má všechna naše hesla pohromadě a jde o bezpečný způsob přihlašování. Dočtěte se více v interaktivním čtení o správci hesel.",
+        "scoreAmount": 0
+},
+{
+        "text": "Používat správce hesel.",
+        "id": 3,
+        "logicalValue": 1,
+        "explanation": "Pokud se bojíme, že heslo zapomeneme, nebo se nám pořád zdá těžce zapamatovatelné, je dobré používat správce hesel. Ten má všechna naše hesla pohromadě a jde o bezpečný způsob přihlašování. Dočtěte se více v interaktivním čtení o správci hesel.",
+        "scoreAmount": 2
+},
+{
+        "text": "Sdílet heslo s někým, kdo jej nezapomene",
+        "logicalValue": 0,
+        "id": 4,
+        "explanation": "Pokud se bojíme, že heslo zapomeneme, nebo se nám pořád zdá těžce zapamatovatelné, je dobré používat správce hesel. Ten má všechna naše hesla pohromadě a jde o bezpečný způsob přihlašování. Dočtěte se více v interaktivním čtení o správci hesel.",
+        "scoreAmount": 0
+}]
     }
   ],
   "interactive_reading": [

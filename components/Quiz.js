@@ -1,9 +1,10 @@
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import colors from "../assets/colors/colors";
 import BigButton from "./BigButton";
 import * as Progress from "react-native-progress";
-import { BOLD20, BOLD15 } from "./atoms/typography";
+import { BOLD20, BOLD15, REGULAR16 } from "./atoms/typography";
+import ValidationView from "./ValidationView";
 
 function Quiz(props) {
   const allQuestions = require("../data/db.json").test_data;
@@ -30,7 +31,7 @@ function Quiz(props) {
 
   const [quizState, setQuizState] = React.useState(1);
 
-  const [explanation, setExplanation] = React.useState(false);
+  //const [explanation, setExplanation] = React.useState(false);
 
   const renderQuestion = () => {
     return (
@@ -55,18 +56,15 @@ function Quiz(props) {
           style={{width: "100%", borderRadius: 100, borderWidth: 0.5, 
           borderColor: colors.blackText, height: "19%", backgroundColor: colors.white,
         justifyContent: "center"}}
-            key={option}
+            key={option.id}
             onPress={() => {
               setCurrentOptionSelected(option);
               console.log(option);
             }} // nastavím jako selected option
           >
             {/**na co chci namapovat každou option, on press se změní barva políčka */}
-            {/* <View style={{width: '100%', height: '25%', borderRadius: 100, borderWidth: 0.5, borderColor: colors.blackText}}>
 
-                            </View> */}
-
-            <Text style={[BOLD15, {textAlign: "center"}]}>{option}</Text>
+            <Text style={[BOLD15, {textAlign: "center"}]}>{option.text}</Text>
           </TouchableOpacity>
         ))}
       </View>
@@ -78,26 +76,22 @@ function Quiz(props) {
     console.log("in validate");
     if (currentOptionSelected !== null) {
       if (
-        allQuestions[currentQuestionIndex].correct === currentOptionSelected
+        //allQuestions[currentQuestionIndex].correct === currentOptionSelected
+        currentOptionSelected.logicalValue == 1
       ) {
+        console.log("correct")
         // přičti body
-        setPoints(points + 1); // je o jeden krok napřed
+        setPoints(points + currentOptionSelected.pointAmount); // je o jeden krok napřed
         setCorrect(true); // podle toho se potom rendruje jestli je tam napsaný správně nebo špatně
         // mělo by se zablokovat dát jinou možnost
-
-        //console.log(points);
       }
       console.log("after if");
       console.log(points);
       setQuizState(2); // explanation
-
-      //setExplanation(true); // místo explanation dát obecný state toho testu
     }
   };
 
   const nextQuestion = () => {
-    //setCurrentQuestionIndex(currentQuestionIndex + 1);
-    //setExplanation(false);
 
     /** pokud je další otázka poslední, potom nastavím state na poslední otázku
      * 
@@ -109,6 +103,11 @@ function Quiz(props) {
     }
   };
 
+  // const renderExplanation = () => {
+  //   return (
+      
+  //   );
+  // }
   
   return (
     <View
@@ -117,15 +116,6 @@ function Quiz(props) {
         flex: 1
       }}
     >
-      {/**Question */}
-      {/* {renderQuestion()} */}
-
-      {/**Options */}
-      {/* {
-                explanation ? (<Text> {allQuestions[currentQuestionIndex].explanation} </Text>) : (renderOption())
-            } */}
-
-      {/**Validate answer/next button height: '56%', width: '89%'*/}
 
       {quizState == 1 && (
         <View style={{ flex: 1, backgroundColor: colors.correct_light, alignItems: "center"
@@ -142,9 +132,21 @@ function Quiz(props) {
         </View>
       )}
       {quizState == 2 && (
-        <View>
-          {correct ? <Text> správně</Text> : <Text>špatně</Text>}
-          <Text>{allQuestions[currentQuestionIndex].explanation}</Text>
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'space-evenly'}}>
+          {/* {correct ? <Text> správně</Text> : <Text>špatně</Text>} */}
+          <View style={{width: '91%', height: '7%'}}>
+          <ValidationView textValidation={currentOptionSelected.logicalValue}>
+
+          </ValidationView>
+
+          </View>
+          
+          {/* <Text>{allQuestions[currentQuestionIndex].explanation}</Text> */}
+          <View style={styles.explanationWrapper}>
+          <Text style={[REGULAR16]}>{currentOptionSelected.explanation}</Text>
+
+          </View>
+          <View style={{justifyContent:'space-evenly', height: '15%', alignItems: 'center'}}>
           <Progress.Bar progress={0.3} />
           <View style={{ backgroundColor: colors.wrong }}>
             <BigButton
@@ -152,13 +154,19 @@ function Quiz(props) {
               onPress={() => nextQuestion()} // {next question} // potom už se ale nepůjde vracet
             />
           </View>
+            </View>
         </View>
       )}
 
       {quizState == 3 && (
         <View>
-          {correct ? <Text> správně</Text> : <Text>špatně</Text>}
-          <Text>{allQuestions[currentQuestionIndex].explanation}</Text>
+          {/* {correct ? <Text> správně</Text> : <Text>špatně</Text>} */}
+          <ValidationView textValidation={currentOptionSelected.logicalValue}>
+
+          </ValidationView>
+          
+          {/* <Text>{allQuestions[currentQuestionIndex].explanation}</Text> */}
+          <Text>{currentOptionSelected.explanation}</Text>
           <Progress.Bar progress={0.3} />
           <BigButton
             name="dokončit"
@@ -173,3 +181,15 @@ function Quiz(props) {
 }
 
 export default Quiz;
+
+const styles = StyleSheet.create({
+  explanationWrapper: {
+    width: '91%',
+    height: '40%',
+    padding: 10,
+    borderRadius: 16,
+    borderColor: colors.blackText,
+    borderWidth: 0.5,
+    marginBottom: '15%'
+  }
+})
