@@ -46,7 +46,7 @@ function Leaderboard(props) {
               {item.first_name} {item.last_name}
             </Text>
             <Text style={[REGULAR14, { color: colors.grey }]}>
-              Celkem: + {item.total_score}
+              Celkem: {item.total_score}
             </Text>
           </View>
         </View>
@@ -137,7 +137,19 @@ function Leaderboard(props) {
         </TouchableOpacity>
       </View>
       <FlatList
-        data={data}
+          data={data.sort((a, b) => 
+            {
+              if (currentState == 1) {
+                b.weekly_score - a.weekly_score
+
+              }
+              else if (currentState == 2) {
+                b.monthly_score - a.monthly_score
+              }
+              else {
+                b.anual_score - a.anual_score
+              }
+            })}
         keyExtractor={(item) => item.id}
         renderItem={renderPerson}
         contentContainerStyle={{

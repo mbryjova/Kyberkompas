@@ -4,17 +4,14 @@ import {
   StyleSheet,
   Text,
   Image,
-  TouchableOpacity,
-  Dimensions,
+  TouchableOpacity
 } from "react-native";
 import { BOLD15, BOLD20, REGULAR16 } from "./atoms/typography";
 import colors from "../assets/colors/colors";
 import Swiper from "react-native-deck-swiper";
 import BigButton from "./BigButton";
-import { backgroundColor } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 
 function YesOrNo(props) {
-  const { height, width } = Dimensions.get("window");
   const [currentIndex, setCurrentIndex] = React.useState(0);
   /**
    * 1 - question
@@ -80,33 +77,36 @@ function YesOrNo(props) {
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{  }}>
       {
         currentState == 1 && (
-          <View style={{ flex: 1 }}>
-            <View style={{height: "70%",
-    width: "91%", flex: 1}}>
-            <Swiper
+          <View style={{flex: 1, backgroundColor: colors.white, justifyContent: 'center'}}> 
+            
+            <View style={{flex: 0.9}}>
+            <Swiper // h: 70%, w: 91%
               cards={data}
               cardIndex={currentIndex}
-              renderCard={renderQuestion}
+              renderCard={ renderQuestion }
               onSwipedLeft={() => {
                 console.log("explanation"),
                   setCurrentState(2),
                   setOptionSelected(data[currentIndex].options[1]),
+                  setPoints(points + data[currentIndex].options[1].scoreAmount),
                   setCurrentIndex(currentIndex + 1);
               }}
               onSwipedRight={() => {
                 console.log("explanation"),
                   setCurrentState(2),
                   setOptionSelected(data[currentIndex].options[0]),
+                  setPoints(points + data[currentIndex].options[0].scoreAmount),
                   setCurrentIndex(currentIndex + 1);
               }}
               disableTopSwipe={true}
               disableBottomSwipe={true}
-              backgroundColor={colors.white}
-              cardStyle={{width: '100%', height: '100%'}}
-              containerStyle={{justifyContent: 'center'}}
+              //backgroundColor={colors.white}
+              //cardStyle={{width: '100%', height: '100%'}}
+              //containerStyle={{}}
+              //overlayLabelStyle={{position: 'relative'}}
             />
 
               </View>
@@ -197,18 +197,21 @@ const styles = StyleSheet.create({
       borderColor: colors.blackText,
       borderWidth: 0.5,
       marginBottom: '15%'
-
   },
   buttonWrapper: {
+    flex: 0.1,
     flexDirection: "row",
     backgroundColor: colors.wrong,
-    height: "7%",
-    width: "90%",
+    //height: "7%",
+    //width: "90%",
     justifyContent: "space-between",
-    marginBottom: "16%",
+    //marginBottom: "16%",
+  },
+  swiperWrapper: {
+    flex: 0.7
   },
   questionWrapper: {
-    marginTop: "8%",
+    //marginTop: "8%",
     backgroundColor: colors.correct,
     height: "100%", // 70
     width: "100%", // 91
@@ -216,7 +219,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderColor: colors.blackText,
     borderWidth: 0.5,
-    flex: 1
+    justifyContent: 'center',
+    flex: 0.9
   },
   textWrapper: {
     backgroundColor: colors.primary,

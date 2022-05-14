@@ -12,6 +12,17 @@ function Profile(props) {
 
   //console.log(userContext)
 
+  const countChallegnes = () => {
+    const data = require("../data/db.json").challenges;
+    const finished = data.filter((item) => item.finished == 1);
+    return finished.length;
+  }
+
+  const countActivities = () => {
+    const data = require("../data/db.json").activities[0].data;
+    return data.length;
+  }
+
   const handleChoosePhoto = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -24,12 +35,6 @@ function Profile(props) {
     if (!result.cancelled) {
       setPhoto(result);
     }
-    // ImagePicker.launchImageLibrary({}, (response) => {
-    //   console.log("response:", response);
-    //   if (response.uri) {
-    //     setPhoto(response);
-    //   }
-    // }).catch(error => console.log(error))
   };
 
   const doubleText = (props) => {

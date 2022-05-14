@@ -30,9 +30,9 @@
       "last_name": "Smith",
       "email": "annasmith23@gmail.com",
       "total_score": 406,
-      "weekly_score": 10,
+      "weekly_score": 15,
       "monthly_score": 100,
-      "anual_score": 150,
+      "anual_score": 160,
       "image": "",
       "password": "123"
     },
@@ -42,7 +42,7 @@
       "last_name": "Brown",
       "email": "bobbrown432@yahoo.com",
       "total_score": 400,
-      "weekly_score": 10,
+      "weekly_score": 1,
       "monthly_score": 100,
       "anual_score": 150,
       "image": "",
@@ -91,10 +91,15 @@
       "date_from": "4.10.2021",
       "date_to": "15.11.2021",
       "point_amount": "10",
-      "title": "Zkontroluj sílu svého hesla",
+      "title": "Vytvoř si frázové heslo",
       "description": "Za celou lekci jsme vás nepřesvědčili a petr1984 pořád považujete za bezpečné heslo? Pojďme si vyzkoušet za jak dlouho by se takové heslo prolomilo a případně jak jej vylepšit.",
       "image": "../assets/images/challenge1.png",
-      "finished": 1
+      "finished": 1,
+      "challenge": {
+        "time": 15,
+        "textboxes": ["Část básně, scenerie cestou do práce, vzpomínka z dětství – to všechno může být základ frázového hesla. Tři až čtyři slova postačí. Pokud chcete heslo dovést k dokonalosti, přidejte na náhodná místa zástupné znaky (mezera, čísla, interpunkce, symboly). V našem příkladě trhatfialkyB00Mdynamitem jsme díky citoslovci B00M dostali do hesla číslice i velká písmena, a to na netradiční místo.", 
+        "Další příklady frázových hesel: H0OPskočilzajícpřes2pole, 3karatovýprstenodM., 10%šancevsázcesPetrem, 8_polibšosKosům, třistaTřicet3stříbrných..."
+        ]}
       
     },
     {
@@ -105,7 +110,12 @@
       "title": "Poznáš phishing?",
       "description": "Nejčastější typy phishingových zpráv bývají informace o nutnosti provedení nějakého úkonu, jako změna hesla nebo nutnost se někam přihlásit.",
       "image": "../assets/images/challenge2.png",
-      "finished": 0
+      "finished": 0,
+      "challenge": {
+        "time": 15,
+        "textboxes": ["Část básně, scenerie cestou do práce, vzpomínka z dětství – to všechno může být základ frázového hesla. Tři až čtyři slova postačí. Pokud chcete heslo dovést k dokonalosti, přidejte na náhodná místa zástupné znaky (mezera, čísla, interpunkce, symboly). V našem příkladě trhatfialkyB00Mdynamitem jsme díky citoslovci B00M dostali do hesla číslice i velká písmena, a to na netradiční místo.", 
+        "Další příklady frázových hesel: H0OPskočilzajícpřes2pole, 3karatovýprstenodM., 10%šancevsázcesPetrem, 8_polibšosKosům, třistaTřicet3stříbrných..."
+        ]}
     },
     {
       "id": 3,
@@ -115,7 +125,12 @@
       "title": "Zkontroluj sílu svého hesla",
       "description": "Za celou lekci jsme vás nepřesvědčili a petr1984 pořád považujete za bezpečné heslo? Pojďme si vyzkoušet za jak dlouho by se takové heslo prolomilo a případně jak jej vylepšit.",
       "image": "../assets/images/challenge1.png",
-      "finished": 1
+      "finished": 1,
+      "challenge": {
+        "time": 15,
+        "textboxes": ["Část básně, scenerie cestou do práce, vzpomínka z dětství – to všechno může být základ frázového hesla. Tři až čtyři slova postačí. Pokud chcete heslo dovést k dokonalosti, přidejte na náhodná místa zástupné znaky (mezera, čísla, interpunkce, symboly). V našem příkladě trhatfialkyB00Mdynamitem jsme díky citoslovci B00M dostali do hesla číslice i velká písmena, a to na netradiční místo.", 
+        "Další příklady frázových hesel: H0OPskočilzajícpřes2pole, 3karatovýprstenodM., 10%šancevsázcesPetrem, 8_polibšosKosům, třistaTřicet3stříbrných..."
+        ]}
     },
     {
       "id": 4,
@@ -125,7 +140,12 @@
       "title": "Zkontroluj sílu svého hesla",
       "description": "Za celou lekci jsme vás nepřesvědčili a petr1984 pořád považujete za bezpečné heslo? Pojďme si vyzkoušet za jak dlouho by se takové heslo prolomilo a případně jak jej vylepšit.",
       "image": "../assets/images/challenge1.png",
-      "finished": 0
+      "finished": 0,
+      "challenge": {
+        "time": 15,
+        "textboxes": ["Část básně, scenerie cestou do práce, vzpomínka z dětství – to všechno může být základ frázového hesla. Tři až čtyři slova postačí. Pokud chcete heslo dovést k dokonalosti, přidejte na náhodná místa zástupné znaky (mezera, čísla, interpunkce, symboly). V našem příkladě trhatfialkyB00Mdynamitem jsme díky citoslovci B00M dostali do hesla číslice i velká písmena, a to na netradiční místo.", 
+        "Další příklady frázových hesel: H0OPskočilzajícpřes2pole, 3karatovýprstenodM., 10%šancevsázcesPetrem, 8_polibšosKosům, třistaTřicet3stříbrných..."
+        ]}
     },
     {
       "id": 5,
@@ -135,7 +155,12 @@
       "title": "Zkontroluj sílu svého hesla",
       "description": "Za celou lekci jsme vás nepřesvědčili a petr1984 pořád považujete za bezpečné heslo? Pojďme si vyzkoušet za jak dlouho by se takové heslo prolomilo a případně jak jej vylepšit.",
       "image": "../assets/images/challenge1.png",
-      "finished": 1
+      "finished": 1,
+      "challenge": {
+        "time": 15,
+        "textboxes": ["Část básně, scenerie cestou do práce, vzpomínka z dětství – to všechno může být základ frázového hesla. Tři až čtyři slova postačí. Pokud chcete heslo dovést k dokonalosti, přidejte na náhodná místa zástupné znaky (mezera, čísla, interpunkce, symboly). V našem příkladě trhatfialkyB00Mdynamitem jsme díky citoslovci B00M dostali do hesla číslice i velká písmena, a to na netradiční místo.", 
+        "Další příklady frázových hesel: H0OPskočilzajícpřes2pole, 3karatovýprstenodM., 10%šancevsázcesPetrem, 8_polibšosKosům, třistaTřicet3stříbrných..."
+        ]}
     }
   ],
   "modules": [
@@ -153,7 +178,7 @@
       "name": "Phishing",
       "image": "",
       "current_score": 30,
-      "available": 0,
+      "available": 1,
       "max_score": 100
     },
     {
@@ -193,7 +218,7 @@
       "name": "Sebeobrana",
       "image": "",
       "current_score": 30,
-      "available": 0,
+      "available": 1,
       "max_score": 70
     },
     {
@@ -379,29 +404,33 @@
   ],
   "interactive_reading": [
     {
-      "type": "text",
       "id": 1,
       "content": "Část básně, scenerie cestou do práce, vzpomínka z dětství – to všechno může být základ frázového hesla. Tři až čtyři slova postačí.",
       "question": {
-        "type": "question",
         "id": 2,
-        "question": "Je heslo “MamRadPsy” dostatečně silné?",
-        "options": ["ano", "ne"],
-        "correct": "ne",
-        "points": 2
+        "text": "Je heslo “MamRadPsy” dostatečně silné?",
+        "options": [{"id": 3, "text": "ano", "logicalValue": 0, "scoreAmount": 2}, 
+          {"id": 4, "text": "ne", "logicalValue": 1, "scoreAmount": 2}]
       }
     },
     {
-      "type": "text",
-      "id": 3,
+      "id": 5,
       "content": "Pokud chcete heslo dovést k dokonalosti, přidejte na náhodná místa zástupné znaky (mezera, čísla, interpunkce, symboly). V našem příkladě trhatfialkyB00Mdynamitem jsme díky citoslovci B00M dostali do hesla číslice i velká písmena, a to na netradiční místo.",
       "question": {
-        "type": "question",
-        "id": 4,
-        "question": "Je důležitá délka jakéhokoliv hesla?",
-        "options": ["ano", "ne", "Ano, ale nad hranici 12 Náhodných znaků, je to už jedno."],
-        "correct": "ano",
-        "points": 2
+        "id": 6,
+        "text": "Je důležitá délka jakéhokoliv hesla?",
+        "options": [{"id": 7, "text": "ano", "logicalValue": 1, "scoreAmount": 2},
+          {"id": 8, "text": "ne", "logicalValue": 0, "scoreAmount": 0}]
+      }
+    },
+    {
+      "id": 9,
+      "content": "Pokud chcete heslo dovést k dokonalosti, přidejte na náhodná místa zástupné znaky (mezera, čísla, interpunkce, symboly). V našem příkladě trhatfialkyB00Mdynamitem jsme díky citoslovci B00M dostali do hesla číslice i velká písmena, a to na netradiční místo.",
+      "question": {
+        "id": 6,
+        "text": "Je důležitá délka jakéhokoliv hesla?",
+        "options": [{"id": 7, "text": "ano", "logicalValue": 1, "scoreAmount": 2},
+          {"id": 8, "text": "ne", "logicalValue": 0, "scoreAmount": 0}]
       }
     }
   ],

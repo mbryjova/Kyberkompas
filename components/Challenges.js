@@ -43,6 +43,7 @@ function Challenges(props) {
                 name: item.title,
                 date_from: item.date_from,
                 description: item.description,
+                challenge: item.challenge
               })
             } // jako objekt s konkrétníma paramterama {name: {item.name}, ..}
             style={[

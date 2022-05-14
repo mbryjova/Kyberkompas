@@ -28,96 +28,111 @@ function InteractiveReading(props) {
 
   /** points of the user */
   const [points, setPoints] = React.useState(0);
-  
-  //console.log(itemIndex)
 
+  function arePropsEqual(prevProps, nextProps) {
+    return prevProps.question.text === nextProps.question.text;
+  }
 
-  const Question = (props) => {
+  const Question = React.memo(function Function(props) {
 
+    /**if false, question isnt showed */
     const [show, setShow] = React.useState(false);
 
-    const [currentOptionSelected, setCurrentOptionSelected] = React.useState(null);
+    /**which option did user select */
+    const [currentOptionSelected, setCurrentOptionSelected] =
+      React.useState(null);
 
-    const [correctOption, setCorrectOption] = React.useState(null);
+    /**if true, disabeling touchable functionality */
     const [questionAnswered, setQuestionAnswered] = React.useState(false);
 
     return (
-    <View>
-        <TouchableOpacity onPress={() => setShow((show) => !show)} style={{flexDirection: 'row'}}>
-            {
-                show ? (
-                    <Image source={require("../assets/images/testIcons/up.png")}/>
-                ) : (<Image source={require("../assets/images/testIcons/down.png")}/>)
-            }
-
-            
-      <Text>{props.question}</Text>
-
-        </TouchableOpacity>
-
-      {show ? 
-      // nevím jak změnit state index a points
-      (
-        props.options.map((option) => 
+      <View>
         <TouchableOpacity
-        key={option}
-        onPress={() => {
-          setCurrentOptionSelected(option);
-          setCorrectOption(props.correct);
-          correctOption == option ? props.addPoints(1) : null;
-          //console.log(points);
-          setQuestionAnswered(true);
-          
-         
-          
-        }}
-        disabled={questionAnswered}
-        
+          onPress={() => setShow((show) => !show)}
+          style={{ flexDirection: "row" }}
         >
-          <Text>
-          {option}
-          </Text>
-         { correctOption == option ? 
-          <Image source={require("../assets/images/testIcons/check.png")} /> :
-          (option == currentOptionSelected ? <Image source={require("../assets/images/testIcons/cross.png")} /> :null)}
+          {show ? (
+            <Image source={require("../assets/images/testIcons/up.png")} />
+          ) : (
+            <Image source={require("../assets/images/testIcons/down.png")} />
+          )}
 
+          <Text>{props.question.text}</Text>
         </TouchableOpacity>
-          )
-      )
-      : <View></View>}
 
+        {show ? (
+          // nevím jak změnit state index a points
+          props.question.options.map((option) => (
+            <TouchableOpacity
+              key={option.id}
+              onPress={() => {
+                setCurrentOptionSelected(option);
+                //setCorrectOption(props.correct);
+                //option.logicalValue == 1 ? props.addPoints(points + option.scoreAmount) : null; // asi nemusím posílat přes props
+                //correctOption == option ? props.addPoints(1) : null;
+                //console.log(points);
+                setItemIndex(itemIndex + 1);
+                //setShow(true);
+                //{props.onPress()}
+                setQuestionAnswered(true);
+              }}
+              disabled={questionAnswered}
+            >
+              <Text>{option.text}</Text>
+              {
+                (option.logicalValue == 1 && questionAnswered ? (
+                  <Image
+                    source={require("../assets/images/testIcons/check.png")}
+                  />
+                ) : option == currentOptionSelected ? (
+                  <Image
+                    source={require("../assets/images/testIcons/cross.png")}
+                  />
+                ) : null)
 
-    </View>
+              }
+            </TouchableOpacity>
+          ))
+        ) : (
+          <View></View>
+        )}
+      </View>
     );
-  };
+  }, arePropsEqual);
 
+  
+  
   const renderItem = ({ item }) => {
     return (
       <View>
-        {/* <Text>{item.type}</Text> */}
-        {item.type == "text" ? (
-
-          <Text>{item.content}</Text>
-        ) : (
-          <View>
-              <Question question={item.question} options={item.options} correct={item.correct}
-              onPress={(index) => setItemIndex(index)} addPoints={(points) => setPoints(points)}
-              >
-
-              </Question>
-            
-          </View>
-        )}
+        <Text>{item.content}</Text>
+        <View>
+          <Question
+            key={item.id}
+            question={item.question}
+            onPress={() => setItemIndex(itemIndex + 1)}
+            addPoints={(points) => setPoints(points)}
+          />
+        </View>
       </View>
     );
   };
 
   return (
     <View>
-      <Text>{props.route.params.header}</Text>
+      {/* <Text>{props.route.params.header}</Text> */}
       <FlatList
         data={data.slice(0, itemIndex + 1)} // pokd je itemindex víc než max index akorát se vrátí všechna data
-        renderItem={renderItem}
+        renderItem={({item}) => {
+          return (
+            <Question
+            id={item.id}
+            question={item.question}
+            //onPress={() => setItemIndex(itemIndex + 1)}
+            //addPoints={(points) => setPoints(points)}
+          />
+          )
+        }}
         keyExtractor={(item) => item.id}
       />
 
@@ -131,4 +146,5 @@ function InteractiveReading(props) {
   );
 }
 
+//export default React.memo(Question);
 export default InteractiveReading;

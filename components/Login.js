@@ -95,9 +95,9 @@ function Login(props) {
       <View style={styles.button}>
         <BigButton
           name="PŘIHLÁSIT SE"
-           onPress={() => {
-             props.navigation.navigate("TabNavigator");
-          //   handleLogin;
+          onPress={() => {
+              props.navigation.navigate("TabNavigator");
+          //   //handleLogin;
            }}
           //onPress={handleLogin}
         />

@@ -48,13 +48,13 @@ function Quiz(props) {
       <View
         style={{ marginTop: "30%", backgroundColor: colors.correct, height: "43%", width: "85%", 
         justifyContent: "space-around", alignItems: "center",
-        marginBottom: "20%"
+        marginBottom: "15%"
       }}
       >
         {allQuestions[currentQuestionIndex].options.map((option) => (
           <TouchableOpacity
           style={{width: "100%", borderRadius: 100, borderWidth: 0.5, 
-          borderColor: colors.blackText, height: "19%", backgroundColor: colors.white,
+          borderColor: colors.blackText, height: "19%", backgroundColor: (currentOptionSelected != null && currentOptionSelected.id == option.id) ? colors.correct_light : colors.white,
         justifyContent: "center"}}
             key={option.id}
             onPress={() => {
@@ -73,7 +73,7 @@ function Quiz(props) {
 
   const validate = () => {
     setCorrect(false);
-    console.log("in validate");
+    console.log("in validate", currentQuestionIndex);
     if (currentOptionSelected !== null) {
       if (
         //allQuestions[currentQuestionIndex].correct === currentOptionSelected
@@ -81,34 +81,25 @@ function Quiz(props) {
       ) {
         console.log("correct")
         // přičti body
-        setPoints(points + currentOptionSelected.pointAmount); // je o jeden krok napřed
+        console.log(currentOptionSelected.text, points + currentOptionSelected.scoreAmount);
+        setPoints(points + currentOptionSelected.scoreAmount); // je o jeden krok napřed
         setCorrect(true); // podle toho se potom rendruje jestli je tam napsaný správně nebo špatně
         // mělo by se zablokovat dát jinou možnost
       }
       console.log("after if");
       console.log(points);
-      setQuizState(2); // explanation
+      currentQuestionIndex + 1 == allQuestions.length ? (
+        console.log("here"),
+        setQuizState(3)
+
+      ) : (setQuizState(2)) // explanation
     }
   };
 
   const nextQuestion = () => {
-
-    /** pokud je další otázka poslední, potom nastavím state na poslední otázku
-     * 
-     */
-    {
-      currentQuestionIndex + 1 == allQuestions.length // zatím nefunguje pro poslední otázku
-        ? setQuizState(3)
-        : (setCurrentQuestionIndex(currentQuestionIndex + 1), setQuizState(1));
-    }
+      setCurrentQuestionIndex(currentQuestionIndex + 1), setQuizState(1)    
   };
 
-  // const renderExplanation = () => {
-  //   return (
-      
-  //   );
-  // }
-  
   return (
     <View
       style={{
@@ -122,12 +113,16 @@ function Quiz(props) {
         }}>
           {renderQuestion()}
           {renderOption()}
+
+          <View style={{justifyContent:'space-evenly', height: '15%', alignItems: 'center'}}>
           <Progress.Bar progress={0.3} />
           <View style={{backgroundColor: colors.blackText}}>
             <BigButton
               name="zkontrolovat"
               onPress={() => validate()} // {validate}
             />
+
+          </View>
           </View>
         </View>
       )}
@@ -135,7 +130,7 @@ function Quiz(props) {
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'space-evenly'}}>
           {/* {correct ? <Text> správně</Text> : <Text>špatně</Text>} */}
           <View style={{width: '91%', height: '7%'}}>
-          <ValidationView textValidation={currentOptionSelected.logicalValue}>
+          <ValidationView logicalValue={correct ? 1 : 0}>
 
           </ValidationView>
 
@@ -151,7 +146,7 @@ function Quiz(props) {
           <View style={{ backgroundColor: colors.wrong }}>
             <BigButton
               name="na další otázku"
-              onPress={() => nextQuestion()} // {next question} // potom už se ale nepůjde vracet
+              onPress={() => {nextQuestion(), setCurrentOptionSelected(null)}} // {next question} // potom už se ale nepůjde vracet
             />
           </View>
             </View>
@@ -159,22 +154,30 @@ function Quiz(props) {
       )}
 
       {quizState == 3 && (
-        <View>
-          {/* {correct ? <Text> správně</Text> : <Text>špatně</Text>} */}
-          <ValidationView textValidation={currentOptionSelected.logicalValue}>
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'space-evenly'}}>
+        {/* {correct ? <Text> správně</Text> : <Text>špatně</Text>} */}
+        <View style={{width: '91%', height: '7%'}}>
+        <ValidationView logicalValue={correct ? 1 : 0}>
 
-          </ValidationView>
-          
-          {/* <Text>{allQuestions[currentQuestionIndex].explanation}</Text> */}
-          <Text>{currentOptionSelected.explanation}</Text>
-          <Progress.Bar progress={0.3} />
+        </ValidationView>
+
+        </View>
+        
+        {/* <Text>{allQuestions[currentQuestionIndex].explanation}</Text> */}
+        <View style={styles.explanationWrapper}>
+        <Text style={[REGULAR16]}>{currentOptionSelected.explanation}</Text>
+
+        </View>
+        <View style={{justifyContent:'space-evenly', height: '15%', alignItems: 'center'}}>
+        <Progress.Bar progress={0.3} />
+        <View style={{ backgroundColor: colors.wrong }}>
           <BigButton
             name="dokončit"
-            onPress={() =>
-              props.navigation.navigate("ActivityFinished", { points: points })
-            }
+            onPress={() => props.navigation.navigate("ActivityFinished", { points: points })} // {next question} // potom už se ale nepůjde vracet
           />
         </View>
+          </View>
+      </View>
       )}
     </View>
   );

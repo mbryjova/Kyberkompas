@@ -63,6 +63,7 @@ function SkillTree(props) {
                 activities: item.activities, // nevím jestli budu posílat, zatím nepoužívám
               })
             }
+            disabled={item.available == 1 ? false : true}
           >
             <View
               style={[
