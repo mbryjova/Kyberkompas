@@ -4,9 +4,32 @@ import colors from '../assets/colors/colors';
 import { StyleSheet, ScrollView, Text, Image, View } from 'react-native';
 import { EXTRABOLD12, BOLD25, REGULAR16, BOLD15 } from './atoms/typography';
 import BigButton from './BigButton';
+import axios from "axios";
 
 
 function Challenge({route, navigation}) {
+
+    const markAsFinished = () => {
+        axios.post('https://kyberkompas-database.herokuapp.com/challenges', 
+        {"id": route.params.item.id,
+        "date_from": route.params.item.date_from,
+        "date_to": route.params.item.date_to,
+        "point_amount": route.params.item.point_amount,
+        "title": route.params.item.title,
+        "description": route.params.item.description,
+        "image": route.params.item.image,
+        "finished": 1,
+        "challenge": route.params.item.challenge}
+        
+       )
+      .then((response) => {
+        console.log(response);
+        //setModules(response.data);
+        console.log(modules);
+      }).catch(error => console.log(error));
+      
+    }
+
     const image_source = '../assets/images/challenge_clock.png' // ikonka, odkaz asi budu mít, když jde o stálou ikonku, nebo pasnu jako parametr
     const button_name="výzva dokončena";
     const parameters = route.params;
@@ -43,9 +66,8 @@ function Challenge({route, navigation}) {
             name={button_name}
             // plus ještě tam musí být funkcionalita co přičte body za výzvu, 
             // pošlu do parent komponenty?
-            onPress={() => {navigation.goBack(); }}
+            onPress={() => {navigation.goBack(); markAsFinished()}}
             />
-
 
             </View>
         </ScrollView>

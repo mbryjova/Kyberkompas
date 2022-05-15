@@ -1,8 +1,8 @@
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import * as ImagePicker from 'expo-image-picker';
 import colors from "../assets/colors/colors";
-import { BOLD20, EXTRABOLD12 } from "./atoms/typography";
+import { BOLD20, EXTRABOLD12, SEMIBOLD16, BOLD32, BOLD15 } from "./atoms/typography";
 
 function Profile(props) {
 
@@ -37,7 +37,7 @@ function Profile(props) {
     }
   };
 
-  const doubleText = (props) => {
+  const DoubleText = (props) => {
     return (
       <View>
       <Text style={[EXTRABOLD12, {textTransform: 'uppercase', color: colors.primary}]}>
@@ -55,7 +55,8 @@ function Profile(props) {
     <View style={styles.profileContainer}>
 
       {/**view for the profile picture */}
-      <View style={{width: "30%", height: "19%"}}>
+      <View style={{backgroundColor: colors.correct, flex: 2, justifyContent: 'space-evenly', alignItems: 'center'}}>
+      <View style={styles.picture}>
       {
         photo ? (
       <Image source={{uri: photo.uri}}
@@ -68,12 +69,31 @@ function Profile(props) {
           source={require("../assets/images/profile.png")}/>
         )
       }
+      </View>
+
+      <View style={styles.namesContainer}>
+      <Text style={BOLD32}>Jméno Příjmení</Text>
+      <Text style={[SEMIBOLD16, {marginTop: 5, color: colors.grey}]} 
+      onPress={handleChoosePhoto}>Změnit profilovou fotku</Text>
+      </View>
 
       </View>
 
-      <Text>Jméno Příjmení</Text>
-      <Text onPress={handleChoosePhoto}>Změnit profilovou fotku</Text>
-      
+      <View style={styles.pointsContainer}>
+      <DoubleText text1="celkem bodů" text2={52}/>
+      <DoubleText text1="tento týden" text2={52}/>
+      <DoubleText text1="nové znalosti" text2={52}/>
+      <DoubleText text1="ukončené výzvy" text2={52}/>
+
+      </View>
+
+      <View style={styles.buttonContainer}>
+      <TouchableOpacity style={styles.button}>
+      <Text style={BOLD15}>
+        ODHLÁSIT SE
+      </Text>
+      </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -81,8 +101,37 @@ function Profile(props) {
 export default Profile;
 
 const styles = StyleSheet.create({
+  picture: {
+    width: "30%", height: "50%"
+  },
+  button: {
+    width: '45%',
+    height: 52,  // 40%
+    borderRadius: 100,
+    borderWidth: 0.5,
+    borderColor: colors.blackText,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  buttonContainer: {
+    flex: 1,
+    backgroundColor: colors.grey,
+    alignItems: 'center',
+    justifyContent: 'center'
+
+  },
   profileContainer: {
     flex: 1
+  },
+  namesContainer: {
+    alignItems: 'center'
+  },
+  pointsContainer: {
+    flex: 2,
+    backgroundColor: colors.wrong,
+    justifyContent: 'space-evenly',
+    paddingLeft: 20
+
   }
   
 })

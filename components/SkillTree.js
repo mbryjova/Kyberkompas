@@ -5,6 +5,7 @@ import colors from "../assets/colors/colors";
 import { SEMIBOLD16 } from "./atoms/typography";
 import axios from "axios";
 
+//const port = process.env.PORT || 4000;
 
 function SkillTree(props) {
   const [modules, setModules] = React.useState([]);
@@ -15,7 +16,7 @@ function SkillTree(props) {
 
     const fetchData = () => {
       console.log("here");
-      axios.get('http://192.168.1.106:3000/modules')
+      axios.get('https://kyberkompas-database.herokuapp.com/modules')
       .then((response) => {
         console.log(response);
         setModules(response.data);
@@ -24,24 +25,8 @@ function SkillTree(props) {
       
     }
     fetchData();
-    //console.log(modules);
-      /*const data = await fetch('http://localhost:3000/modules'); // získá data
-      const json = await data.json(); // převede na json
-      setModules(json); // nastaví state modules na data*/
   }
   , [])
-
-  //fetchData().catch(error => console.log(error)); // zavolá fetchdata a případně catchne error
-
-  /*fetch('http://localhost:3000/modules')
-    .then(resp => {return resp.json();})
-    .then(responseData => {
-      console.log("ok");
-      console.log(responseData);
-      setModules(responseData);
-    }).catch(error => console.log(error))
-  */ //}, [])
-  //{transform: [{rotate: '270deg'}]}
 
   const renderModuleItem = ({ item }) => {
     const sum_points_percent = (item.current_score / item.max_score) * 100;
@@ -105,7 +90,7 @@ function SkillTree(props) {
       //style={{ alignContent: "center", alignItems: "center", paddingTop: 17 }}
     >
       <FlatList
-        data={modules_data}
+        data={modules}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
         renderItem={renderModuleItem}

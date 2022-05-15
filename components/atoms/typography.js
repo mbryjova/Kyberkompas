@@ -13,8 +13,8 @@ export const BOLD20 = {
 }
 
 export const SEMIBOLD16 = {
-        fontSize: 16,
-        fontFamily: 'Mulish_600SemiBold'
+    fontSize: 16,
+    fontFamily: 'Mulish_600SemiBold'
 }
 
 export const BOLD32 = {

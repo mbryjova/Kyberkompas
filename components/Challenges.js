@@ -2,6 +2,7 @@ import React from "react";
 import { View, StyleSheet, Text, Image, FlatList } from "react-native";
 import colors from "../assets/colors/colors";
 import { EXTRABOLD12, BOLD20, REGULAR16, BOLD15, SEMIBOLD16, BOLD32 } from "./atoms/typography";
+import axios from "axios";
 
 /**
  * dát image přes get, získávám z databáze - někde ho získám
@@ -9,8 +10,8 @@ import { EXTRABOLD12, BOLD20, REGULAR16, BOLD15, SEMIBOLD16, BOLD32 } from "./at
  */
 
 function Challenges(props) {
-  const ch_data = require("../data/db.json");
-  const [challenges, setChallenges] = React.useState(ch_data.challenges);
+  //const ch_data = require("../data/db.json");
+  const [challenges, setChallenges] = React.useState([]);
   /**
    * 1 - následující
    * 2 - ukončené
@@ -22,6 +23,23 @@ function Challenges(props) {
   
 
   /** a function for rendering the challenge item */
+
+  React.useEffect(() => {
+
+    const fetchData = () => {
+      console.log("here");
+      axios.get('https://kyberkompas-database.herokuapp.com/challenges')
+      .then((response) => {
+        console.log(response);
+        setChallenges(response.data);
+        console.log(challenges);
+      }).catch(error => console.log(error));
+      
+    }
+    fetchData();
+  }
+  , [])
+
 
   const renderChallengeItem = ({ item }) => {
     const image_source = "../assets/images/challenge1.png";
@@ -40,6 +58,7 @@ function Challenges(props) {
           <Text
             onPress={() =>
               props.navigation.navigate("Challenge", {
+                item: item,
                 name: item.title,
                 date_from: item.date_from,
                 description: item.description,
