@@ -29,7 +29,7 @@ function YesOrNo(props) {
       <TouchableOpacity
         style={{
           width: "40%",
-          height: "100%",
+          height: 52,
           backgroundColor: props.color,
           borderRadius: 100,
           justifyContent: "center",
@@ -77,12 +77,14 @@ function YesOrNo(props) {
   };
 
   return (
-    <View style={{  }}>
+    <View style={{ flex: 1 }}>
       {
         currentState == 1 && (
-          <View style={{flex: 1, backgroundColor: colors.white, justifyContent: 'center'}}> 
+          <View style={{flex: 1, justifyContent: 'space-evenly'}}> 
             
-            <View style={{flex: 0.9}}>
+            <View style={{flex: 0.85}}
+            // flex: 0.9
+            >
             <Swiper // h: 70%, w: 91%
               cards={data}
               cardIndex={currentIndex}
@@ -103,10 +105,29 @@ function YesOrNo(props) {
               }}
               disableTopSwipe={true}
               disableBottomSwipe={true}
-              //backgroundColor={colors.white}
-              //cardStyle={{width: '100%', height: '100%'}}
-              //containerStyle={{}}
-              //overlayLabelStyle={{position: 'relative'}}
+              backgroundColor={colors.white}
+              cardStyle={{width: '91%', height: '100%'}}
+              containerStyle={{justifyContent: 'center'}}
+              // overlayLabels={{
+              //   left: {
+              //     title: 'ne',
+              //     style: {
+              //       label: {
+              //         color: colors.wrong
+              //       }
+              //     }
+
+              //   },
+              //   right: {
+              //     title: 'ano',
+              //     style: {
+              //       label: {
+              //         color: colors.correct
+              //       }
+              //     }
+              //   }
+
+              // }}
             />
 
               </View>
@@ -128,7 +149,7 @@ function YesOrNo(props) {
               />
             </View>
 
-          </View>
+           </View>
         )
       }
 
@@ -199,12 +220,15 @@ const styles = StyleSheet.create({
       marginBottom: '15%'
   },
   buttonWrapper: {
-    flex: 0.1,
+    flex: 0.15,
+    //height: 52,
     flexDirection: "row",
-    backgroundColor: colors.wrong,
+    //backgroundColor: colors.wrong,
+    backgroundColor: colors.white,
     //height: "7%",
     //width: "90%",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
+    alignItems: 'center'
     //marginBottom: "16%",
   },
   swiperWrapper: {
@@ -213,14 +237,14 @@ const styles = StyleSheet.create({
   questionWrapper: {
     //marginTop: "8%",
     backgroundColor: colors.correct,
-    height: "100%", // 70
-    width: "100%", // 91
+    //height: "100%", // 70
+    //width: "100%", // 91
     borderRadius: 16,
     alignItems: "center",
     borderColor: colors.blackText,
     borderWidth: 0.5,
     justifyContent: 'center',
-    flex: 0.9
+    //flex: 0.9
   },
   textWrapper: {
     backgroundColor: colors.primary,

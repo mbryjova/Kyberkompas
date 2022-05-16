@@ -141,7 +141,6 @@ function Leaderboard(props) {
             {
               if (currentState == 1) {
                 b.weekly_score - a.weekly_score
-
               }
               else if (currentState == 2) {
                 b.monthly_score - a.monthly_score

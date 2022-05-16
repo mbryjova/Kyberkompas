@@ -25,7 +25,7 @@ function Challenge({route, navigation}) {
       .then((response) => {
         console.log(response);
         //setModules(response.data);
-        console.log(modules);
+        //console.log(modules);
       }).catch(error => console.log(error));
       
     }

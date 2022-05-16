@@ -1,5 +1,7 @@
 import React from "react";
-import { View, Text, FlatList, TouchableOpacity, Image } from "react-native";
+import { View, Text, FlatList, TouchableOpacity, Image, StyleSheet } from "react-native";
+import colors from "../assets/colors/colors";
+import { BOLD15, BOLD20, REGULAR16 } from "./atoms/typography";
 import BigButton from "./BigButton";
 
 /**
@@ -33,7 +35,7 @@ function InteractiveReading(props) {
     return prevProps.question.text === nextProps.question.text;
   }
 
-  const Question = React.memo(function Function(props) {
+  function Question(props) {
 
     /**if false, question isnt showed */
     const [show, setShow] = React.useState(false);
@@ -46,7 +48,7 @@ function InteractiveReading(props) {
     const [questionAnswered, setQuestionAnswered] = React.useState(false);
 
     return (
-      <View>
+      <View style={styles.questionWrapper}>
         <TouchableOpacity
           onPress={() => setShow((show) => !show)}
           style={{ flexDirection: "row" }}
@@ -57,7 +59,7 @@ function InteractiveReading(props) {
             <Image source={require("../assets/images/testIcons/down.png")} />
           )}
 
-          <Text>{props.question.text}</Text>
+          <Text style={[BOLD20, {paddingLeft: 10}]}>{props.question.text}</Text>
         </TouchableOpacity>
 
         {show ? (
@@ -71,14 +73,15 @@ function InteractiveReading(props) {
                 //option.logicalValue == 1 ? props.addPoints(points + option.scoreAmount) : null; // asi nemusím posílat přes props
                 //correctOption == option ? props.addPoints(1) : null;
                 //console.log(points);
-                setItemIndex(itemIndex + 1);
+                //setItemIndex(itemIndex + 1);
                 //setShow(true);
                 //{props.onPress()}
                 setQuestionAnswered(true);
               }}
               disabled={questionAnswered}
             >
-              <Text>{option.text}</Text>
+              <View style={styles.optionWrapper}>
+              <Text style={[BOLD15, {textTransform: 'uppercase'}]}>{option.text}</Text>
               {
                 (option.logicalValue == 1 && questionAnswered ? (
                   <Image
@@ -91,6 +94,8 @@ function InteractiveReading(props) {
                 ) : null)
 
               }
+
+              </View>
             </TouchableOpacity>
           ))
         ) : (
@@ -98,15 +103,18 @@ function InteractiveReading(props) {
         )}
       </View>
     );
-  }, arePropsEqual);
+  };
 
   
   
   const renderItem = ({ item }) => {
     return (
-      <View>
-        <Text>{item.content}</Text>
-        <View>
+      <View style={{alignItems: 'center'}}>
+        <View style={styles.contentWrapper}>
+        <Text style={[styles.textStyle, REGULAR16]} >{item.content}</Text>
+
+        </View>
+        <View style={{width: '91%'}}>
           <Question
             key={item.id}
             question={item.question}
@@ -120,19 +128,22 @@ function InteractiveReading(props) {
 
   return (
     <View>
-      {/* <Text>{props.route.params.header}</Text> */}
+      {/* <Text style={[BOLD20, {padding: 20}]}>{props.route.params.header}</Text> */}
       <FlatList
-        data={data.slice(0, itemIndex + 1)} // pokd je itemindex víc než max index akorát se vrátí všechna data
-        renderItem={({item}) => {
-          return (
-            <Question
-            id={item.id}
-            question={item.question}
-            //onPress={() => setItemIndex(itemIndex + 1)}
-            //addPoints={(points) => setPoints(points)}
-          />
-          )
-        }}
+        ListHeaderComponent={<Text style={[BOLD20, {padding: 20}]}>{props.route.params.header}</Text>}
+        data={data}  //.slice(0, itemIndex + 1)} // pokd je itemindex víc než max index akorát se vrátí všechna data
+        renderItem={renderItem
+        //   ({item}) => {
+        //   return (
+        //     <Question
+        //     id={item.id}
+        //     question={item.question}
+        //     //onPress={() => setItemIndex(itemIndex + 1)}
+        //     //addPoints={(points) => setPoints(points)}
+        //   />
+        //   )
+        // }
+      }
         keyExtractor={(item) => item.id}
       />
 
@@ -148,3 +159,33 @@ function InteractiveReading(props) {
 
 //export default React.memo(Question);
 export default InteractiveReading;
+
+const styles = StyleSheet.create({
+  contentWrapper: {
+    width: '91%',
+    borderColor: colors.blackText,
+    borderWidth: 0.5,
+    borderRadius: 16
+  },
+  textStyle: {
+    padding: 10,
+    paddingBottom: 20
+  },
+  optionWrapper: {
+    width: '90%',
+    flexDirection: 'row',
+    height: 45,
+    borderColor: colors.blackText,
+    borderWidth: 0.5,
+    borderRadius: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 15
+  },
+  questionWrapper: {
+    width: '100%',
+    //backgroundColor: colors.primary,
+    padding: 10,
+    justifyContent: 'space-evenly'
+  }
+})
