@@ -9,9 +9,11 @@ import axios from "axios";
 
 function Challenge({route, navigation}) {
 
-    const markAsFinished = () => {
-        axios.post('https://kyberkompas-database.herokuapp.com/challenges', 
-        {"id": route.params.item.id,
+    const markAsFinished = async () => {
+        console.log("here");
+        await axios.put("https://kyberkompas-database.herokuapp.com/challenges/4",
+        {
+            //"id": route.params.item.id,
         "date_from": route.params.item.date_from,
         "date_to": route.params.item.date_to,
         "point_amount": route.params.item.point_amount,
@@ -23,11 +25,11 @@ function Challenge({route, navigation}) {
         
        )
       .then((response) => {
-        console.log(response);
+        console.log(response.data);
         //setModules(response.data);
         //console.log(modules);
       }).catch(error => console.log(error));
-      
+      route.params.setChanged(true); 
     }
 
     const image_source = '../assets/images/challenge_clock.png' // ikonka, odkaz asi budu mít, když jde o stálou ikonku, nebo pasnu jako parametr
@@ -35,7 +37,7 @@ function Challenge({route, navigation}) {
     const parameters = route.params;
     return (
         <View style={{flex: 1}}>
-        <ScrollView style={{paddingTop: "4%"}}>
+        <ScrollView contentContainerStyle={{paddingTop: "4%"}}>
             <View style={{padding: '4%', backgroundColor: colors.wrong}}>
             <View style={{ backgroundColor: colors.correct}}>
             <Text style={[EXTRABOLD12]}>{parameters.date_from}</Text>

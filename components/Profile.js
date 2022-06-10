@@ -3,16 +3,18 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import * as ImagePicker from 'expo-image-picker';
 import colors from "../assets/colors/colors";
 import { BOLD20, EXTRABOLD12, SEMIBOLD16, BOLD32, BOLD15 } from "./atoms/typography";
+import {PUT_PHOTO} from "../database/queries";
 
 function Profile(props) {
 
   const [photo, setPhoto] = React.useState(null); // tady bude fotka od usera, který je přihlášený
+  const [user, setUser] = React.useContext(UserContext);
 
   console.log(photo); // dám tu photo rovnou do app jako image ke current_user
 
   //console.log(userContext)
 
-  const countChallegnes = () => {
+  const countChallenges = () => {
     const data = require("../data/db.json").challenges;
     const finished = data.filter((item) => item.finished == 1);
     return finished.length;
@@ -34,6 +36,7 @@ function Profile(props) {
 
     if (!result.cancelled) {
       setPhoto(result);
+      PUT_PHOTO(user.id);
     }
   };
 

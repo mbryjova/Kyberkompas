@@ -5,6 +5,8 @@ import colors from "../assets/colors/colors";
 import { BOLD32 } from "./atoms/typography";
 import BigButton from "./BigButton";
 import InputComp from "./InputComp";
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+
 
 /**
  * component of the login screen
@@ -17,12 +19,17 @@ function Login(props) {
   const [wrongPassword, setWrongPassword] = React.useState(false);
   const [wrongUsername, setWrongUsername] = React.useState(false);
 
-  const [users, setUsers] = React.useState(require("../data/db.json").users);
+  //const [users, setUsers] = React.useState(require("../data/db.json").users);
   const [currentUser, setCurrentUser] = React.useState(null);
 
-  
-  //console.log(wrongPassword);
+  React.useEffect(() => {
+    
+  }
+
+  )
+
   const handleLogin = () => {
+    const [user, setUser] = React.useContext(userContext);
     if (password.length < 5) {
       setWrongPassword(true);
       console.log("password not given or short");
@@ -32,7 +39,6 @@ function Login(props) {
       console.log("username not given");
     }
     else {
-      //setUsers(require("../data/db.json").users);
       const current = users.filter((user) => user.email == username);
       setCurrentUser(current[0]);
       if (current.length == 0) {
@@ -42,11 +48,11 @@ function Login(props) {
       else {
         setWrongUsername(false);
         console.log(current);
-       // setCurrentUser(current[0]);
         if (currentUser.password == password) {
-          setWrongPassword(false)
-          props.callback(currentUser)
+          setWrongPassword(false);
+          setUser(current);
           props.navigation.navigate("TabNavigator");
+
         } else {
           console.log("wrong password", password);
           setWrongPassword(true);
@@ -57,8 +63,11 @@ function Login(props) {
   }
 
   return (
-    <View>
-      <Text style={[styles.headline, BOLD32]}>
+    <KeyboardAwareScrollView contentContainerStyle={{backgroundColor: colors.correct, flex: 1}}>
+      <View style={{flex: 1, backgroundColor: colors.correct}}>
+      
+       <View style={{backgroundColor: colors.grey, flex: 0.85, justifyContent: 'space-evenly', marginTop: '6%'}} >
+      <Text style={[styles.headline, BOLD32, {backgroundColor: colors.wrong}]}>
         Vítejte v{"\n"} KYBERKOMPASU
       </Text>
       <Image
@@ -66,10 +75,9 @@ function Login(props) {
         style={styles.logo}
       />
 
-      <KeyboardAvoidingView style={styles.inputWrapper}
-      behavior='position'
-      >
+      
         {/**tady bylo styles.input */}
+        <View style={styles.inputWrapper}>
         <View style={{marginBottom: wrongUsername ? 0 : 20}}>
           <InputComp
             onChangeText={setUsername}
@@ -90,16 +98,21 @@ function Login(props) {
           wrongInput={wrongPassword}
           error="Nesprávné heslo"
         />
-      </KeyboardAvoidingView>
 
+        </View>
+
+       </View>
+      {/* </KeyboardAvoidingView> */}
+
+      <View style={{backgroundColor: colors.white, flex: 0.2}} >
       <View style={styles.button}>
         <BigButton
           name="PŘIHLÁSIT SE"
-          onPress={() => {
-              props.navigation.navigate("TabNavigator");
-          //   //handleLogin;
-           }}
-          //onPress={handleLogin}
+          //  onPress={() => {
+          //      props.navigation.navigate("TabNavigator");
+          // //     //handleLogin;
+          //   }}
+          onPress={handleLogin}
         />
       </View>
 
@@ -112,7 +125,11 @@ function Login(props) {
           Zaregistrujte se
         </Text>
       </View>
+
+      </View>
+    {/* </View> */}
     </View>
+    </KeyboardAwareScrollView>
   );
 }
 
@@ -120,28 +137,29 @@ export default Login;
 
 const styles = StyleSheet.create({
   button: {
-    flex: 1,
+    //flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    top: 500,
+    marginBottom: '5%'
+    //top: 500,
   },
   headline: {
     textAlign: "center",
-    top: 76,
+    //top: 76,
   },
   input: {
     marginBottom: 20 // dát jen když je input správně
   },
   inputWrapper: {
-    position: "absolute",
-    top: 371,
+    //position: "absolute",
+    //top: 371,
     alignSelf: "center",
     backgroundColor: colors.primary,
     width: "91%"
   },
   logo: {
-    position: "absolute",
-    top: 190,
+    //position: "absolute",
+    //top: 190,
     alignSelf: "center",
   },
   noAccountText: {
@@ -157,7 +175,7 @@ const styles = StyleSheet.create({
   signUpWrapper: {
     flexDirection: "row",
     fontSize: 16,
-    top: 550,
+    //top: 550,
     justifyContent: "center",
     alignItems: "center",
   },

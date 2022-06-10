@@ -116,9 +116,6 @@ const TabNavigator = () => {
 
 export default function App() {
 
-  // const [authUser, setAuthUser] = React.useState(null);
-  // const userContext = React.createContext(authUser);
-
   let [fontsLoaded] = useFonts({
     Mulish_700Bold,
     Mulish_600SemiBold,
@@ -129,12 +126,16 @@ export default function App() {
   if (!fontsLoaded) {
     return <Text style={{ textAlign: "center" }}>App loading</Text>;
   }
-  const myTheme = {
-    colors: {
-      background: colors.white,
-    },
-  };
+  // const myTheme = {
+  //   colors: {
+  //     background: colors.white,
+  //   },
+  // };
+  const UserContext = React.createContext();
+  const [user, setUser] = React.useState(null);
+
   return (
+    <UserContext.Provider value={[user, setUser]}>
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
@@ -203,6 +204,7 @@ export default function App() {
         />
       </Stack.Navigator>
     </NavigationContainer>
+    </UserContext.Provider>
   );
 }
 

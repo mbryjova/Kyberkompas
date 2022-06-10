@@ -249,6 +249,13 @@
         "description": "Zkontroluj si svoji znalost ohledně základů funkce hesel.",
         "status": "dokončené",
         "score": 4
+      }, {
+        "id": 10,
+        "type": "test",
+        "name": "Hesla základy",
+        "description": "Zkontroluj si svoji znalost ohledně základů funkce hesel.",
+        "status": "dokončené",
+        "score": 4
       }]
     },
     {

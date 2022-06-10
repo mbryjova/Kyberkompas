@@ -235,7 +235,6 @@ const styles = StyleSheet.create({
     flex: 0.7
   },
   questionWrapper: {
-    //marginTop: "8%",
     backgroundColor: colors.correct,
     //height: "100%", // 70
     //width: "100%", // 91

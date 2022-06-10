@@ -27,10 +27,8 @@ export default InputComp;
 const styles = StyleSheet.create({
   input: {
     height: 48,
-    //width: 343,
     width: "100%",
     borderWidth: 0.5,
-    //borderColor: colors.grey,
     borderRadius: 8,
     flexDirection: "row",
     backgroundColor: colors.white

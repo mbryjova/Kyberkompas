@@ -8,6 +8,8 @@ import ValidationView from "./ValidationView";
 
 function Quiz(props) {
   const allQuestions = require("../data/db.json").test_data;
+  //const allQuestions = route.params.
+
   /** state which contains the index of current question */
   const [currentQuestionIndex, setCurrentQuestionIndex] = React.useState(0);
 
@@ -173,7 +175,9 @@ function Quiz(props) {
         <View style={{ backgroundColor: colors.wrong }}>
           <BigButton
             name="dokončit"
-            onPress={() => props.navigation.navigate("ActivityFinished", { points: points })} // {next question} // potom už se ale nepůjde vracet
+            onPress={() => 
+              // put a zmenit aktivity
+              props.navigation.navigate("ActivityFinished", { points: points })} // {next question} // potom už se ale nepůjde vracet
           />
         </View>
           </View>

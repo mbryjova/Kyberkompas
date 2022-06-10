@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, Image, FlatList } from "react-native";
 import colors from "../assets/colors/colors";
 import { EXTRABOLD12, BOLD20, REGULAR16, BOLD15, SEMIBOLD16, BOLD32 } from "./atoms/typography";
 import axios from "axios";
+import {GET_CHALLENGES} from "../database/queries";
 
 /**
  * dát image přes get, získávám z databáze - někde ho získám
@@ -19,6 +20,7 @@ function Challenges(props) {
    */
   const [currentState, setCurrentState] = React.useState(1);
 
+  const [changed, setChanged] = React.useState(false);
   /** getting the data */
   
 
@@ -27,28 +29,33 @@ function Challenges(props) {
   React.useEffect(() => {
 
     const fetchData = () => {
-      console.log("here");
+      console.log("here2");
       axios.get('https://kyberkompas-database.herokuapp.com/challenges')
       .then((response) => {
-        console.log(response);
+        console.log(response.data);
         setChallenges(response.data);
-        console.log(challenges);
+        //console.log(challenges);
       }).catch(error => console.log(error));
       
     }
-    fetchData();
+    //fetchData();
+    GET_CHALLENGES(setChallenges);
+    console.log("chall:" + challenges);
+    setChanged(false);
   }
-  , [])
+  , [changed]);
 
 
   const renderChallengeItem = ({ item }) => {
-    const image_source = "../assets/images/challenge1.png";
+    //const image_source = "../assets/images/challenge1.png";
+    const image_source = item.image;
     const more = "více"; // kdyžtak pro lokalizaci
 
     // todo, upravit styl obrázku
     return (
       <View style={styles.challengeWrapper}>
-        <Image source={require(image_source)} />
+        <Image source={{uri: item.image}}
+        style={styles.image} />
         <View style={{ marginLeft: 10, marginRight: 10 }}>
           <Text style={[EXTRABOLD12, { marginTop: 10 }]}>{item.date_from}</Text>
           <Text style={[BOLD20, { marginBottom: 4 }]}>{item.title}</Text>
@@ -62,7 +69,8 @@ function Challenges(props) {
                 name: item.title,
                 date_from: item.date_from,
                 description: item.description,
-                challenge: item.challenge
+                challenge: item.challenge,
+                setChanged: setChanged
               })
             } // jako objekt s konkrétníma paramterama {name: {item.name}, ..}
             style={[

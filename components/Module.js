@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, SectionList, StyleSheet, Image } from "react-native";
+import { Text, View, SectionList, StyleSheet, Image, FlatList } from "react-native";
 import {
   BOLD15,
   BOLD20,
@@ -12,9 +12,9 @@ import colors from "../assets/colors/colors";
 function Module({ route, navigation }) {
   const header = "aktivity";
   const data = require("../data/db.json");
+  const [activityFinished, setActivityFinished] = React.useState(false);
 
   const renderActivityItem = ({ item }) => {
-
     const activityType = {
       "test": "Quiz",
       "ano nebo ne": "YesOrNo",
@@ -29,12 +29,10 @@ function Module({ route, navigation }) {
             height: 179,
             width: "91%",
             flex: 1,
-            //height: "100%",
             borderRadius: 16,
             borderWidth: 0.5,
             borderColor: colors.blackText,
             alignSelf: "center",
-            //marginBottom: 14,
             marginBottom: "4%",
             backgroundColor:
               item.status === "dokončené" ? colors.correct_light : colors.white,
@@ -60,7 +58,8 @@ function Module({ route, navigation }) {
 
             },
           ]}
-          onPress={() => navigation.navigate(activityType[item.type], {header: item.name, moduleName: route.params.name})}
+          onPress={() => navigation.navigate(activityType[item.type], {header: item.name, moduleName: route.params.name, 
+            setActivityFinished: setActivityFinished})}
         >
           SPUSTIT
         </Text>
@@ -86,7 +85,7 @@ function Module({ route, navigation }) {
               dokončena
             </Text>
 
-            <Image 
+            <Image
               style={{marginBottom: "4.5%", marginLeft: "4%"}}
               source={require("../assets/images/testIcons/check.png")}
             />
@@ -103,25 +102,38 @@ function Module({ route, navigation }) {
         sections={data.activities}
         keyExtractor={(item) => item.id}
         renderItem={renderActivityItem}
-        renderSectionHeader={({ section: { title } }) => (
+        // renderItem={({section, item}) => {
+        //   if (section.title == "dokončené:") {
+        //     return null;
+
+        //   }
+        //   return <RenderActivityItem item={item}></RenderActivityItem>;
+        // }
+        // }
+        renderSectionHeader={({ section }) => (
+          <View>
           <Text
             style={[
               REGULAR16,
-              { textTransform: "capitalize", 
-              // marginBottom: 14, 
-              // marginLeft: 14 
+              { textTransform: "capitalize",
               marginBottom: "4%",
               marginLeft: "4%"
             },
             ]}
           >
-            {title}
+            {section.title}
           </Text>
+          {/* { section.title == "dokončené:" && 
+          (<FlatList
+            data={section.data}
+            horizontal
+            renderItem={({item}) => {return <RenderActivityItem item={item}></RenderActivityItem>;}}
+          />)
+          } */}
+          </View>
         )}
         ListHeaderComponent={
-          <Text style={[BOLD32, { textTransform: "capitalize", 
-          //padding: 14 
-         // padding: "3%"
+          <Text style={[BOLD32, { textTransform: "capitalize",
          marginLeft: "4%",
          marginTop: "4%"
 
