@@ -6,6 +6,7 @@ import { BOLD16, BOLD32, REGULAR16 } from "./atoms/typography";
 import BigButton from "./BigButton";
 import InputComp from "./InputComp";
 import Constants from "expo-constants";
+import { POST_USER } from "../database/queries";
 
 /**
  * component of the sign-up screen
@@ -36,6 +37,18 @@ function Signup(props) {
       }
       else {
         setWrongPassword(false);
+        POST_USER({
+          "id": 10,
+          "first_name": "new",
+          "last_name": "user",
+          "email": {username},
+          "total_score": 0,
+          "weekly_score": 0,
+          "monthly_score": 0,
+          "anual_score": 0,
+          "image": "",
+          "password": {password}
+        });
         props.navigation.navigate("TabNavigator");
       }
       //setWrongUsername(false);

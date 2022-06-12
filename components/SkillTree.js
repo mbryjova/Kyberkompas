@@ -14,9 +14,9 @@ function SkillTree(props) {
 
   React.useEffect(() => {
 
-    const fetchData = () => {
+    const fetchData = async () => {
       console.log("here");
-      axios.get('https://kyberkompas-database.herokuapp.com/modules')
+      await axios.get('https://kyberkompas-database.herokuapp.com/modules')
       .then((response) => {
         console.log(response);
         setModules(response.data);
@@ -66,7 +66,7 @@ function SkillTree(props) {
               />
             </View>
             <Image
-              source={require("../assets/images/challenge2.png")}
+              source={{uri: item.image}}
               style={{
                 position: "absolute",
                 width: 60,
@@ -85,6 +85,9 @@ function SkillTree(props) {
   };
 
   //fetchData();
+  if (modules.length == 0) {
+    return null;
+  }
   return (
     <View
       //style={{ alignContent: "center", alignItems: "center", paddingTop: 17 }}

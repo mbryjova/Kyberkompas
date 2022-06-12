@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { View, Styles } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import { BOLD20, REGULAR16 } from './atoms/typography';
 import BigButton from './BigButton';
 import InputComp from './InputComp';
@@ -17,6 +17,7 @@ function APIActivity(props) {
 
     return (
         <View>
+            <View style={{justifyContent: 'center'}}>
             <Text style={BOLD20}>
                 Byl váš účet prolomen?
             </Text>
@@ -24,6 +25,7 @@ function APIActivity(props) {
             <Text style={REGULAR16}>
             Zadejte email a zjistětě, zda byl váš učet někde prolomen.
             </Text>
+            <View style={{width: '90%'}}>
             <InputComp
             onChangeText={setInput}
             header=""
@@ -33,6 +35,9 @@ function APIActivity(props) {
             wrongInput={false}
             error=""
             />
+            </View>
+
+            </View>
 
             {
                 status == 1 ? (
@@ -40,13 +45,19 @@ function APIActivity(props) {
                     name="zkontrolovat"
                     onPress={() => setStatus(2)}
                     />
-                ) : null
+                ) : (
+                <View>
+                    <View>
+
+                    </View>
+                    <BigButton 
+                        name="dokončit"
+                        onPress={() => setStatus(2)}
+                        />
+
+                </View>
+                    )
             }
-
-            
-
-
-
             
         </View>
     );

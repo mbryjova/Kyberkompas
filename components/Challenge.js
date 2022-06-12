@@ -9,9 +9,9 @@ import axios from "axios";
 
 function Challenge({route, navigation}) {
 
-    const markAsFinished = async () => {
+    const markAsFinished = async (id) => {
         console.log("here");
-        await axios.put("https://kyberkompas-database.herokuapp.com/challenges/4",
+        await axios.put("https://kyberkompas-database.herokuapp.com/challenges/".concat(id),
         {
             //"id": route.params.item.id,
         "date_from": route.params.item.date_from,
@@ -37,7 +37,7 @@ function Challenge({route, navigation}) {
     const parameters = route.params;
     return (
         <View style={{flex: 1}}>
-        <ScrollView contentContainerStyle={{paddingTop: "4%"}}>
+        <ScrollView contentContainerStyle={{paddingTop: "4%", paddingBottom: '8%'}}>
             <View style={{padding: '4%', backgroundColor: colors.wrong}}>
             <View style={{ backgroundColor: colors.correct}}>
             <Text style={[EXTRABOLD12]}>{parameters.date_from}</Text>
@@ -63,13 +63,15 @@ function Challenge({route, navigation}) {
             
             )}
 
-            
+            <View style={{marginTop: "8%"}}>
             <BigButton
             name={button_name}
             // plus ještě tam musí být funkcionalita co přičte body za výzvu, 
             // pošlu do parent komponenty?
-            onPress={() => {navigation.goBack(); markAsFinished()}}
+            onPress={() => {navigation.goBack(); markAsFinished(parameters.item.id)}}
             />
+
+            </View>
 
             </View>
         </ScrollView>

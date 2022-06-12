@@ -35,8 +35,7 @@ function Challenges(props) {
         console.log(response.data);
         setChallenges(response.data);
         //console.log(challenges);
-      }).catch(error => console.log(error));
-      
+      }).catch(error => console.log(error)); 
     }
     //fetchData();
     GET_CHALLENGES(setChallenges);
@@ -48,7 +47,7 @@ function Challenges(props) {
 
   const renderChallengeItem = ({ item }) => {
     //const image_source = "../assets/images/challenge1.png";
-    const image_source = item.image;
+    //const image_source = item.image;
     const more = "více"; // kdyžtak pro lokalizaci
 
     // todo, upravit styl obrázku
@@ -90,6 +89,9 @@ function Challenges(props) {
     );
   };
 
+  if (challenges.length == 0) {
+    return null;
+  }
   return (
     <View style={{backgroundColor: colors.correct, flex: 1}}>
       <Text style={[BOLD32, {margin: 16}]}>

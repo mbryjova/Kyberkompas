@@ -10,3 +10,4 @@ export {default as Quiz} from './Quiz';
 export {default as ActivityFinished} from './ActivityFinished';
 export {default as InteractiveReading} from './InteractiveReading';
 export {default as YesOrNo} from './YesOrNo';
+export {default as APIActivity} from './APIActivity';

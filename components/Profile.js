@@ -3,26 +3,38 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import * as ImagePicker from 'expo-image-picker';
 import colors from "../assets/colors/colors";
 import { BOLD20, EXTRABOLD12, SEMIBOLD16, BOLD32, BOLD15 } from "./atoms/typography";
-import {PUT_PHOTO} from "../database/queries";
+import {GET_ACTIVITIES, GET_CHALLENGES, PUT_PHOTO} from "../database/queries";
+import {UserContext} from "../App";
 
 function Profile(props) {
 
-  const [photo, setPhoto] = React.useState(null); // tady bude fotka od usera, který je přihlášený
   const [user, setUser] = React.useContext(UserContext);
+  const [photo, setPhoto] = React.useState(null); // tady bude fotka od usera, který je přihlášený
+  
+  const [challenges, setChallenges] = React.useState([]);
+  const [activities, setActivities] = React.useState([]);
 
-  console.log(photo); // dám tu photo rovnou do app jako image ke current_user
+  console.log(photo, user); // dám tu photo rovnou do app jako image ke current_user
 
   //console.log(userContext)
 
+  React.useEffect(() => {
+    GET_CHALLENGES(setChallenges);
+    GET_ACTIVITIES(setActivities);
+    //PUT_PHOTO(user.id, user);
+  }, []
+
+  )
+
   const countChallenges = () => {
-    const data = require("../data/db.json").challenges;
-    const finished = data.filter((item) => item.finished == 1);
+    //const data = require("../data/db.json").challenges;
+    const finished = challenges.filter((item) => item.finished == 1);
     return finished.length;
   }
 
   const countActivities = () => {
-    const data = require("../data/db.json").activities[0].data;
-    return data.length;
+    //const data = require("../data/db.json").activities[0].data;
+    return activities[0].data.length;
   }
 
   const handleChoosePhoto = async () => {
@@ -36,7 +48,9 @@ function Profile(props) {
 
     if (!result.cancelled) {
       setPhoto(result);
-      PUT_PHOTO(user.id);
+      user.image = photo.path;
+      PUT_PHOTO(user.id, user);
+      //PUT_PHOTO(user.id, user);
     }
   };
 
@@ -54,6 +68,15 @@ function Profile(props) {
     );
   }
 
+  const logOut = () => {
+    setUser(null);
+    props.navigation.navigate("Login");
+  }
+
+  if (challenges.length == 0 || activities.length == 0) {
+    return null;
+  }
+
   return (
     <View style={styles.profileContainer}>
 
@@ -63,35 +86,40 @@ function Profile(props) {
       {
         photo ? (
       <Image source={{uri: photo.uri}}
-              style={{borderRadius: 12, width: "100%", height: "100%",
-              borderColor: colors.blackText, borderWidth: 0.5}}
+              style={styles.photo}
       />
         ) : (
-          <Image
+          user.image == "" ? (
+            <Image
           style={{width: "100%", height: "100%"}}
-          source={require("../assets/images/profile.png")}/>
+          source={ require("../assets/images/profile.png") }/>
+
+          ) : 
+          <Image
+          style={styles.photo}
+          source={{ uri: user.image }}/>
         )
       }
       </View>
 
       <View style={styles.namesContainer}>
-      <Text style={BOLD32}>Jméno Příjmení</Text>
-      <Text style={[SEMIBOLD16, {marginTop: 5, color: colors.grey}]} 
+      <Text style={BOLD32}>{user.first_name} {user.last_name}</Text>
+      <Text style={[SEMIBOLD16, {marginTop: 5, color: colors.grey}]}
       onPress={handleChoosePhoto}>Změnit profilovou fotku</Text>
       </View>
 
       </View>
 
       <View style={styles.pointsContainer}>
-      <DoubleText text1="celkem bodů" text2={52}/>
-      <DoubleText text1="tento týden" text2={52}/>
-      <DoubleText text1="nové znalosti" text2={52}/>
-      <DoubleText text1="ukončené výzvy" text2={52}/>
+      <DoubleText text1="celkem bodů" text2={user.total_score}/>
+      <DoubleText text1="tento týden" text2={user.weekly_score}/>
+      <DoubleText text1="nové znalosti" text2={countActivities()}/>
+      <DoubleText text1="ukončené výzvy" text2={countChallenges()}/>
 
       </View>
 
       <View style={styles.buttonContainer}>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={logOut}>
       <Text style={BOLD15}>
         ODHLÁSIT SE
       </Text>
@@ -104,6 +132,10 @@ function Profile(props) {
 export default Profile;
 
 const styles = StyleSheet.create({
+  photo: 
+    {borderRadius: 12, width: "100%", height: "100%",
+              borderColor: colors.blackText, borderWidth: 0.5}
+  ,
   picture: {
     width: "30%", height: "50%"
   },

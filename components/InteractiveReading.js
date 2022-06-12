@@ -3,9 +3,9 @@ import { View, Text, FlatList, TouchableOpacity, Image, StyleSheet } from "react
 import colors from "../assets/colors/colors";
 import { BOLD15, BOLD20, REGULAR16 } from "./atoms/typography";
 import BigButton from "./BigButton";
+import Accordion from 'react-native-collapsible/Accordion';
 
 /**
- *
  * component for interactive reading activity
  *
  * co potřebuji vědět: počet options - to se asi vyřeší v render options - ok
@@ -31,21 +31,38 @@ function InteractiveReading(props) {
   /** points of the user */
   const [points, setPoints] = React.useState(0);
 
-  function arePropsEqual(prevProps, nextProps) {
-    return prevProps.question.text === nextProps.question.text;
-  }
+  /** active states */
+  const [states, setStates] = React.useState([]);
 
+  // function arePropsEqual(prevProps, nextProps) {
+  //   return prevProps.question.text === nextProps.question.text;
+  // }
+  /**
+   * 
+   * @param {*} props 
+   * @returns visual representation of one question
+   */
   function Question(props) {
 
-    /**if false, question isnt showed */
-    const [show, setShow] = React.useState(false);
+    // /**if false, question isnt showed */
+    // const [show, setShow] = React.useState(false);
+
+    // /**which option did user select */
+    // const [currentOptionSelected, setCurrentOptionSelected] =
+    //   React.useState(null);
+
+    // /**if true, disabeling touchable functionality */
+    // const [questionAnswered, setQuestionAnswered] = React.useState(false);
+
+    const index = props.index;
+    const [show, setShow] = React.useState(states[index].show);
 
     /**which option did user select */
     const [currentOptionSelected, setCurrentOptionSelected] =
-      React.useState(null);
+      React.useState(states[index].currentOptionSelected);
 
     /**if true, disabeling touchable functionality */
-    const [questionAnswered, setQuestionAnswered] = React.useState(false);
+    const [questionAnswered, setQuestionAnswered] = React.useState(states[index].questionAnswered);
 
     return (
       <View style={styles.questionWrapper}>
@@ -68,19 +85,26 @@ function InteractiveReading(props) {
             <TouchableOpacity
               key={option.id}
               onPress={() => {
-                setCurrentOptionSelected(option);
-                //setCorrectOption(props.correct);
-                //option.logicalValue == 1 ? props.addPoints(points + option.scoreAmount) : null; // asi nemusím posílat přes props
-                //correctOption == option ? props.addPoints(1) : null;
-                //console.log(points);
-                //setItemIndex(itemIndex + 1);
-                //setShow(true);
-                //{props.onPress()}
-                setQuestionAnswered(true);
+                console.log(option);
+                //setCurrentOptionSelected(option);
+                //setQuestionAnswered(true);
+                //questionAnswered = true;
+                console.log(currentOptionSelected, show, questionAnswered)
+                const current = states[index]
+                current.show = show;
+                current.currentOptionSelected = option;
+                current.questionAnswered = true;
+                states[index] = current;
+                setStates(states);
+                setItemIndex(itemIndex + 1);
+                console.log(points);
+                setPoints(points + option.scoreAmount);
+                console.log(currentOptionSelected, show, questionAnswered)
               }}
               disabled={questionAnswered}
             >
-              <View style={styles.optionWrapper}>
+              <View style={[styles.optionWrapper, {backgroundColor: option.logicalValue == 1 && questionAnswered ? 
+                colors.correct_light : (option == currentOptionSelected ? colors.wrong_light : colors.white)}]}>
               <Text style={[BOLD15, {textTransform: 'uppercase'}]}>{option.text}</Text>
               {
                 (option.logicalValue == 1 && questionAnswered ? (
@@ -94,7 +118,6 @@ function InteractiveReading(props) {
                 ) : null)
 
               }
-
               </View>
             </TouchableOpacity>
           ))
@@ -107,7 +130,10 @@ function InteractiveReading(props) {
 
   
   
-  const renderItem = ({ item }) => {
+  const renderItem = ({ item, index }) => {
+    console.log(states[index]);
+    states.push({show: false, currentOptionSelected: null, 
+      questionAnswered: false});
     return (
       <View style={{alignItems: 'center'}}>
         <View style={styles.contentWrapper}>
@@ -118,8 +144,12 @@ function InteractiveReading(props) {
           <Question
             key={item.id}
             question={item.question}
-            onPress={() => setItemIndex(itemIndex + 1)}
-            addPoints={(points) => setPoints(points)}
+            // onPress={() => setItemIndex(itemIndex + 1)}
+            // addPoints={(points) => setPoints(points)}
+            index={index}
+            show={states[index].show}
+            currentOptionSelected={states[index].currentOptionSelected}
+            questionAnswered={states[index].questionAnswered}
           />
         </View>
       </View>
@@ -127,32 +157,34 @@ function InteractiveReading(props) {
   };
 
   return (
-    <View>
-      {/* <Text style={[BOLD20, {padding: 20}]}>{props.route.params.header}</Text> */}
+    <View style={{flex: 1}}>
       <FlatList
         ListHeaderComponent={<Text style={[BOLD20, {padding: 20}]}>{props.route.params.header}</Text>}
-        data={data}  //.slice(0, itemIndex + 1)} // pokd je itemindex víc než max index akorát se vrátí všechna data
-        renderItem={renderItem
-        //   ({item}) => {
-        //   return (
-        //     <Question
-        //     id={item.id}
-        //     question={item.question}
-        //     //onPress={() => setItemIndex(itemIndex + 1)}
-        //     //addPoints={(points) => setPoints(points)}
-        //   />
-        //   )
-        // }
-      }
+        data={data.slice(0, itemIndex + 1)} // pokd je itemindex víc než max index akorát se vrátí všechna data
+        renderItem={renderItem}
         keyExtractor={(item) => item.id}
-      />
-
-      <BigButton
-        name="hotovo"
-        onPress={() =>
-          props.navigation.navigate("ActivityFinished", { points: points })
+        ListFooterComponent={<BigButton
+          name="hotovo"
+          onPress={() =>
+            props.navigation.navigate("ActivityFinished", { points: points })
+          }
+        />}
+        ListFooterComponentStyle={
+          {
+            alignSelf: 'center',
+            paddingVertical: '5%'
+          }
         }
       />
+
+      {/* <Accordion
+        sections={data}
+        renderContent={renderItem}
+        activeSections={data.slice(0, itemIndex + 1)}
+        onChange={setItemIndex}
+
+      /> */}
+      
     </View>
   );
 }
@@ -180,11 +212,13 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 15
+    marginTop: 15,
+    alignSelf: 'center'
   },
   questionWrapper: {
     width: '100%',
     //backgroundColor: colors.primary,
+    //backgroundColor: colors.correct,
     padding: 10,
     justifyContent: 'space-evenly'
   }

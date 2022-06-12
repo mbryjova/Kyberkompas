@@ -25,7 +25,8 @@ import {
   Quiz,
   ActivityFinished,
   InteractiveReading,
-  YesOrNo
+  YesOrNo,
+  APIActivity
 } from "./components";
 import colors from "./assets/colors/colors";
 
@@ -114,6 +115,8 @@ const TabNavigator = () => {
   );
 };
 
+export const UserContext = React.createContext();
+
 export default function App() {
 
   let [fontsLoaded] = useFonts({
@@ -123,6 +126,8 @@ export default function App() {
     Mulish_800ExtraBold,
   });
 
+  const [user, setUser] = React.useState(null);
+
   if (!fontsLoaded) {
     return <Text style={{ textAlign: "center" }}>App loading</Text>;
   }
@@ -131,8 +136,7 @@ export default function App() {
   //     background: colors.white,
   //   },
   // };
-  const UserContext = React.createContext();
-  const [user, setUser] = React.useState(null);
+  
 
   return (
     <UserContext.Provider value={[user, setUser]}>
@@ -193,6 +197,13 @@ export default function App() {
         component={YesOrNo}
         options={{
           title: "Ano nebo ne?"
+        }}
+        />
+        <Stack.Screen
+        name="APIActivity"
+        component={APIActivity}
+        options={{
+          title: "Informační aktivita"
         }}
         />
         <Stack.Screen

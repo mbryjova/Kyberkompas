@@ -6,7 +6,8 @@ import { BOLD32 } from "./atoms/typography";
 import BigButton from "./BigButton";
 import InputComp from "./InputComp";
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-
+import { GET_USERS } from "../database/queries";
+import {UserContext} from "../App";
 
 /**
  * component of the login screen
@@ -20,16 +21,20 @@ function Login(props) {
   const [wrongUsername, setWrongUsername] = React.useState(false);
 
   //const [users, setUsers] = React.useState(require("../data/db.json").users);
+
+  const [users, setUsers] = React.useState([]);
   const [currentUser, setCurrentUser] = React.useState(null);
+  const [user, setUser] = React.useContext(UserContext);
 
   React.useEffect(() => {
-    
-  }
+    GET_USERS(setUsers);
+    console.log(users);
+  }, []
 
   )
 
   const handleLogin = () => {
-    const [user, setUser] = React.useContext(userContext);
+    
     if (password.length < 5) {
       setWrongPassword(true);
       console.log("password not given or short");
@@ -50,7 +55,7 @@ function Login(props) {
         console.log(current);
         if (currentUser.password == password) {
           setWrongPassword(false);
-          setUser(current);
+          setUser(current[0]);
           props.navigation.navigate("TabNavigator");
 
         } else {
@@ -61,7 +66,9 @@ function Login(props) {
     }
 
   }
-
+  if (users.length == 0) {
+    return null;
+  }
   return (
     <KeyboardAwareScrollView contentContainerStyle={{backgroundColor: colors.correct, flex: 1}}>
       <View style={{flex: 1, backgroundColor: colors.correct}}>

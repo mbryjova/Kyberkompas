@@ -1,9 +1,9 @@
 
 import axios from "axios";
 
-const GET_CHALLENGES = (setter) => {
+const GET_CHALLENGES = async (setter) => {
     console.log("here2");
-      axios.get('https://kyberkompas-database.herokuapp.com/challenges')
+     await axios.get('https://kyberkompas-database.herokuapp.com/challenges')
       .then((response) => {
         console.log(response.data);
         setter(response.data);
@@ -11,9 +11,9 @@ const GET_CHALLENGES = (setter) => {
       }).catch(error => console.log(error));
 }
 
-const GET_USERS = (setter) => {
+const GET_USERS = async (setter) => {
   //console.log("here");
-    axios.get('https://kyberkompas-database.herokuapp.com/users')
+    await axios.get('https://kyberkompas-database.herokuapp.com/users')
     .then((response) => {
       console.log(response.data);
       setter(response.data);
@@ -21,31 +21,57 @@ const GET_USERS = (setter) => {
     }).catch(error => console.log(error));
 }
 
-const PUT_PHOTO = (user_id) => {
-  axios.put('https://kyberkompas-database.herokuapp.com/users'.concat(user_id)).then(
+const POST_USER = () => {
+  axios.post('https://kyberkompas-database.herokuapp.com/users')
+  .then((response) => {
+    console.log(response.data);
+    //setter(response.data);
+    //console.log(challenges);
+  }).catch(error => console.log(error));
+}
+
+const PUT_USER = (user) => {
+  axios.put('https://kyberkompas-database.herokuapp.com/users/'.concat(user.id))
+  .then((response) => {
+    console.log(response.data);
+    setter(response.data);
+    //console.log(challenges);
+  }).catch(error => console.log(error));
+}
+
+const PUT_PHOTO = (user_id, user) => {
+  axios.put('https://kyberkompas-database.herokuapp.com/users/'.concat(user_id), user).then(
     (response) => {
       console.log(response.data);
     }
   ).catch(error => console.log(error));
 }
 
-const POST_ACTIVITY = (activity_id) => {
-  axios.put('https://kyberkompas-database.herokuapp.com/activities/1/data').then(
+const POST_ACTIVITY = (activity, id) => {
+  axios.put('https://kyberkompas-database.herokuapp.com/activities/'.concat(id), activity).then(
     (response) => {
       console.log(response.data);
     }
   ).catch(error => console.log(error));
 }
 
-const DELETE_ACTIVITY = (activity_id) => {
-  axios.delete('https://kyberkompas-database.herokuapp.com/activities/2/data').then(
-    (response) => {
+
+const GET_ACTIVITIES = (setter) => {
+  //console.log("here");
+    axios.get('https://kyberkompas-database.herokuapp.com/activities')
+    .then((response) => {
       console.log(response.data);
-    }
-  ).catch(error => console.log(error));
+      setter(response.data);
+      //console.log(challenges);
+    }).catch(error => console.log(error));
 }
 
 export {
     GET_CHALLENGES,
-    GET_USERS
+    GET_USERS,
+    PUT_PHOTO,
+    GET_ACTIVITIES,
+    POST_ACTIVITY,
+    POST_USER,
+    PUT_USER
 }

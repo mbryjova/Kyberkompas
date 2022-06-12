@@ -5,6 +5,7 @@ import BigButton from "./BigButton";
 import * as Progress from "react-native-progress";
 import { BOLD20, BOLD15, REGULAR16 } from "./atoms/typography";
 import ValidationView from "./ValidationView";
+import { POST_ACTIVITY } from "../database/queries";
 
 function Quiz(props) {
   const allQuestions = require("../data/db.json").test_data;
@@ -23,7 +24,6 @@ function Quiz(props) {
   /**state which contains the number of points */
   const [points, setPoints] = React.useState(0);
 
-  const [progress, setProgress] = React.useState(0);
 
   /** state of the quiz:
    * 1 - question
@@ -32,8 +32,6 @@ function Quiz(props) {
    */
 
   const [quizState, setQuizState] = React.useState(1);
-
-  //const [explanation, setExplanation] = React.useState(false);
 
   const renderQuestion = () => {
     return (
@@ -64,7 +62,6 @@ function Quiz(props) {
               console.log(option);
             }} // nastavím jako selected option
           >
-            {/**na co chci namapovat každou option, on press se změní barva políčka */}
 
             <Text style={[BOLD15, {textAlign: "center"}]}>{option.text}</Text>
           </TouchableOpacity>
@@ -78,7 +75,6 @@ function Quiz(props) {
     console.log("in validate", currentQuestionIndex);
     if (currentOptionSelected !== null) {
       if (
-        //allQuestions[currentQuestionIndex].correct === currentOptionSelected
         currentOptionSelected.logicalValue == 1
       ) {
         console.log("correct")
@@ -117,7 +113,7 @@ function Quiz(props) {
           {renderOption()}
 
           <View style={{justifyContent:'space-evenly', height: '15%', alignItems: 'center'}}>
-          <Progress.Bar progress={0.3} />
+          <Progress.Bar progress={currentQuestionIndex / allQuestions.length} />
           <View style={{backgroundColor: colors.blackText}}>
             <BigButton
               name="zkontrolovat"
@@ -130,7 +126,6 @@ function Quiz(props) {
       )}
       {quizState == 2 && (
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'space-evenly'}}>
-          {/* {correct ? <Text> správně</Text> : <Text>špatně</Text>} */}
           <View style={{width: '91%', height: '7%'}}>
           <ValidationView logicalValue={correct ? 1 : 0}>
 
@@ -138,13 +133,12 @@ function Quiz(props) {
 
           </View>
           
-          {/* <Text>{allQuestions[currentQuestionIndex].explanation}</Text> */}
           <View style={styles.explanationWrapper}>
           <Text style={[REGULAR16]}>{currentOptionSelected.explanation}</Text>
 
           </View>
           <View style={{justifyContent:'space-evenly', height: '15%', alignItems: 'center'}}>
-          <Progress.Bar progress={0.3} />
+          <Progress.Bar progress={currentQuestionIndex / allQuestions.length} />
           <View style={{ backgroundColor: colors.wrong }}>
             <BigButton
               name="na další otázku"
@@ -157,7 +151,6 @@ function Quiz(props) {
 
       {quizState == 3 && (
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'space-evenly'}}>
-        {/* {correct ? <Text> správně</Text> : <Text>špatně</Text>} */}
         <View style={{width: '91%', height: '7%'}}>
         <ValidationView logicalValue={correct ? 1 : 0}>
 
@@ -165,19 +158,28 @@ function Quiz(props) {
 
         </View>
         
-        {/* <Text>{allQuestions[currentQuestionIndex].explanation}</Text> */}
         <View style={styles.explanationWrapper}>
         <Text style={[REGULAR16]}>{currentOptionSelected.explanation}</Text>
 
         </View>
         <View style={{justifyContent:'space-evenly', height: '15%', alignItems: 'center'}}>
-        <Progress.Bar progress={0.3} />
+        <Progress.Bar progress={currentQuestionIndex / allQuestions.length} />
         <View style={{ backgroundColor: colors.wrong }}>
           <BigButton
             name="dokončit"
             onPress={() => 
               // put a zmenit aktivity
-              props.navigation.navigate("ActivityFinished", { points: points })} // {next question} // potom už se ale nepůjde vracet
+              {props.route.params.setActivityFinished(true);
+
+              // 
+              props.route.params.activity.score = points;
+              props.route.params.data[0].data.push(props.route.params.activity);
+              props.route.params.data[1].data = props.route.params.data[1].data.filter((item) => props.route.params.activity.id != item.id);
+              // toto odstraňování ještě nefunguje - props.route.params.data[1].data.filter((item) => props.route.params.activity.id != item.id);
+
+              POST_ACTIVITY(props.route.params.data[0], 1);
+              POST_ACTIVITY(props.route.params.data[1], 2);
+              props.navigation.navigate("ActivityFinished", { points: points })}} // {next question} // potom už se ale nepůjde vracet
           />
         </View>
           </View>

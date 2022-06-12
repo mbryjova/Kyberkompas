@@ -8,13 +8,22 @@ import {
   REGULAR16,
 } from "./atoms/typography";
 import colors from "../assets/colors/colors";
+import { GET_ACTIVITIES } from "../database/queries";
 
 function Module({ route, navigation }) {
   const header = "aktivity";
-  const data = require("../data/db.json");
+  //const data = require("../data/db.json");
+  const [data, setData] = React.useState([]);
   const [activityFinished, setActivityFinished] = React.useState(false);
 
-  const renderActivityItem = ({ item }) => {
+  React.useEffect(() => {
+    GET_ACTIVITIES(setData);
+    console.log(data);
+  }, [activityFinished]
+
+  )
+
+  const renderActivityItem = ({ item, section }) => {
     const activityType = {
       "test": "Quiz",
       "ano nebo ne": "YesOrNo",
@@ -35,7 +44,7 @@ function Module({ route, navigation }) {
             alignSelf: "center",
             marginBottom: "4%",
             backgroundColor:
-              item.status === "dokončené" ? colors.correct_light : colors.white,
+            section.title === "dokončené:" ? colors.correct_light : colors.white,
           },
         ]}
       >
@@ -47,7 +56,7 @@ function Module({ route, navigation }) {
           <Text style={REGULAR16}>{item.description}</Text>
         </View>
         {
-          item.status == "následující" ? (
+          section.title == "následující:" ? (
         <Text
           style={[
             BOLD15,
@@ -59,7 +68,7 @@ function Module({ route, navigation }) {
             },
           ]}
           onPress={() => navigation.navigate(activityType[item.type], {header: item.name, moduleName: route.params.name, 
-            setActivityFinished: setActivityFinished})}
+            setActivityFinished: setActivityFinished, activity: item, data: data})}
         >
           SPUSTIT
         </Text>
@@ -96,10 +105,14 @@ function Module({ route, navigation }) {
     );
   };
 
+  if (data.length == 0) {
+    return null;
+  }
+
   return (
     <View style={{ backgroundColor: colors.correct, flex: 1 }}>
       <SectionList
-        sections={data.activities}
+        sections={data}
         keyExtractor={(item) => item.id}
         renderItem={renderActivityItem}
         // renderItem={({section, item}) => {
