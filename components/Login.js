@@ -53,7 +53,7 @@ function Login(props) {
       else {
         setWrongUsername(false);
         console.log(current);
-        if (currentUser.password == password) {
+        if (current[0].password == password) {
           setWrongPassword(false);
           setUser(current[0]);
           props.navigation.navigate("TabNavigator");

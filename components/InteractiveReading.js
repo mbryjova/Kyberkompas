@@ -3,7 +3,7 @@ import { View, Text, FlatList, TouchableOpacity, Image, StyleSheet } from "react
 import colors from "../assets/colors/colors";
 import { BOLD15, BOLD20, REGULAR16 } from "./atoms/typography";
 import BigButton from "./BigButton";
-import Accordion from 'react-native-collapsible/Accordion';
+import { POST_ACTIVITY } from "../database/queries";
 
 /**
  * component for interactive reading activity
@@ -165,8 +165,18 @@ function InteractiveReading(props) {
         keyExtractor={(item) => item.id}
         ListFooterComponent={<BigButton
           name="hotovo"
-          onPress={() =>
-            props.navigation.navigate("ActivityFinished", { points: points })
+          onPress={() => {props.route.params.setActivityFinished(true);
+
+            // 
+            props.route.params.activity.score = points;
+            props.route.params.data[0].data.push(props.route.params.activity);
+            props.route.params.data[1].data = props.route.params.data[1].data.filter((item) => props.route.params.activity.id != item.id);
+
+            POST_ACTIVITY(props.route.params.data[0], 1);
+            POST_ACTIVITY(props.route.params.data[1], 2);
+            props.navigation.navigate("ActivityFinished", { points: points })}
+            
+            //props.navigation.navigate("ActivityFinished", { points: points })
           }
         />}
         ListFooterComponentStyle={

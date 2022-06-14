@@ -175,7 +175,6 @@ function Quiz(props) {
               props.route.params.activity.score = points;
               props.route.params.data[0].data.push(props.route.params.activity);
               props.route.params.data[1].data = props.route.params.data[1].data.filter((item) => props.route.params.activity.id != item.id);
-              // toto odstraňování ještě nefunguje - props.route.params.data[1].data.filter((item) => props.route.params.activity.id != item.id);
 
               POST_ACTIVITY(props.route.params.data[0], 1);
               POST_ACTIVITY(props.route.params.data[1], 2);
