@@ -23,13 +23,14 @@ function ActivityFinished(props) {
                     Aktivita dokončena!
                 </Text>
                 <Text style={[SEMIBOLD16, {textAlign: 'center'}]}>
-                Podívejte se na další aktivity v sekci znalosti.
+                Podívejte se na další aktivity.
                 </Text>
             </View>
             <View style={{flex: 1}}>
             <BigButton
-                name="zpět do znalostí"
-                onPress={() => props.navigation.navigate('TabNavigator', {screen: 'SkillTree'})}
+                name="na další aktivity"
+                onPress={() => props.navigation.goBack().goBack()}
+                //onPress={() => props.navigation.navigate('TabNavigator', {screen: 'SkillTree'})}
             />
 
             </View>

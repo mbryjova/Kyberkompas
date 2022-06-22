@@ -98,6 +98,15 @@ function Quiz(props) {
       setCurrentQuestionIndex(currentQuestionIndex + 1), setQuizState(1)    
   };
 
+  const handleFinish = () => {
+    props.route.params.setActivityFinished(true);
+    //PUT activity finished
+    //PUT /scores/cotextuser.id {"total_score": + points,
+      // "weekly_score": + points,
+      // "monthly_score": + points,
+      // "anual_score": + points}
+  }
+
   return (
     <View
       style={{
@@ -172,7 +181,7 @@ function Quiz(props) {
               {props.route.params.setActivityFinished(true);
 
               // 
-              props.route.params.activity.score = points;
+              //props.route.params.activity.score = points;
               props.route.params.data[0].data.push(props.route.params.activity);
               props.route.params.data[1].data = props.route.params.data[1].data.filter((item) => props.route.params.activity.id != item.id);
 

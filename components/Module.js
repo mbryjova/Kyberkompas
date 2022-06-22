@@ -115,14 +115,6 @@ function Module({ route, navigation }) {
         sections={data}
         keyExtractor={(item) => item.id}
         renderItem={renderActivityItem}
-        // renderItem={({section, item}) => {
-        //   if (section.title == "dokončené:") {
-        //     return null;
-
-        //   }
-        //   return <RenderActivityItem item={item}></RenderActivityItem>;
-        // }
-        // }
         renderSectionHeader={({ section }) => (
           <View>
           <Text
@@ -136,13 +128,6 @@ function Module({ route, navigation }) {
           >
             {section.title}
           </Text>
-          {/* { section.title == "dokončené:" && 
-          (<FlatList
-            data={section.data}
-            horizontal
-            renderItem={({item}) => {return <RenderActivityItem item={item}></RenderActivityItem>;}}
-          />)
-          } */}
           </View>
         )}
         ListHeaderComponent={

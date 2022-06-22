@@ -19,8 +19,9 @@ function Profile(props) {
   //console.log(userContext)
 
   React.useEffect(() => {
-    GET_CHALLENGES(setChallenges);
-    GET_ACTIVITIES(setActivities);
+    // GET scores/contextuser.id
+    //GET_CHALLENGES(setChallenges);
+    //GET_ACTIVITIES(setActivities);
     //PUT_PHOTO(user.id, user);
   }, []
 

@@ -6,7 +6,7 @@ import { BOLD32 } from "./atoms/typography";
 import BigButton from "./BigButton";
 import InputComp from "./InputComp";
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import { GET_USERS } from "../database/queries";
+import { GET_USERS, LOGIN } from "../database/queries";
 import {UserContext} from "../App";
 
 /**
@@ -22,52 +22,55 @@ function Login(props) {
 
   //const [users, setUsers] = React.useState(require("../data/db.json").users);
 
-  const [users, setUsers] = React.useState([]);
-  const [currentUser, setCurrentUser] = React.useState(null);
-  const [user, setUser] = React.useContext(UserContext);
+  // const [users, setUsers] = React.useState([]);
+  // const [currentUser, setCurrentUser] = React.useState(null);
+  // const [user, setUser] = React.useContext(UserContext);
 
   React.useEffect(() => {
-    GET_USERS(setUsers);
-    console.log(users);
+    //GET_USERS(setUsers);
+    //console.log(users);
   }, []
 
   )
 
   const handleLogin = () => {
+    const user = {
+      "password": password,
+      "email": username
+    };
+    LOGIN(user);
+
     
-    if (password.length < 5) {
-      setWrongPassword(true);
-      console.log("password not given or short");
-    }
-    else if (username == "") {
-      setWrongUsername(true);
-      console.log("username not given");
-    }
-    else {
-      const current = users.filter((user) => user.email == username);
-      setCurrentUser(current[0]);
-      if (current.length == 0) {
-        setWrongUsername(true);
-        console.log("email not in database", username)
-      }
-      else {
-        setWrongUsername(false);
-        console.log(current);
-        if (current[0].password == password) {
-          setWrongPassword(false);
-          setUser(current[0]);
-          props.navigation.navigate("TabNavigator");
+    // if (password.length < 5) {
+    //   setWrongPassword(true);
+    //   console.log("password not given or short");
+    // }
+    // else if (username == "") {
+    //   setWrongUsername(true);
+    //   console.log("username not given");
+    // }
+    // else {
+    //   const current = users.filter((user) => user.email == username);
+    //   setCurrentUser(current[0]);
+    //   if (current.length == 0) {
+    //     setWrongUsername(true);
+    //     console.log("email not in database", username)
+    //   }
+    //   else {
+    //     setWrongUsername(false);
+    //     console.log(current);
+    //     if (current[0].password == password) {
+    //       setWrongPassword(false);
+    //       setUser(current[0]);
+    //       props.navigation.navigate("TabNavigator");
 
-        } else {
-          console.log("wrong password", password);
-          setWrongPassword(true);
-        }
-      }
-    }
+    //     } else {
+    //       console.log("wrong password", password);
+    //       setWrongPassword(true);
+    //     }
+    //   }
+    // }
 
-  }
-  if (users.length == 0) {
-    return null;
   }
   return (
     <KeyboardAwareScrollView contentContainerStyle={{backgroundColor: colors.correct, flex: 1}}>
@@ -127,7 +130,7 @@ function Login(props) {
         <Text style={styles.noAccountText}>Nemáte účet?</Text>
         <Text
           style={styles.signUp}
-          onPress={() => props.navigation.navigate("Signup", {data: users})}
+          onPress={() => props.navigation.navigate("Signup", {data: []})}
         >
           Zaregistrujte se
         </Text>

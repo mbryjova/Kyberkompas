@@ -1,6 +1,9 @@
 
 import axios from "axios";
 
+const URL_CHALLENGES = 'https://kyberkompas-database.herokuapp.com/challenges/';
+
+
 const GET_CHALLENGES = async (setter) => {
     console.log("here2");
      await axios.get('https://kyberkompas-database.herokuapp.com/challenges')
@@ -56,14 +59,23 @@ const POST_ACTIVITY = (activity, id) => {
 }
 
 
-const GET_ACTIVITIES = (setter) => {
+const GET_ACTIVITIES = (setter, module_name) => {
   //console.log("here");
-    axios.get('https://kyberkompas-database.herokuapp.com/activities')
+    axios.get('https://kyberkompas-database.herokuapp.com/activities_'.concat(module_name))
     .then((response) => {
       console.log(response.data);
       setter(response.data);
       //console.log(challenges);
     }).catch(error => console.log(error));
+}
+
+const LOGIN = (user) => {
+  axios.post('https://kyberkompas-database.herokuapp.com/login', user)
+  .then((response) => {
+    console.log(response.data);
+    //setter(response.data);
+    //console.log(challenges);
+  }).catch(error => console.log(error)); 
 }
 
 export {
@@ -73,5 +85,6 @@ export {
     GET_ACTIVITIES,
     POST_ACTIVITY,
     POST_USER,
-    PUT_USER
+    PUT_USER,
+    LOGIN
 }
