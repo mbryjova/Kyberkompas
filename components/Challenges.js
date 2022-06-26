@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, Image, FlatList } from "react-native";
 import colors from "../assets/colors/colors";
 import { EXTRABOLD12, BOLD20, REGULAR16, BOLD15, SEMIBOLD16, BOLD32 } from "./atoms/typography";
 import axios from "axios";
-import {GET_CHALLENGES} from "../database/queries";
+import {GET, URL_CHALLENGES} from "../database/queries";
 
 /**
  * dát image přes get, získávám z databáze - někde ho získám
@@ -23,33 +23,17 @@ function Challenges(props) {
   const [changed, setChanged] = React.useState(false);
   /** getting the data */
   
-
-  /** a function for rendering the challenge item */
-
   React.useEffect(() => {
-
-    const fetchData = () => {
-      console.log("here2");
-      axios.get('https://kyberkompas-database.herokuapp.com/challenges')
-      .then((response) => {
-        console.log(response.data);
-        setChallenges(response.data);
-        //console.log(challenges);
-      }).catch(error => console.log(error)); 
-    }
-    //fetchData();
-    GET_CHALLENGES(setChallenges);
+    GET(setChallenges, URL_CHALLENGES);
     console.log("chall:" + challenges);
     setChanged(false);
   }
   , [changed]);
 
+  /** a function for rendering the challenge item */
 
   const renderChallengeItem = ({ item }) => {
-    //const image_source = "../assets/images/challenge1.png";
-    //const image_source = item.image;
-    const more = "více"; // kdyžtak pro lokalizaci
-
+    
     // todo, upravit styl obrázku
     return (
       <View style={styles.challengeWrapper}>
@@ -82,7 +66,7 @@ function Challenges(props) {
               },
             ]}
           >
-            {more}
+            více
           </Text>
         </View>
       </View>

@@ -3,12 +3,13 @@ import { Text, View, SectionList, StyleSheet, Image, FlatList } from "react-nati
 import {
   BOLD15,
   BOLD20,
+  BOLD23,
   BOLD32,
   EXTRABOLD12,
   REGULAR16,
 } from "./atoms/typography";
 import colors from "../assets/colors/colors";
-import { GET_ACTIVITIES } from "../database/queries";
+import { GET, URL_ACTIVITIES } from "../database/queries";
 
 function Module({ route, navigation }) {
   const header = "aktivity";
@@ -17,11 +18,47 @@ function Module({ route, navigation }) {
   const [activityFinished, setActivityFinished] = React.useState(false);
 
   React.useEffect(() => {
-    GET_ACTIVITIES(setData);
-    console.log(data);
+    let module_name = route.params.name;
+    if (route.params.name == "Kybertahák") {
+      module_name = "kybertahak"
+    }
+    //console.log( URL_ACTIVITIES.concat(module_name));
+    GET(setData, URL_ACTIVITIES.concat(module_name));
+    console.log(data, route.params.name);
   }, [activityFinished]
 
   )
+
+  const renderNoActivities = ({section}) => {
+    if (section.data.length != 0) {
+      return null;
+    }
+    return (
+    <View
+        style={[
+          {
+            height: 179,
+            width: "91%",
+            flex: 1,
+            //borderRadius: 16,
+            //borderWidth: 0.5,
+            //borderColor: colors.blackText,
+            alignSelf: "center",
+            marginBottom: "4%",
+            alignItems: 'center',
+            //justifyContent: 'center',
+            //backgroundColor: colors.white,
+
+          },
+        ]}
+      >
+        <Text style={[BOLD20, {paddingTop: '10%'}]}>
+          žádné aktivity
+        </Text>
+      </View>
+
+    )
+  }
 
   const renderActivityItem = ({ item, section }) => {
     const activityType = {
@@ -67,8 +104,12 @@ function Module({ route, navigation }) {
 
             },
           ]}
-          onPress={() => navigation.navigate(activityType[item.type], {header: item.name, moduleName: route.params.name, 
-            setActivityFinished: setActivityFinished, activity: item, data: data})}
+          onPress={() => navigation.navigate(activityType[item.type], 
+            {header: item.name,
+            //moduleName: route.params.name,
+            setActivityFinished: setActivityFinished, 
+            activity: item, 
+            data: data})}
         >
           SPUSTIT
         </Text>
@@ -88,12 +129,10 @@ function Module({ route, navigation }) {
                 marginBottom: "5%"
                 //flex: 1
               },
-            ]}
-            
+            ]} 
             >
               dokončena
             </Text>
-
             <Image
               style={{marginBottom: "4.5%", marginLeft: "4%"}}
               source={require("../assets/images/testIcons/check.png")}
@@ -115,6 +154,8 @@ function Module({ route, navigation }) {
         sections={data}
         keyExtractor={(item) => item.id}
         renderItem={renderActivityItem}
+        ListEmptyComponent={renderNoActivities}
+        renderSectionFooter={renderNoActivities}
         renderSectionHeader={({ section }) => (
           <View>
           <Text
@@ -139,9 +180,7 @@ function Module({ route, navigation }) {
             {header}
           </Text>
         }
-      />
-
-      
+      />      
     </View>
   );
 }

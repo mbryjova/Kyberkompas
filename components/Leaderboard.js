@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Text, Image, FlatList, TouchableOpacity } from "react-native";
 import colors from "../assets/colors/colors";
-import { GET_USERS } from "../database/queries";
+import { GET } from "../database/queries";
 import { BOLD16, REGULAR14, SEMIBOLD16 } from "./atoms/typography";
 
 function Leaderboard(props) {
@@ -11,22 +11,29 @@ function Leaderboard(props) {
    * 3 - rok
    */
   const [currentState, setCurrentState] = React.useState(1);
-  const [data, setData] = React.useState([]);
+  const [weekly, setWeekly] = React.useState([]);
+  const [monthly, setMonthly] = React.useState([]);
+  const [annual, setAnnual] = React.useState([]);
   // if (data.length == []) {
   //   data = GET_USERS(setData);
   //   data.sort((a, b) => b.weekly_score - a.weekly_score);
   // }
   //const data = require("../data/db.json").users.sort((a, b) => b.weekly_score - a.weekly_score);
 
-  React.useEffect(() => {
-    console.log("here");
-    GET_USERS(setData);
-    console.log(data);
-    if (data.length != 0)
-    {
-      data.sort((a, b) => b.weekly_score - a.weekly_score);
+  const data = {
+    1: weekly,
+    2: monthly,
+    3: annual
+  }
 
-    }
+  const URL = "https://kyberkompas-database.herokuapp.com/leaderboard_";
+
+  React.useEffect(() => {
+    GET(setWeekly, URL.concat("weekly"));
+    GET(setMonthly, URL.concat("monthly"));
+    GET(setAnnual, URL.concat("annual"));
+    console.log("here");
+    //console.log(data);
   }, []
   )
 
@@ -96,11 +103,10 @@ function Leaderboard(props) {
         <TouchableOpacity
         onPress={() => 
           {setCurrentState(1)
-            data.sort((a,b) => b.weekly_score - a.weekly_score);
           }
         }
         style={
-          [{backgroundColor: currentState == 1 ? colors.primary : colors.white, 
+          [{backgroundColor: currentState == 1 ? colors.primary : colors.white,
             borderColor: currentState == 1 ? colors.blackText : colors.white,
             borderWidth: currentState == 1 ? 0.5 : 0,
           }, styles.topNavigator]
@@ -118,7 +124,6 @@ function Leaderboard(props) {
         <TouchableOpacity
         onPress={() => 
           {setCurrentState(2);
-            data.sort((a,b) => b.monthly_score - a.monthly_score);
           }
         }
         style={
@@ -140,7 +145,6 @@ function Leaderboard(props) {
         <TouchableOpacity
         onPress={() => 
           {setCurrentState(3);
-            data.sort((a,b) => b.anual_score - a.anual_score);
           }
         }
         style={
@@ -161,7 +165,7 @@ function Leaderboard(props) {
         </TouchableOpacity>
       </View>
       <FlatList
-        data={data}
+        data={data[currentState]}
         keyExtractor={(item) => item.id}
         renderItem={renderPerson}
         contentContainerStyle={{

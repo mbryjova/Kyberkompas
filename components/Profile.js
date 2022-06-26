@@ -3,40 +3,26 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import * as ImagePicker from 'expo-image-picker';
 import colors from "../assets/colors/colors";
 import { BOLD20, EXTRABOLD12, SEMIBOLD16, BOLD32, BOLD15 } from "./atoms/typography";
-import {GET_ACTIVITIES, GET_CHALLENGES, PUT_PHOTO} from "../database/queries";
+import {GET, PUT_PHOTO, URL_SCORES} from "../database/queries";
 import {UserContext} from "../App";
 
 function Profile(props) {
 
   const [user, setUser] = React.useContext(UserContext);
+  const [scores, setScores] = React.useState(null);
   const [photo, setPhoto] = React.useState(null); // tady bude fotka od usera, který je přihlášený
   
-  const [challenges, setChallenges] = React.useState([]);
-  const [activities, setActivities] = React.useState([]);
 
   console.log(photo, user); // dám tu photo rovnou do app jako image ke current_user
 
   //console.log(userContext)
 
   React.useEffect(() => {
+    console.log(user);
+    GET(setScores, URL_SCORES.concat(user.id));
     // GET scores/contextuser.id
-    //GET_CHALLENGES(setChallenges);
-    //GET_ACTIVITIES(setActivities);
     //PUT_PHOTO(user.id, user);
-  }, []
-
-  )
-
-  const countChallenges = () => {
-    //const data = require("../data/db.json").challenges;
-    const finished = challenges.filter((item) => item.finished == 1);
-    return finished.length;
-  }
-
-  const countActivities = () => {
-    //const data = require("../data/db.json").activities[0].data;
-    return activities[0].data.length;
-  }
+  }, []) // potřebuju aby se to stáhlo vždycky
 
   const handleChoosePhoto = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -51,7 +37,6 @@ function Profile(props) {
       setPhoto(result);
       user.image = photo.path;
       PUT_PHOTO(user.id, user);
-      //PUT_PHOTO(user.id, user);
     }
   };
 
@@ -74,7 +59,8 @@ function Profile(props) {
     props.navigation.navigate("Login");
   }
 
-  if (challenges.length == 0 || activities.length == 0) {
+  
+  if (scores == null) {
     return null;
   }
 
@@ -112,10 +98,10 @@ function Profile(props) {
       </View>
 
       <View style={styles.pointsContainer}>
-      <DoubleText text1="celkem bodů" text2={user.total_score}/>
-      <DoubleText text1="tento týden" text2={user.weekly_score}/>
-      <DoubleText text1="nové znalosti" text2={countActivities()}/>
-      <DoubleText text1="ukončené výzvy" text2={countChallenges()}/>
+      <DoubleText text1="celkem bodů" text2={scores.total_score}/>
+      <DoubleText text1="tento týden" text2={scores.weekly_score}/>
+      <DoubleText text1="nové znalosti" text2={scores.new_activites}/>
+      <DoubleText text1="ukončené výzvy" text2={scores.finished_challenges}/>
 
       </View>
 

@@ -3,7 +3,7 @@ import { View, Text, FlatList, TouchableOpacity, Image } from "react-native";
 import AnimatedProgressWheel from "react-native-progress-wheel";
 import colors from "../assets/colors/colors";
 import { SEMIBOLD16 } from "./atoms/typography";
-import axios from "axios";
+import { GET, URL_MODULES } from "../database/queries";
 
 //const port = process.env.PORT || 4000;
 
@@ -13,18 +13,7 @@ function SkillTree(props) {
   const modules_data = require("../data/db.json").modules;
 
   React.useEffect(() => {
-
-    const fetchData = async () => {
-      console.log("here");
-      await axios.get('https://kyberkompas-database.herokuapp.com/modules')
-      .then((response) => {
-        console.log(response);
-        setModules(response.data);
-        console.log(modules);
-      }).catch(error => console.log(error));
-      
-    }
-    fetchData();
+    GET(setModules, URL_MODULES);
   }
   , [])
 
@@ -34,9 +23,11 @@ function SkillTree(props) {
       <View>
         <View
           style={{
+            backgroundColor: colors.correct,
             alignContent: "center",
             alignItems: "center",
             marginBottom: 20,
+            
             paddingHorizontal: 30,
           }}
         >
@@ -98,7 +89,12 @@ function SkillTree(props) {
         showsVerticalScrollIndicator={false}
         renderItem={renderModuleItem}
         numColumns={2}
-        contentContainerStyle={{alignItems: 'center', paddingTop: 17}} // upravit
+        columnWrapperStyle={{backgroundColor: colors.primary}}
+        contentContainerStyle={{
+          alignItems: 'center', 
+          //paddingHorizontal: 30,
+          paddingTop: 17, 
+          backgroundColor: colors.correct_light}} // upravit
         //style={{alignContent: 'center', alignItems: 'center'}}
       />
     </View>

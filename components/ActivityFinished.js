@@ -30,6 +30,7 @@ function ActivityFinished(props) {
             <BigButton
                 name="na další aktivity"
                 onPress={() => props.navigation.goBack().goBack()}
+                // sem dát přičtení skore a dání aktivity do dokončených?
                 //onPress={() => props.navigation.navigate('TabNavigator', {screen: 'SkillTree'})}
             />
 

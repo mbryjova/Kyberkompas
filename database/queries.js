@@ -1,12 +1,14 @@
 
 import axios from "axios";
 
-const URL_CHALLENGES = 'https://kyberkompas-database.herokuapp.com/challenges/';
+const URL_CHALLENGES = 'https://kyberkompas-database.herokuapp.com/challenges';
+const URL_ACTIVITIES = 'https://kyberkompas-database.herokuapp.com/activities_';
+const URL_MODULES = 'https://kyberkompas-database.herokuapp.com/modules';
+const URL_SCORES = 'https://kyberkompas-database.herokuapp.com/scores/';
 
-
-const GET_CHALLENGES = async (setter) => {
-    console.log("here2");
-     await axios.get('https://kyberkompas-database.herokuapp.com/challenges')
+const GET = async (setter, url) => { // gets a list from url
+    console.log("here2", url);
+     await axios.get(url)
       .then((response) => {
         console.log(response.data);
         setter(response.data);
@@ -14,32 +16,12 @@ const GET_CHALLENGES = async (setter) => {
       }).catch(error => console.log(error));
 }
 
-const GET_USERS = async (setter) => {
-  //console.log("here");
-    await axios.get('https://kyberkompas-database.herokuapp.com/users')
-    .then((response) => {
+const POST = (url, object) => {
+  axios.put(url, object).then(
+    (response) => {
       console.log(response.data);
-      setter(response.data);
-      //console.log(challenges);
-    }).catch(error => console.log(error));
-}
-
-const POST_USER = () => {
-  axios.post('https://kyberkompas-database.herokuapp.com/users')
-  .then((response) => {
-    console.log(response.data);
-    //setter(response.data);
-    //console.log(challenges);
-  }).catch(error => console.log(error));
-}
-
-const PUT_USER = (user) => {
-  axios.put('https://kyberkompas-database.herokuapp.com/users/'.concat(user.id))
-  .then((response) => {
-    console.log(response.data);
-    setter(response.data);
-    //console.log(challenges);
-  }).catch(error => console.log(error));
+    }
+  ).catch(error => console.log(error));
 }
 
 const PUT_PHOTO = (user_id, user) => {
@@ -50,41 +32,54 @@ const PUT_PHOTO = (user_id, user) => {
   ).catch(error => console.log(error));
 }
 
-const POST_ACTIVITY = (activity, id) => {
-  axios.put('https://kyberkompas-database.herokuapp.com/activities/'.concat(id), activity).then(
-    (response) => {
-      console.log(response.data);
-    }
-  ).catch(error => console.log(error));
-}
+// const POST_ACTIVITY = (activity, id) => {
+//   axios.put('https://kyberkompas-database.herokuapp.com/activities/'.concat(id), activity).then(
+//     (response) => {
+//       console.log(response.data);
+//     }
+//   ).catch(error => console.log(error));
+// }
 
 
-const GET_ACTIVITIES = (setter, module_name) => {
-  //console.log("here");
-    axios.get('https://kyberkompas-database.herokuapp.com/activities_'.concat(module_name))
-    .then((response) => {
-      console.log(response.data);
-      setter(response.data);
-      //console.log(challenges);
-    }).catch(error => console.log(error));
-}
+// const GET_ACTIVITIES = (setter, module_name) => {
+//     axios.get('https://kyberkompas-database.herokuapp.com/activities_'.concat(module_name.toLowerCase()))
+//     .then((response) => {
+//       console.log(response.data);
+//       setter(response.data);
+//     }).catch(error => console.log(error));
+// }
 
-const LOGIN = (user) => {
-  axios.post('https://kyberkompas-database.herokuapp.com/login', user)
-  .then((response) => {
+const LOGIN = async (user, setter) => {
+  try {
+    const response = await axios.post('https://kyberkompas-database.herokuapp.com/login', user);
     console.log(response.data);
-    //setter(response.data);
-    //console.log(challenges);
-  }).catch(error => console.log(error)); 
+    if (response.status == 200) {
+      setter(response.data);
+    }
+  } catch (error) {
+    return console.log(error);
+  }
 }
+
+// const GET_SCORES = (user_id, setter) => {
+//   axios.get('https://kyberkompas-database.herokuapp.com/scores/'.concat(user_id))
+//     .then((response) => {
+//       console.log(response.data);
+//       setter(response.data);
+//     }).catch(error => console.log(error));
+
+// }
 
 export {
-    GET_CHALLENGES,
-    GET_USERS,
-    PUT_PHOTO,
-    GET_ACTIVITIES,
-    POST_ACTIVITY,
-    POST_USER,
-    PUT_USER,
-    LOGIN
+    PUT_PHOTO, // v profile.js
+    //GET_ACTIVITIES, // v module.js
+    //POST_ACTIVITY, // v aktivitách
+    LOGIN, // v login.js
+    //GET_SCORES,
+    GET,
+    POST,
+    URL_CHALLENGES,
+    URL_ACTIVITIES,
+    URL_MODULES,
+    URL_SCORES
 }

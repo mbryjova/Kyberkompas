@@ -6,7 +6,7 @@ import { BOLD32 } from "./atoms/typography";
 import BigButton from "./BigButton";
 import InputComp from "./InputComp";
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import { GET_USERS, LOGIN } from "../database/queries";
+import { LOGIN } from "../database/queries";
 import {UserContext} from "../App";
 
 /**
@@ -24,52 +24,29 @@ function Login(props) {
 
   // const [users, setUsers] = React.useState([]);
   // const [currentUser, setCurrentUser] = React.useState(null);
-  // const [user, setUser] = React.useContext(UserContext);
+  const [user, setUser] = React.useContext(UserContext);
 
-  React.useEffect(() => {
-    //GET_USERS(setUsers);
-    //console.log(users);
-  }, []
+  // React.useEffect(() => {
+  //   //GET_USERS(setUsers);
+  //   //console.log(users);
+  // }, []
 
-  )
+  // )
 
-  const handleLogin = () => {
-    const user = {
+  const handleLogin = async () => {
+    const my_user = {
       "password": password,
       "email": username
     };
-    LOGIN(user);
-
-    
-    // if (password.length < 5) {
-    //   setWrongPassword(true);
-    //   console.log("password not given or short");
-    // }
-    // else if (username == "") {
-    //   setWrongUsername(true);
-    //   console.log("username not given");
-    // }
-    // else {
-    //   const current = users.filter((user) => user.email == username);
-    //   setCurrentUser(current[0]);
-    //   if (current.length == 0) {
-    //     setWrongUsername(true);
-    //     console.log("email not in database", username)
-    //   }
-    //   else {
-    //     setWrongUsername(false);
-    //     console.log(current);
-    //     if (current[0].password == password) {
-    //       setWrongPassword(false);
-    //       setUser(current[0]);
-    //       props.navigation.navigate("TabNavigator");
-
-    //     } else {
-    //       console.log("wrong password", password);
-    //       setWrongPassword(true);
-    //     }
-    //   }
-    // }
+    await LOGIN(my_user, setUser);
+    if (user == null) {
+      setWrongPassword(true);
+      setWrongUsername(true);
+      //chyba
+    } else {
+      await props.navigation.navigate("TabNavigator");
+    }
+    // if user == null -> chyba
 
   }
   return (
@@ -118,11 +95,11 @@ function Login(props) {
       <View style={styles.button}>
         <BigButton
           name="PŘIHLÁSIT SE"
-          //  onPress={() => {
-          //      props.navigation.navigate("TabNavigator");
-          // //     //handleLogin;
-          //   }}
-          onPress={handleLogin}
+           onPress={() => {
+               props.navigation.navigate("TabNavigator");
+          //     //handleLogin;
+            }}
+          //onPress={handleLogin}
         />
       </View>
 
@@ -147,29 +124,22 @@ export default Login;
 
 const styles = StyleSheet.create({
   button: {
-    //flex: 1,
     justifyContent: "center",
     alignItems: "center",
     marginBottom: '5%'
-    //top: 500,
   },
   headline: {
     textAlign: "center",
-    //top: 76,
   },
   input: {
     marginBottom: 20 // dát jen když je input správně
   },
   inputWrapper: {
-    //position: "absolute",
-    //top: 371,
     alignSelf: "center",
     backgroundColor: colors.primary,
     width: "91%"
   },
   logo: {
-    //position: "absolute",
-    //top: 190,
     alignSelf: "center",
   },
   noAccountText: {
@@ -185,7 +155,6 @@ const styles = StyleSheet.create({
   signUpWrapper: {
     flexDirection: "row",
     fontSize: 16,
-    //top: 550,
     justifyContent: "center",
     alignItems: "center",
   },
