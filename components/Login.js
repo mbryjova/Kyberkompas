@@ -19,33 +19,41 @@ function Login(props) {
 
   const [wrongPassword, setWrongPassword] = React.useState(false);
   const [wrongUsername, setWrongUsername] = React.useState(false);
-
-  //const [users, setUsers] = React.useState(require("../data/db.json").users);
-
-  // const [users, setUsers] = React.useState([]);
-  // const [currentUser, setCurrentUser] = React.useState(null);
+  
   const [user, setUser] = React.useContext(UserContext);
 
-  // React.useEffect(() => {
-  //   //GET_USERS(setUsers);
-  //   //console.log(users);
-  // }, []
+  React.useEffect(() => {
+    //GET_USERS(setUsers);
+    //console.log(users);
+    if (user != null) {
+      props.navigation.navigate("TabNavigator");
+    }
+  }, [user]
 
-  // )
+  )
 
-  const handleLogin = async () => {
+  // const handleLogin = (new_user) => {
+  //   //setUser(new_user);
+  //   console.log("setting user context", user);
+  //   if (user != null) {
+  //     props.navigation.navigate("TabNavigator");
+  //   }
+  // }
+
+  const handleAuth = async () => {
     const my_user = {
       "password": password,
       "email": username
     };
-    await LOGIN(my_user, setUser);
-    if (user == null) {
-      setWrongPassword(true);
-      setWrongUsername(true);
-      //chyba
-    } else {
-      await props.navigation.navigate("TabNavigator");
-    }
+    const new_user = await LOGIN(my_user);
+    return new_user;
+    // if (user == null) {
+    //   setWrongPassword(true);
+    //   setWrongUsername(true);
+    //   //chyba
+    // } else {
+    //   await props.navigation.navigate("TabNavigator");
+    // }
     // if user == null -> chyba
 
   }
@@ -95,11 +103,16 @@ function Login(props) {
       <View style={styles.button}>
         <BigButton
           name="PŘIHLÁSIT SE"
-           onPress={() => {
-               props.navigation.navigate("TabNavigator");
-          //     //handleLogin;
-            }}
-          //onPress={handleLogin}
+          //  onPress={() => {
+          //      props.navigation.navigate("TabNavigator");
+          // //     //handleLogin;
+          //   }}
+          onPress={async () => {
+            const new_user = await handleAuth();
+            setUser(new_user);
+            //console.log("new_user:", new_user, user);
+            //handleLogin(new_user)
+          }}
         />
       </View>
 

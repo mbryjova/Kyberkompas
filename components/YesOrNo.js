@@ -10,6 +10,7 @@ import { BOLD15, BOLD20, REGULAR16 } from "./atoms/typography";
 import colors from "../assets/colors/colors";
 import Swiper from "react-native-deck-swiper";
 import BigButton from "./BigButton";
+import { URL_ACTIVITIES, ACTIVITY_FINISHED } from "../database/queries";
 
 function YesOrNo(props) {
   const [currentIndex, setCurrentIndex] = React.useState(0);
@@ -69,6 +70,7 @@ function YesOrNo(props) {
   };
 
   const lastQuestion = () => {
+    ACTIVITY_FINISHED(URL_ACTIVITIES.concat("hesla/"), props.route.params, points);
     props.navigation.navigate("ActivityFinished", { points: points });
   };
 

@@ -1,14 +1,16 @@
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, ScrollViewBase } from "react-native";
 import colors from "../assets/colors/colors";
 import BigButton from "./BigButton";
 import * as Progress from "react-native-progress";
 import { BOLD20, BOLD15, REGULAR16 } from "./atoms/typography";
 import ValidationView from "./ValidationView";
-import { POST_ACTIVITY } from "../database/queries";
+import { POST, POST_ACTIVITY, URL_SCORES, PUT, ACTIVITY_FINISHED, URL_ACTIVITIES } from "../database/queries";
+import {UserContext} from "../App";
 
 function Quiz(props) {
   const allQuestions = require("../data/db.json").test_data;
+  const [user, setUser] = React.useContext(UserContext);
   //const allQuestions = route.params.
 
   /** state which contains the index of current question */
@@ -178,16 +180,28 @@ function Quiz(props) {
             name="dokončit"
             onPress={() => 
               // put a zmenit aktivity
-              {props.route.params.setActivityFinished(true);
+              {
+              
+              ACTIVITY_FINISHED(URL_ACTIVITIES.concat("hesla/"), props.route.params, points);
+              
+              props.navigation.navigate("ActivityFinished", { points: points, name: props.route.params.module_name });
+              //props.route.params.setActivityFinished(true);
 
               // 
               //props.route.params.activity.score = points;
-              props.route.params.data[0].data.push(props.route.params.activity);
-              props.route.params.data[1].data = props.route.params.data[1].data.filter((item) => props.route.params.activity.id != item.id);
 
-              POST_ACTIVITY(props.route.params.data[0], 1);
-              POST_ACTIVITY(props.route.params.data[1], 2);
-              props.navigation.navigate("ActivityFinished", { points: points })}} // {next question} // potom už se ale nepůjde vracet
+              // props.route.params.data[0].data.push(props.route.params.activity);
+              // props.route.params.data[1].data = props.route.params.data[1].data.filter((item) => props.route.params.activity.id != item.id);
+
+              // POST_ACTIVITY(props.route.params.data[0], 1);
+              // POST_ACTIVITY(props.route.params.data[1], 2);
+
+              // PUT(URL_SCORES.concat(user.id), {"id": user.id, "total_score": ,
+              // "weekly_score": 16,
+              // "new_activities": 5,
+              // "finished_challenges": 3});
+              //props.navigation.navigate("ActivityFinished", { points: points })
+            }} // {next question} // potom už se ale nepůjde vracet
           />
         </View>
           </View>

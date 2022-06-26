@@ -3,7 +3,6 @@ import { Text, View, SectionList, StyleSheet, Image, FlatList } from "react-nati
 import {
   BOLD15,
   BOLD20,
-  BOLD23,
   BOLD32,
   EXTRABOLD12,
   REGULAR16,
@@ -13,7 +12,6 @@ import { GET, URL_ACTIVITIES } from "../database/queries";
 
 function Module({ route, navigation }) {
   const header = "aktivity";
-  //const data = require("../data/db.json");
   const [data, setData] = React.useState([]);
   const [activityFinished, setActivityFinished] = React.useState(false);
 
@@ -22,7 +20,6 @@ function Module({ route, navigation }) {
     if (route.params.name == "Kybertahák") {
       module_name = "kybertahak"
     }
-    //console.log( URL_ACTIVITIES.concat(module_name));
     GET(setData, URL_ACTIVITIES.concat(module_name));
     console.log(data, route.params.name);
   }, [activityFinished]
@@ -40,9 +37,6 @@ function Module({ route, navigation }) {
             height: 179,
             width: "91%",
             flex: 1,
-            //borderRadius: 16,
-            //borderWidth: 0.5,
-            //borderColor: colors.blackText,
             alignSelf: "center",
             marginBottom: "4%",
             alignItems: 'center',
@@ -106,7 +100,7 @@ function Module({ route, navigation }) {
           ]}
           onPress={() => navigation.navigate(activityType[item.type], 
             {header: item.name,
-            //moduleName: route.params.name,
+            moduleName: route.params.name,
             setActivityFinished: setActivityFinished, 
             activity: item, 
             data: data})}

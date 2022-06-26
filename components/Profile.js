@@ -13,12 +13,12 @@ function Profile(props) {
   const [photo, setPhoto] = React.useState(null); // tady bude fotka od usera, který je přihlášený
   
 
-  console.log(photo, user); // dám tu photo rovnou do app jako image ke current_user
+  console.log("photo:", photo, "user in profile:", user); // dám tu photo rovnou do app jako image ke current_user
 
   //console.log(userContext)
 
   React.useEffect(() => {
-    console.log(user);
+    //console.log(user, URL_SCORES.concat(user.id), user.anual_score);
     GET(setScores, URL_SCORES.concat(user.id));
     // GET scores/contextuser.id
     //PUT_PHOTO(user.id, user);
@@ -36,7 +36,7 @@ function Profile(props) {
     if (!result.cancelled) {
       setPhoto(result);
       user.image = photo.path;
-      PUT_PHOTO(user.id, user);
+      //PUT_PHOTO(user.id, user);
     }
   };
 
@@ -100,7 +100,7 @@ function Profile(props) {
       <View style={styles.pointsContainer}>
       <DoubleText text1="celkem bodů" text2={scores.total_score}/>
       <DoubleText text1="tento týden" text2={scores.weekly_score}/>
-      <DoubleText text1="nové znalosti" text2={scores.new_activites}/>
+      <DoubleText text1="nové znalosti" text2={scores.new_activities}/>
       <DoubleText text1="ukončené výzvy" text2={scores.finished_challenges}/>
 
       </View>
