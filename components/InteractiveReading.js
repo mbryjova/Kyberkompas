@@ -4,6 +4,7 @@ import colors from "../assets/colors/colors";
 import { BOLD15, BOLD20, REGULAR16 } from "./atoms/typography";
 import BigButton from "./BigButton";
 import { ACTIVITY_FINISHED, URL_ACTIVITIES } from "../database/queries";
+import { UserContext } from "../App";
 
 /**
  * component for interactive reading activity
@@ -33,6 +34,8 @@ function InteractiveReading(props) {
 
   /** active states */
   const [states, setStates] = React.useState([]);
+
+  const [user, setUser] = React.useContext(UserContext);
 
   // function arePropsEqual(prevProps, nextProps) {
   //   return prevProps.question.text === nextProps.question.text;
@@ -177,7 +180,7 @@ function InteractiveReading(props) {
             // POST_ACTIVITY(props.route.params.data[0], 1);
             // POST_ACTIVITY(props.route.params.data[1], 2);
 
-            ACTIVITY_FINISHED(URL_ACTIVITIES.concat("hesla/"), props.route.params, points);
+            ACTIVITY_FINISHED(URL_ACTIVITIES.concat("hesla/"), props.route.params, points, user.id);
             props.navigation.navigate("ActivityFinished", { points: points })}
             
             //props.navigation.navigate("ActivityFinished", { points: points })

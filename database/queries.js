@@ -74,20 +74,67 @@ const LOGIN = async (user) => {
   }
 }
 
-const ACTIVITY_FINISHED = async (url, activities_data, points) => {
+const GET_SCORES = async (user_id) => {
+  try {
+    const response = await axios.get('https://kyberkompas-database.herokuapp.com/scores/'.concat(user_id));
+    //console.log("user in login", response.data.user);
+      //setter(response.data.user);
+      return response.data;
+  } catch (error) {
+    return console.log(error);
+  }
+
+}
+
+const SET_SCORES = async (user_id, points, activity) => {
+  const scores = await GET_SCORES(user_id);
+  console.log(scores);
+  //GET(setScores, URL_SCORES.concat(user.id));
+  if (activity) {
+    POST(URL_SCORES.concat(user_id), {
+      "id": user_id, "total_score": scores.total_score + points,
+      "weekly_score": scores.weekly_score + points,
+      "new_activities": scores.new_activities + 1,
+      "finished_challenges": scores.finished_challenges
+    })
+
+  } else {
+    POST(URL_SCORES.concat(user_id), {
+      "id": user_id, 
+      "total_score": scores.total_score,
+      "weekly_score": scores.weekly_score,
+      "new_activities": scores.new_activities,
+      "finished_challenges": scores.finished_challenges + 1
+    })
+
+  }
+
+
+}
+
+const CHALLENGE_FINISHED = () => {
+
+}
+
+const ACTIVITY_FINISHED = async (url, activities_data, points, user_id) => {
 
   //const [user, setUser] = React.useContext(UserContext);
   //const [scores, setScores] = React.useState(null);
   activities_data.setActivityFinished(true);
   
-  activities_data.data[0].data.push(activities_data.activity);
-  activities_data.data[1].data = activities_data.data[1].data.filter((item) => activities_data.activity.id != item.id);
+  activities_data.data[1].data.push(activities_data.activity); // dokončené
+
+  // následující
+  activities_data.data[0].data = activities_data.data[0].data.filter((item) => activities_data.activity.id != item.id);
 
   POST(url.concat(1), activities_data.data[0]);
   POST(url.concat(2), activities_data.data[1]);
-  //GET(setScores, URL_SCORES.concat(user.id));
-  // POST(URL_SCORES.concat(user.id), {
-  //   "id": user.id, "total_score": scores.total_score + points,
+  SET_SCORES(user_id, points, true);
+  // const scores = await GET_SCORES(user_id);
+  // console.log(scores);
+  // //GET(setScores, URL_SCORES.concat(user.id));
+  // POST(URL_SCORES.concat(user_id), {
+  //   "id": user_id, "total_score": scores.total_score + points,
   //   "weekly_score": scores.weekly_score + points,
   //   "new_activities": scores.new_activities + 1,
   //   "finished_challenges": scores.finished_challenges
@@ -106,6 +153,7 @@ export {
     GET,
     POST,
     ACTIVITY_FINISHED,
+    SET_SCORES,
     //PUT,
     URL_CHALLENGES,
     URL_ACTIVITIES,

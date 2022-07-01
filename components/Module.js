@@ -38,7 +38,7 @@ function Module({ route, navigation }) {
             width: "91%",
             flex: 1,
             alignSelf: "center",
-            marginBottom: "4%",
+            //marginBottom: "4%",
             alignItems: 'center',
             //justifyContent: 'center',
             //backgroundColor: colors.white,
@@ -148,7 +148,6 @@ function Module({ route, navigation }) {
         sections={data}
         keyExtractor={(item) => item.id}
         renderItem={renderActivityItem}
-        ListEmptyComponent={renderNoActivities}
         renderSectionFooter={renderNoActivities}
         renderSectionHeader={({ section }) => (
           <View>

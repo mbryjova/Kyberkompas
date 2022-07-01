@@ -5,7 +5,7 @@ import BigButton from "./BigButton";
 import * as Progress from "react-native-progress";
 import { BOLD20, BOLD15, REGULAR16 } from "./atoms/typography";
 import ValidationView from "./ValidationView";
-import { POST, POST_ACTIVITY, URL_SCORES, PUT, ACTIVITY_FINISHED, URL_ACTIVITIES } from "../database/queries";
+import { ACTIVITY_FINISHED, URL_ACTIVITIES } from "../database/queries";
 import {UserContext} from "../App";
 
 function Quiz(props) {
@@ -48,7 +48,7 @@ function Quiz(props) {
   const renderOption = () => {
     return (
       <View
-        style={{ marginTop: "30%", backgroundColor: colors.correct, height: "43%", width: "85%", 
+        style={{ marginTop: "23%", backgroundColor: colors.correct, height: "43%", width: "85%", 
         justifyContent: "space-around", alignItems: "center",
         marginBottom: "15%"
       }}
@@ -117,8 +117,12 @@ function Quiz(props) {
       }}
     >
 
+       {/* otázka a odpovědi - tlačítko zkontrolovat */}
       {quizState == 1 && (
-        <View style={{ flex: 1, backgroundColor: colors.correct_light, alignItems: "center"
+        <View style={{ 
+          flex: 1, 
+          //backgroundColor: colors.correct_light, 
+          alignItems: "center"
         }}>
           {renderQuestion()}
           {renderOption()}
@@ -135,8 +139,11 @@ function Quiz(props) {
           </View>
         </View>
       )}
+
+      {/**vysvětlení, tlačítko na další otázku */}
       {quizState == 2 && (
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'space-evenly'}}>
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'space-evenly', backgroundColor: colors.grey}}>
+
           <View style={{width: '91%', height: '7%'}}>
           <ValidationView logicalValue={correct ? 1 : 0}>
 
@@ -148,6 +155,7 @@ function Quiz(props) {
           <Text style={[REGULAR16]}>{currentOptionSelected.explanation}</Text>
 
           </View>
+
           <View style={{justifyContent:'space-evenly', height: '15%', alignItems: 'center'}}>
           <Progress.Bar progress={currentQuestionIndex / allQuestions.length} />
           <View style={{ backgroundColor: colors.wrong }}>
@@ -160,6 +168,7 @@ function Quiz(props) {
         </View>
       )}
 
+      {/** poslední otázka, jdu na dokončit */}
       {quizState == 3 && (
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'space-evenly'}}>
         <View style={{width: '91%', height: '7%'}}>
@@ -182,8 +191,8 @@ function Quiz(props) {
               // put a zmenit aktivity
               {
               
-              ACTIVITY_FINISHED(URL_ACTIVITIES.concat("hesla/"), props.route.params, points);
-              
+              ACTIVITY_FINISHED(URL_ACTIVITIES.concat("hesla/"), props.route.params, points, user.id);
+
               props.navigation.navigate("ActivityFinished", { points: points, name: props.route.params.module_name });
               //props.route.params.setActivityFinished(true);
 

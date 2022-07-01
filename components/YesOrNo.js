@@ -11,6 +11,7 @@ import colors from "../assets/colors/colors";
 import Swiper from "react-native-deck-swiper";
 import BigButton from "./BigButton";
 import { URL_ACTIVITIES, ACTIVITY_FINISHED } from "../database/queries";
+import { UserContext } from "../App";
 
 function YesOrNo(props) {
   const [currentIndex, setCurrentIndex] = React.useState(0);
@@ -23,6 +24,7 @@ function YesOrNo(props) {
   const [points, setPoints] = React.useState(0);
   const [optionSelected, setOptionSelected] = React.useState(null);
 
+  const [user, setUser] = React.useContext(UserContext);
   const data = require("../data/db.json").tinder_swipe;
 
   const Button = (props) => {
@@ -70,7 +72,7 @@ function YesOrNo(props) {
   };
 
   const lastQuestion = () => {
-    ACTIVITY_FINISHED(URL_ACTIVITIES.concat("hesla/"), props.route.params, points);
+    ACTIVITY_FINISHED(URL_ACTIVITIES.concat("hesla/"), props.route.params, points, user.id);
     props.navigation.navigate("ActivityFinished", { points: points });
   };
 

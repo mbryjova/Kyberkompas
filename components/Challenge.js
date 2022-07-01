@@ -5,9 +5,13 @@ import { StyleSheet, ScrollView, Text, Image, View } from 'react-native';
 import { EXTRABOLD12, BOLD25, REGULAR16, BOLD15 } from './atoms/typography';
 import BigButton from './BigButton';
 import axios from "axios";
+import { UserContext } from '../App';
+import { SET_SCORES } from '../database/queries';
 
 
 function Challenge({route, navigation}) {
+
+    const [user, setUser] = React.useContext(UserContext);
 
     const markAsFinished = async (id) => {
         console.log("here");
@@ -29,7 +33,9 @@ function Challenge({route, navigation}) {
         //setModules(response.data);
         //console.log(modules);
       }).catch(error => console.log(error));
-      route.params.setChanged(true); 
+      route.params.setChanged(true);
+      SET_SCORES(user.id, 0, false)
+
     }
 
     const image_source = '../assets/images/challenge_clock.png' // ikonka, odkaz asi budu mít, když jde o stálou ikonku, nebo pasnu jako parametr
