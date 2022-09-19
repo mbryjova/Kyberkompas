@@ -22,7 +22,7 @@ function Profile(props) {
     GET(setScores, URL_SCORES.concat(user.id));
     // GET scores/contextuser.id
     //PUT_PHOTO(user.id, user);
-  }, []) // potřebuju aby se to stáhlo vždycky
+  }, []) // potřebuju aby se to stáhlo vždycky když se změní skóre nebo property uživatele
 
   const handleChoosePhoto = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({

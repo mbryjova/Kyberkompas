@@ -35,7 +35,6 @@ function Challenge({route, navigation}) {
       }).catch(error => console.log(error));
       route.params.setChanged(true);
       SET_SCORES(user.id, 0, false)
-
     }
 
     const image_source = '../assets/images/challenge_clock.png' // ikonka, odkaz asi budu mít, když jde o stálou ikonku, nebo pasnu jako parametr
@@ -74,7 +73,12 @@ function Challenge({route, navigation}) {
             name={button_name}
             // plus ještě tam musí být funkcionalita co přičte body za výzvu, 
             // pošlu do parent komponenty?
-            onPress={() => {navigation.goBack(); markAsFinished(parameters.item.id)}}
+            onPress={() => {
+                navigation.goBack(); 
+                route.params.item.point_amount != 0 ?
+                markAsFinished(parameters.item.id) : null
+            }
+            }
             />
 
             </View>

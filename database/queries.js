@@ -1,13 +1,16 @@
 
 import axios from "axios";
 import { UserContext } from "../App";
-import React from "react";
+//import React from "react";
+
+//const [loggedUser, setUser] = React.useContext(UserContext);
 
 const URL_CHALLENGES = 'https://kyberkompas-database.herokuapp.com/challenges';
 const URL_ACTIVITIES = 'https://kyberkompas-database.herokuapp.com/activities_';
 const URL_MODULES = 'https://kyberkompas-database.herokuapp.com/modules';
 const URL_SCORES = 'https://kyberkompas-database.herokuapp.com/scores/';
 const URL_BREACHES = 'https://kyberkompas-database.herokuapp.com/getbreaches_';
+const URL_INACTIVE = 'https://kyberkompas-database.herokuapp.com/inactive_challenges';
 
 const GET = async (setter, url) => { // gets a list from url
     //console.log("here2", url);
@@ -88,6 +91,7 @@ const GET_SCORES = async (user_id) => {
 
 const SET_SCORES = async (user_id, points, activity) => {
   const scores = await GET_SCORES(user_id);
+  loggedUser.total_score = loggedUser.total_score + points;
   console.log(scores);
   //GET(setScores, URL_SCORES.concat(user.id));
   if (activity) {
@@ -100,7 +104,7 @@ const SET_SCORES = async (user_id, points, activity) => {
 
   } else {
     POST(URL_SCORES.concat(user_id), {
-      "id": user_id, 
+      "id": user_id,
       "total_score": scores.total_score,
       "weekly_score": scores.weekly_score,
       "new_activities": scores.new_activities,
@@ -108,6 +112,7 @@ const SET_SCORES = async (user_id, points, activity) => {
     })
 
   }
+  setUser(loggedUser);
 
 
 }
@@ -159,5 +164,6 @@ export {
     URL_ACTIVITIES,
     URL_MODULES,
     URL_SCORES,
-    URL_BREACHES
+    URL_BREACHES,
+    URL_INACTIVE
 }

@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, Image, FlatList } from "react-native";
 import colors from "../assets/colors/colors";
 import { EXTRABOLD12, BOLD20, REGULAR16, BOLD15, SEMIBOLD16, BOLD32 } from "./atoms/typography";
 import axios from "axios";
-import {GET, URL_CHALLENGES} from "../database/queries";
+import {GET, URL_CHALLENGES, URL_INACTIVE} from "../database/queries";
 
 /**
  * dát image přes get, získávám z databáze - někde ho získám
@@ -13,6 +13,7 @@ import {GET, URL_CHALLENGES} from "../database/queries";
 function Challenges(props) {
   //const ch_data = require("../data/db.json");
   const [challenges, setChallenges] = React.useState([]);
+  const [inactive, setInactive] = React.useState([]);
   /**
    * 1 - následující
    * 2 - ukončené
@@ -25,6 +26,7 @@ function Challenges(props) {
   
   React.useEffect(() => {
     GET(setChallenges, URL_CHALLENGES);
+    GET(setInactive, URL_INACTIVE);
     console.log("chall:" + challenges);
     setChanged(false);
   }
@@ -55,7 +57,7 @@ function Challenges(props) {
                 challenge: item.challenge,
                 setChanged: setChanged
               })
-            } // jako objekt s konkrétníma paramterama {name: {item.name}, ..}
+            } // jako objekt s konkrétníma parametrama {name: {item.name}, ..}
             style={[
               BOLD15,
               {
@@ -97,7 +99,10 @@ function Challenges(props) {
       </View>
       <View style={{flex: 1, backgroundColor: colors.primary}}>
       <FlatList
-        data={currentState == 2 ? challenges.filter((item) => item.finished == 1) : challenges.filter((item) => item.finished == 0)}
+        data={ currentState == 3 ? inactive :
+          (currentState == 2 ? challenges.filter((item) => item.finished == 1) : 
+          challenges.filter((item) => item.finished == 0))
+        }
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
         renderItem={renderChallengeItem}

@@ -20,15 +20,15 @@ function SkillTree(props) {
   const renderModuleItem = ({ item }) => {
     const sum_points_percent = (item.current_score / item.max_score) * 100;
     return (
-      <View>
+      <View style={{width: '50%'}}>
         <View
           style={{
-            backgroundColor: colors.correct,
-            alignContent: "center",
+            //backgroundColor: colors.correct,
+            //alignContent: "center",
             alignItems: "center",
             marginBottom: 20,
-            
-            paddingHorizontal: 30,
+            //width: '100%'
+            //paddingHorizontal: 30,
           }}
         >
           <TouchableOpacity
@@ -89,12 +89,18 @@ function SkillTree(props) {
         showsVerticalScrollIndicator={false}
         renderItem={renderModuleItem}
         numColumns={2}
-        columnWrapperStyle={{backgroundColor: colors.primary}}
+        columnWrapperStyle={{
+          //backgroundColor: colors.primary,
+          justifyContent: 'space-around',
+          //width: '100%'
+        }}
         contentContainerStyle={{
-          alignItems: 'center', 
+          //alignItems: 'center', 
           //paddingHorizontal: 30,
-          paddingTop: 17, 
-          backgroundColor: colors.correct_light}} // upravit
+          //justifyContent: 'space-around',
+          //paddingTop: 17, 
+          //backgroundColor: colors.correct_light
+        }} // upravit
         //style={{alignContent: 'center', alignItems: 'center'}}
       />
     </View>

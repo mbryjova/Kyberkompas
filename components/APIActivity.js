@@ -16,7 +16,7 @@ function APIActivity(props) {
    */
   const [status, setStatus] = React.useState(1);
   const [wrong, setWrong] = React.useState(false);
-  const [OK, setOK] = React.useState(true);
+  //const [OK, setOK] = React.useState(true);
   const [user, setUser] = React.useContext(UserContext);
 
   const [breaches, setBreaches] = React.useState([]);
