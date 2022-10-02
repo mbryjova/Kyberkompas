@@ -58,10 +58,11 @@ function Login(props) {
 
   }
   return (
+    // contentContainerStyle={{backgroundColor: colors.correct, flex: 1}}
     <KeyboardAwareScrollView contentContainerStyle={{backgroundColor: colors.correct, flex: 1}}>
       <View style={{flex: 1, backgroundColor: colors.correct}}>
       
-       <View style={{backgroundColor: colors.grey, flex: 0.85, justifyContent: 'space-evenly', marginTop: '6%'}} >
+       <View style={{backgroundColor: colors.wrong_light, flex: 0.85, justifyContent: 'space-evenly', marginTop: '6%'}} >
       <Text style={[styles.headline, BOLD32, {backgroundColor: colors.wrong}]}>
         Vítejte v{"\n"} KYBERKOMPASU
       </Text>
@@ -97,7 +98,7 @@ function Login(props) {
         </View>
 
        </View>
-      {/* </KeyboardAvoidingView> */}
+      {/* </KeyboardAwareScrollView> */}
 
       <View style={{backgroundColor: colors.white, flex: 0.2}} >
       <View style={styles.button}>
@@ -139,7 +140,8 @@ const styles = StyleSheet.create({
   button: {
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: '5%'
+    marginBottom: '5%',
+    backgroundColor: colors.wrong_light
   },
   headline: {
     textAlign: "center",
@@ -170,5 +172,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: colors.primary
   },
 });

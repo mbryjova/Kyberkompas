@@ -1,23 +1,27 @@
 import React from "react";
-import { View, StyleSheet, Text, FlatList } from "react-native";
+import { View, Text, FlatList, KeyboardAvoidingView } from "react-native";
 import colors from "../assets/colors/colors";
 import { GET, URL_BREACHES, ACTIVITY_FINISHED, URL_ACTIVITIES } from "../database/queries";
 import { BOLD16, BOLD20, REGULAR16 } from "./atoms/typography";
 import BigButton from "./BigButton";
 import InputComp from "./InputComp";
 import { UserContext } from "../App";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 function APIActivity(props) {
+
+   // proč tady mám?
+   const [wrong, setWrong] = React.useState(false);
+   const [user, setUser] = React.useContext(UserContext);
+
   const [input, setInput] = React.useState("");
 
   /**
    * 1 - getting user input
    * 2 - finishig the activity
+   * 3 - account doesnt exist
    */
   const [status, setStatus] = React.useState(1);
-  const [wrong, setWrong] = React.useState(false);
-  //const [OK, setOK] = React.useState(true);
-  const [user, setUser] = React.useContext(UserContext);
 
   const [breaches, setBreaches] = React.useState([]);
   const [validate, setValidate] = React.useState(false);
@@ -48,14 +52,10 @@ function APIActivity(props) {
     // }
   }, [validate]);
 
-  // const validate = async () => {
-  //   if (input.length == 0) {
-  //     setWrong(true);
-  //   }
-  //   await GET(setBreaches, URL_BREACHES.concat(input));
-  // };
+  
   return (
-    <View>
+    // <KeyboardAvoidingView style={{backgroundColor: colors.wrong_light, flex: 1}} behavior="height">
+    <View style={{flex: 1, backgroundColor: colors.correct_light}}>
       <View
         style={{
           alignItems: "center",
@@ -64,6 +64,7 @@ function APIActivity(props) {
           justifyContent: "space-evenly",
           width: "90%",
           alignSelf: "center",
+          backgroundColor: colors.correct
         }}
       >
         <Text style={BOLD20}>Byl váš účet prolomen?</Text>
@@ -83,6 +84,7 @@ function APIActivity(props) {
           />
         </View>
       </View>
+
         {
           status == 3 ? (
             <View>
@@ -93,7 +95,7 @@ function APIActivity(props) {
           ) : null
         }
       {status == 1 ? (
-        <View style={{ height: "70%", alignItems: "center" }}>
+        <View style={{ height: "70%", alignItems: "center", backgroundColor: colors.primary }}>
           <BigButton
             name="zkontrolovat"
             onPress={() => {
@@ -167,6 +169,7 @@ function APIActivity(props) {
           
       ) : null}
     </View>
+    // </KeyboardAvoidingView>
   );
 }
 
