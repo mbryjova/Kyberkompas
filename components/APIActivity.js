@@ -20,21 +20,40 @@ function APIActivity(props) {
   const [user, setUser] = React.useContext(UserContext);
 
   const [breaches, setBreaches] = React.useState([]);
+  const [validate, setValidate] = React.useState(false);
 
-  React.useEffect(() => {
+  const [errorStatus, setErrorStatus] = React.useState(0);
+
+  React.useEffect(async () => {
     // if (breaches.length != 0) {
     //     //setWrong(true);
     //     setOK(false);
     // }
     // console.log(breaches);
-  }, [breaches]);
-
-  const validate = () => {
-    if (input.length == 0) {
-      setWrong(true);
+    // if (input.length == 0) {
+    //       setWrong(true);
+    //     }
+    //setErrorStatus(0);
+    console.log(errorStatus);
+    if (validate) {
+      await GET(setBreaches, URL_BREACHES.concat(input), setErrorStatus);
+      console.log("here", errorStatus);
+      setStatus(2)
     }
-    GET(setBreaches, URL_BREACHES.concat(input));
-  };
+    // if (validate && errorStatus == undefined) {
+    //   setStatus(2)
+    // }
+    // if (validate && errorStatus != undefined) {
+    //   setStatus(3)
+    // }
+  }, [validate]);
+
+  // const validate = async () => {
+  //   if (input.length == 0) {
+  //     setWrong(true);
+  //   }
+  //   await GET(setBreaches, URL_BREACHES.concat(input));
+  // };
   return (
     <View>
       <View
@@ -64,18 +83,27 @@ function APIActivity(props) {
           />
         </View>
       </View>
-
+        {
+          status == 3 ? (
+            <View>
+              <Text>
+                doesnt exist
+              </Text>
+            </View>
+          ) : null
+        }
       {status == 1 ? (
         <View style={{ height: "70%", alignItems: "center" }}>
           <BigButton
             name="zkontrolovat"
             onPress={() => {
-              setStatus(2);
-              validate();
+              //validate();
+              setValidate(true);
             }}
           />
         </View>
-      ) : (
+      ) : null}
+      { status == 2 ? (
         <View style={{ height: "70%", alignItems: "center" }}>
           {breaches.length == 0 ? (
             <View
@@ -103,22 +131,13 @@ function APIActivity(props) {
           ) : (
             <View
               style={{ height: "40%", width: "100%" }}
-              //style={{borderRadius: 16, backgroundColor: colors.correct_light,
-              //  borderColor: colors.correct_light,
-              //height: '40%',
-              //  width: '90%', padding: '6%'}}
             >
-              {/* <Text style={[BOLD20, {marginBottom: 10}]}>
-                            Váš účet je evidován v těchto únicích:
-                            </Text> */}
               <FlatList
                 contentContainerStyle={{
                   borderRadius: 16,
                   backgroundColor: colors.wrong_light,
                   borderColor: colors.correct_light,
                   alignSelf: "center",
-                  //height: '40%',
-                  //height: '100%',
                   width: "90%",
                   padding: "6%",
                 }}
@@ -145,13 +164,11 @@ function APIActivity(props) {
             } />
           </View>
         </View>
-      )}
+          
+      ) : null}
     </View>
   );
 }
 
 export default APIActivity;
 
-const styles = StyleSheet.create({
-  header: {},
-});

@@ -12,23 +12,19 @@ const URL_SCORES = 'https://kyberkompas-database.herokuapp.com/scores/';
 const URL_BREACHES = 'https://kyberkompas-database.herokuapp.com/getbreaches_';
 const URL_INACTIVE = 'https://kyberkompas-database.herokuapp.com/inactive_challenges';
 
-const GET = async (setter, url) => { // gets a list from url
+const GET = async (setter, url, errorSetter=null) => { // gets a list from url
     //console.log("here2", url);
      await axios.get(url)
       .then((response) => {
         console.log(response.data);
         setter(response.data);
         //console.log(challenges);
-      }).catch(error => console.log(error));
-}
-
-const PUT = (url, object) => {
-  axios.put(url, object).then(
-    (response) => {
-      console.log(response.data);
-    }
-  ).catch(error => console.log(error));
-
+      }).catch(error => {console.log(error);
+        if (errorSetter != null) {
+          console.log("in queries", error.status);
+          errorSetter(error.status);
+        }
+      });
 }
 
 const POST = (url, object) => { // posts an object to url
@@ -38,31 +34,6 @@ const POST = (url, object) => { // posts an object to url
     }
   ).catch(error => console.log(error));
 }
-
-// const PUT_PHOTO = (user_id, user) => {
-//   axios.put('https://kyberkompas-database.herokuapp.com/users/'.concat(user_id), user).then(
-//     (response) => {
-//       console.log(response.data);
-//     }
-//   ).catch(error => console.log(error));
-// }
-
-// const POST_ACTIVITY = (activity, id) => {
-//   axios.put('https://kyberkompas-database.herokuapp.com/activities/'.concat(id), activity).then(
-//     (response) => {
-//       console.log(response.data);
-//     }
-//   ).catch(error => console.log(error));
-// }
-
-
-// const GET_ACTIVITIES = (setter, module_name) => {
-//     axios.get('https://kyberkompas-database.herokuapp.com/activities_'.concat(module_name.toLowerCase()))
-//     .then((response) => {
-//       console.log(response.data);
-//       setter(response.data);
-//     }).catch(error => console.log(error));
-// }
 
 const LOGIN = async (user) => {
   try {
