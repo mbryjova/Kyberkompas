@@ -1,7 +1,12 @@
 import React from "react";
-import { View, Text, FlatList, KeyboardAvoidingView } from "react-native";
+import { View, Text, FlatList, Dimensions } from "react-native";
 import colors from "../assets/colors/colors";
-import { GET, URL_BREACHES, ACTIVITY_FINISHED, URL_ACTIVITIES } from "../database/queries";
+import {
+  GET,
+  URL_BREACHES,
+  ACTIVITY_FINISHED,
+  URL_ACTIVITIES,
+} from "../database/queries";
 import { BOLD16, BOLD20, REGULAR16 } from "./atoms/typography";
 import BigButton from "./BigButton";
 import InputComp from "./InputComp";
@@ -9,10 +14,9 @@ import { UserContext } from "../App";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 function APIActivity(props) {
-
-   // proč tady mám?
-   const [wrong, setWrong] = React.useState(false);
-   const [user, setUser] = React.useContext(UserContext);
+  // proč tady mám?
+  const [wrong, setWrong] = React.useState(false);
+  const [user, setUser] = React.useContext(UserContext);
 
   const [input, setInput] = React.useState("");
 
@@ -27,48 +31,40 @@ function APIActivity(props) {
   const [validate, setValidate] = React.useState(false);
 
   const [errorStatus, setErrorStatus] = React.useState(0);
+  const { screenHeight } = Dimensions.get('screen').height;
+
 
   React.useEffect(async () => {
-    // if (breaches.length != 0) {
-    //     //setWrong(true);
-    //     setOK(false);
-    // }
-    // console.log(breaches);
-    // if (input.length == 0) {
-    //       setWrong(true);
-    //     }
-    //setErrorStatus(0);
     console.log(errorStatus);
     if (validate) {
       await GET(setBreaches, URL_BREACHES.concat(input), setErrorStatus);
       console.log("here", errorStatus);
-      setStatus(2)
+      setStatus(2);
     }
-    // if (validate && errorStatus == undefined) {
-    //   setStatus(2)
-    // }
-    // if (validate && errorStatus != undefined) {
-    //   setStatus(3)
-    // }
   }, [validate]);
 
-  
   return (
     // <KeyboardAvoidingView style={{backgroundColor: colors.wrong_light, flex: 1}} behavior="height">
-    <View style={{flex: 1, backgroundColor: colors.correct_light}}>
+    <View style={{ backgroundColor: colors.correct_light, height: screenHeight
+    //, flex: 1
+     }}>
       <View
         style={{
           alignItems: "center",
           height: "30%",
+          //height: {nevimidk},
+          //flex: 3,
           marginTop: "10%",
           justifyContent: "space-evenly",
           width: "90%",
           alignSelf: "center",
-          backgroundColor: colors.correct
+          backgroundColor: colors.correct,
         }}
       >
+        {/* title */}
         <Text style={BOLD20}>Byl váš účet prolomen?</Text>
 
+        {/* description */}
         <Text style={REGULAR16}>
           Zadejte email a zjistětě, zda byl váš učet někde prolomen.
         </Text>
@@ -85,17 +81,21 @@ function APIActivity(props) {
         </View>
       </View>
 
-        {
-          status == 3 ? (
-            <View>
-              <Text>
-                doesnt exist
-              </Text>
-            </View>
-          ) : null
-        }
+      {status == 3 ? (
+        <View>
+          <Text>doesnt exist</Text>
+        </View>
+      ) : null}
       {status == 1 ? (
-        <View style={{ height: "70%", alignItems: "center", backgroundColor: colors.primary }}>
+        <View
+          style={{
+            height: "70%",
+            //flex: 7,
+            //height: 200,
+            alignItems: "center",
+            backgroundColor: colors.primary,
+          }}
+        >
           <BigButton
             name="zkontrolovat"
             onPress={() => {
@@ -105,7 +105,7 @@ function APIActivity(props) {
           />
         </View>
       ) : null}
-      { status == 2 ? (
+      {status == 2 ? (
         <View style={{ height: "70%", alignItems: "center" }}>
           {breaches.length == 0 ? (
             <View
@@ -131,9 +131,7 @@ function APIActivity(props) {
               </Text>
             </View>
           ) : (
-            <View
-              style={{ height: "40%", width: "100%" }}
-            >
+            <View style={{ height: "40%", width: "100%" }}>
               <FlatList
                 contentContainerStyle={{
                   borderRadius: 16,
@@ -159,14 +157,24 @@ function APIActivity(props) {
             </View>
           )}
           <View>
-            <BigButton name="dokončit" onPress={ () =>
-                {ACTIVITY_FINISHED(URL_ACTIVITIES.concat("hesla/"), props.route.params, 2, user.id); // 2 points
+            <BigButton
+              name="dokončit"
+              onPress={() => {
+                ACTIVITY_FINISHED(
+                  URL_ACTIVITIES.concat("hesla/"),
+                  props.route.params,
+                  2,
+                  user.id
+                ); // 2 points
 
-                props.navigation.navigate("ActivityFinished", { points: 2, name: props.route.params.module_name });}
-            } />
+                props.navigation.navigate("ActivityFinished", {
+                  points: 2,
+                  name: props.route.params.module_name,
+                });
+              }}
+            />
           </View>
         </View>
-          
       ) : null}
     </View>
     // </KeyboardAvoidingView>
@@ -174,4 +182,3 @@ function APIActivity(props) {
 }
 
 export default APIActivity;
-

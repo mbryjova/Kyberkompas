@@ -1,24 +1,46 @@
 import React from "react";
 import { TextInput, StyleSheet, View, Text, Image } from "react-native";
 import colors from "../assets/colors/colors";
-import { EXTRABOLD12, REGULAR12, REGULAR14 } from "../components/atoms/typography";
+import {
+  EXTRABOLD12,
+  REGULAR12,
+  REGULAR14,
+} from "../components/atoms/typography";
 
 function InputComp(props) {
   return (
     <View>
       <View style={styles.textWrapper}>
-        <Text style={[EXTRABOLD12, {color: props.wrongInput ? colors.wrong : colors.blackText}]}>{props.header}</Text>
+        <Text
+          style={[
+            EXTRABOLD12,
+            { color: props.wrongInput ? colors.wrong : colors.blackText },
+          ]}
+        >
+          {props.header}
+        </Text>
       </View>
-      <View style={[styles.input, {borderColor: props.wrongInput ? colors.wrong : colors.grey}]}>
+      <View
+        style={[
+          styles.input,
+          { borderColor: props.wrongInput ? colors.wrong : colors.grey },
+        ]}
+      >
         <Image style={styles.image} source={props.source} />
-        <TextInput placeholder={props.name} onChangeText={props.onChangeText} secureTextEntry={props.secureTextEntry}/>
+        <TextInput
+          placeholder={props.name}
+          onChangeText={props.onChangeText}
+          secureTextEntry={props.secureTextEntry}
+          style={{width: '100%'}}
+        />
       </View>
 
-      { props.wrongInput && <Text style={[REGULAR14, {color: colors.wrong, marginLeft: "60%"}]}>
-        {props.error}
-      </Text>}
-
-      </View>
+      {props.wrongInput && (
+        <Text style={[REGULAR14, { color: colors.wrong, marginLeft: "60%" }]}>
+          {props.error}
+        </Text>
+      )}
+    </View>
   );
 }
 
@@ -31,7 +53,7 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderRadius: 8,
     flexDirection: "row",
-    backgroundColor: colors.white
+    backgroundColor: colors.white,
   },
   image: {
     marginRight: 7,

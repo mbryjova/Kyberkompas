@@ -21,7 +21,7 @@ const GET = async (setter, url, errorSetter=null) => { // gets a list from url
         //console.log(challenges);
       }).catch(error => {console.log(error);
         if (errorSetter != null) {
-          console.log("in queries", error.status);
+          //console.log("in queries", error.status);
           errorSetter(error.status);
         }
       });
