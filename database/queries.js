@@ -5,6 +5,12 @@ import { UserContext } from "../App";
 
 //const [loggedUser, setUser] = React.useContext(UserContext);
 
+const api = axios.create({
+  baseURL: 'http://172.26.5.28/api/',
+  //timeout: 1000,
+  headers: {'X-Custom-Header': 'foobar'}
+});
+
 const URL_CHALLENGES = 'https://kyberkompas-database.herokuapp.com/challenges';
 const URL_ACTIVITIES = 'https://kyberkompas-database.herokuapp.com/activities_';
 const URL_MODULES = 'https://kyberkompas-database.herokuapp.com/modules';

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, FlatList, Dimensions } from "react-native";
+import { View, Text, FlatList, Dimensions, StyleSheet } from "react-native";
 import colors from "../assets/colors/colors";
 import {
   GET,
@@ -31,7 +31,7 @@ function APIActivity(props) {
   const [validate, setValidate] = React.useState(false);
 
   const [errorStatus, setErrorStatus] = React.useState(0);
-  const { screenHeight } = Dimensions.get('screen').height;
+  //const { screenHeight } = Dimensions.get('screen').height;
 
 
   React.useEffect(async () => {
@@ -44,31 +44,16 @@ function APIActivity(props) {
   }, [validate]);
 
   return (
-    // <KeyboardAvoidingView style={{backgroundColor: colors.wrong_light, flex: 1}} behavior="height">
-    <View style={{ backgroundColor: colors.correct_light, height: screenHeight
-    //, flex: 1
-     }}>
-      <View
-        style={{
-          alignItems: "center",
-          height: "30%",
-          //height: {nevimidk},
-          //flex: 3,
-          marginTop: "10%",
-          justifyContent: "space-evenly",
-          width: "90%",
-          alignSelf: "center",
-          backgroundColor: colors.correct,
-        }}
-      >
+    <View style={styles.container}>
+      
         {/* title */}
-        <Text style={BOLD20}>Byl váš účet prolomen?</Text>
+        <Text style={[BOLD20, styles.title]}>Byl váš účet prolomen?</Text>
 
         {/* description */}
-        <Text style={REGULAR16}>
+        <Text style={[REGULAR16, styles.description]}>
           Zadejte email a zjistětě, zda byl váš učet někde prolomen.
         </Text>
-        <View style={{ width: "100%" }}>
+        <View style={{ width: "100%", marginTop: 5, marginBottom: 20 }}>
           <InputComp
             onChangeText={setInput}
             header=""
@@ -79,7 +64,6 @@ function APIActivity(props) {
             error="Email cant be empty"
           />
         </View>
-      </View>
 
       {status == 3 ? (
         <View>
@@ -87,15 +71,7 @@ function APIActivity(props) {
         </View>
       ) : null}
       {status == 1 ? (
-        <View
-          style={{
-            height: "70%",
-            //flex: 7,
-            //height: 200,
-            alignItems: "center",
-            backgroundColor: colors.primary,
-          }}
-        >
+        <View style={styles.button}>
           <BigButton
             name="zkontrolovat"
             onPress={() => {
@@ -103,19 +79,21 @@ function APIActivity(props) {
               setValidate(true);
             }}
           />
+
         </View>
       ) : null}
       {status == 2 ? (
-        <View style={{ height: "70%", alignItems: "center" }}>
+        <View style={{ flex: 1, justifyContent: 'space-between'}}>
           {breaches.length == 0 ? (
             <View
               style={{
                 borderRadius: 16,
                 backgroundColor: colors.correct_light,
                 borderColor: colors.correct_light,
-                height: "40%",
-                width: "90%",
+                //height: "40%",
+                width: "100%",
                 padding: "6%",
+                alignSelf: 'center'
               }}
             >
               <Text
@@ -131,14 +109,14 @@ function APIActivity(props) {
               </Text>
             </View>
           ) : (
-            <View style={{ height: "40%", width: "100%" }}>
+            <View style={{width: '100%', alignSelf: 'center'}}>
               <FlatList
                 contentContainerStyle={{
                   borderRadius: 16,
                   backgroundColor: colors.wrong_light,
                   borderColor: colors.correct_light,
                   alignSelf: "center",
-                  width: "90%",
+                  //width: "90%",
                   padding: "6%",
                 }}
                 data={breaches}
@@ -156,7 +134,7 @@ function APIActivity(props) {
               />
             </View>
           )}
-          <View>
+          <View style={{marginBottom: 40}}>
             <BigButton
               name="dokončit"
               onPress={() => {
@@ -177,8 +155,35 @@ function APIActivity(props) {
         </View>
       ) : null}
     </View>
-    // </KeyboardAvoidingView>
   );
 }
 
 export default APIActivity;
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: colors.correct_light,
+    flex: 1,
+    alignItems: 'center',
+    width: '90%',
+    alignSelf: 'center'
+  },
+  title: {
+    marginTop: 50,
+    textAlign: 'center'
+
+  },
+  description: {
+    marginTop: 20 ,
+    textAlign: 'center'
+  },
+  button: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    marginBottom: 40,
+    //flexDirection: 'column-reverse',
+    //alignSelf: 'flex-end',
+    backgroundColor: colors.wrong,
+
+  }
+})
