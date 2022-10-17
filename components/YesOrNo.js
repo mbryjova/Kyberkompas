@@ -21,11 +21,24 @@ function YesOrNo(props) {
    * 3 - last question - asi zrušit
    */
   const [currentState, setCurrentState] = React.useState(1);
+
+  // celkový počet bodů
   const [points, setPoints] = React.useState(0);
   const [optionSelected, setOptionSelected] = React.useState(null);
 
   const [user, setUser] = React.useContext(UserContext);
-  const data = require("../data/db.json").tinder_swipe;
+  //const data = require("../data/db.json").tinder_swipe;
+  const activity = props.route.params.activity;
+  const data = activity.questions;
+
+  const submit = [];
+
+  const AddAnswer = (question_id, answer_id) => {
+    submit.push( {
+      "question_id": question_id,
+      "correct_answers_ids": [answer_id]
+    })
+  }
 
   const Button = (props) => {
     return (
@@ -61,7 +74,9 @@ function YesOrNo(props) {
             <Text style={[BOLD20, { marginBottom: "9%" }]}>
               Jde o správné tvrzení?
             </Text>
-            <Text style={REGULAR16}>{data[currentIndex].question.text}</Text>
+
+            {/*text otázky*/}
+            <Text style={REGULAR16}>{data[currentIndex].question}</Text>
           </View>
           <Image
             style={styles.image}
@@ -72,8 +87,9 @@ function YesOrNo(props) {
   };
 
   const lastQuestion = () => {
-    ACTIVITY_FINISHED(URL_ACTIVITIES.concat("hesla/"), props.route.params, points, user.id);
-    props.navigation.navigate("ActivityFinished", { points: points });
+    //ACTIVITY_FINISHED(URL_ACTIVITIES.concat("hesla/"), props.route.params, points, user.id);
+    post_from_url(TINDER_SUBMIT_URL, {'answers': {submit}}, setPoints);
+    props.navigation.navigate("ActivityFinished", { points: points.achieved_score });
   };
 
   const nextQuestion = () => {
@@ -96,15 +112,23 @@ function YesOrNo(props) {
               onSwipedLeft={() => {
                 console.log("explanation"),
                   setCurrentState(2),
-                  setOptionSelected(data[currentIndex].options[1]),
-                  setPoints(points + data[currentIndex].options[1].scoreAmount),
+                  setOptionSelected(data[currentIndex].answers[1]),
+
+                  // místo tohoto si to uložím do seznamu co pošlu backendu
+                  //setPoints(points + data[currentIndex].answers[1].scoreAmount),
+
+                  AddAnswer(data[currentIndex].id, data[currentIndex].answers[1].id),
+
                   setCurrentIndex(currentIndex + 1);
               }}
               onSwipedRight={() => {
                 console.log("explanation"),
                   setCurrentState(2),
-                  setOptionSelected(data[currentIndex].options[0]),
-                  setPoints(points + data[currentIndex].options[0].scoreAmount),
+                  setOptionSelected(data[currentIndex].answers[0]),
+
+                  //
+                  //setPoints(points + data[currentIndex].answers[0].scoreAmount),
+                  AddAnswer(data[currentIndex].id, data[currentIndex].answers[0].id),
                   setCurrentIndex(currentIndex + 1);
               }}
               disableTopSwipe={true}
@@ -112,33 +136,14 @@ function YesOrNo(props) {
               backgroundColor={colors.white}
               cardStyle={{width: '91%', height: '100%'}}
               containerStyle={{justifyContent: 'center'}}
-              // overlayLabels={{
-              //   left: {
-              //     title: 'ne',
-              //     style: {
-              //       label: {
-              //         color: colors.wrong
-              //       }
-              //     }
-
-              //   },
-              //   right: {
-              //     title: 'ano',
-              //     style: {
-              //       label: {
-              //         color: colors.correct
-              //       }
-              //     }
-              //   }
-
-              // }}
+              
             />
 
               </View>
             
             <View style={styles.buttonWrapper}>
               <Button
-                name={data[currentIndex].options[1].text}
+                name={data[currentIndex].answers[1].answer}
                 //name={card.options[1].text}
                 color={colors.wrong_light}
                 textColor={colors.wrong}
@@ -146,7 +151,7 @@ function YesOrNo(props) {
               />
 
               <Button
-                name={data[currentIndex].options[0].text}
+                name={data[currentIndex].answers[0].answer}
                 color={colors.correct_light}
                 textColor={colors.blackText}
                 borderColor={colors.correct}
@@ -159,10 +164,10 @@ function YesOrNo(props) {
 
       {currentState == 2 && (
         <View style={{flex: 1, justifyContent: 'space-evenly', alignItems: 'center'}}>
-            <View style={[{backgroundColor: optionSelected.logicalValue == 1 ? colors.correct_light : colors.wrong_light,
-                borderColor: optionSelected.logicalValue == 1 ? colors.correct : colors.wrong
+            <View style={[{backgroundColor: optionSelected.is_correct ? colors.correct_light : colors.wrong_light,
+                borderColor: optionSelected.is_correct ? colors.correct : colors.wrong
             }, styles.validation]}>
-                {optionSelected.logicalValue == 1
+                {optionSelected.is_correct
                 ? (
                     <View style={{flexDirection: 'row', justifyContent: 'flex-start'}}>
                         <Text style={[styles.textValidation, BOLD15]}>správně</Text> 

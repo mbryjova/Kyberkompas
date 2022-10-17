@@ -4,6 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { BOLD20, REGULAR12 } from "./components/atoms/typography";
 import React from 'react';
+//import { UserContextProvider } from "./components/context/context";
 
 import {
   useFonts,
@@ -127,6 +128,7 @@ export default function App() {
   });
 
   const [user, setUser] = React.useState(null);
+  const [token, setToken] = React.useState(null);
 
   if (!fontsLoaded) {
     return <Text style={{ textAlign: "center" }}>App loading</Text>;
@@ -139,7 +141,7 @@ export default function App() {
   
 
   return (
-    <UserContext.Provider value={[user, setUser]}>
+    <UserContext.Provider value={[user, setUser, token, setToken]}>
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
@@ -218,7 +220,3 @@ export default function App() {
     </UserContext.Provider>
   );
 }
-
-const styles = StyleSheet.create({ // můžu vymazat
-  
-});

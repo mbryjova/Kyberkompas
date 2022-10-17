@@ -8,7 +8,7 @@ import {UserContext} from "../App";
 
 function Profile(props) {
 
-  const [user, setUser] = React.useContext(UserContext);
+  const [user, setUser, token, setToken] = React.useContext(UserContext);
   const [scores, setScores] = React.useState(null);
   const [photo, setPhoto] = React.useState(null); // tady bude fotka od usera, který je přihlášený
   

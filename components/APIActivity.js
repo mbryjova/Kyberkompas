@@ -16,7 +16,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 function APIActivity(props) {
   // proč tady mám?
   const [wrong, setWrong] = React.useState(false);
-  const [user, setUser] = React.useContext(UserContext);
+  const [user, setUser, token, setToken] = React.useContext(UserContext);
 
   const [input, setInput] = React.useState("");
 

@@ -7,14 +7,16 @@ import {
   KeyboardAvoidingView,
   ScrollView,
 } from "react-native";
-
+import axios from "axios";
 import colors from "../assets/colors/colors";
 import { BOLD32 } from "./atoms/typography";
 import BigButton from "./BigButton";
 import InputComp from "./InputComp";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { LOGIN } from "../database/queries";
 import { UserContext } from "../App";
+//import { UserContext } from "./context/context";
+import { get_from_url, USER_ME_URL } from "../database/queries";
+import * as SecureStore from 'expo-secure-store';
 
 /**
  * component of the login screen
@@ -27,39 +29,52 @@ function Login(props) {
   const [wrongPassword, setWrongPassword] = React.useState(false);
   const [wrongUsername, setWrongUsername] = React.useState(false);
 
-  const [user, setUser] = React.useContext(UserContext);
+  const [user, setUser, token, setToken] = React.useContext(UserContext);
+  //const context = useUserContext();
 
   React.useEffect(() => {
-    //GET_USERS(setUsers);
-    //console.log(users);
     if (user != null) {
       props.navigation.navigate("TabNavigator");
     }
   }, [user]);
 
-  // const handleLogin = (new_user) => {
-  //   //setUser(new_user);
-  //   console.log("setting user context", user);
-  //   if (user != null) {
-  //     props.navigation.navigate("TabNavigator");
-  //   }
-  // }
+  const save = async (key, value) => {
+    await SecureStore.setItemAsync(key, value);
+  }
+
+  const get_value = async (key) => {
+    const value = await SecureStore.getItemAsync(key);
+    return value;
+  }
 
   const handleAuth = async () => {
     const my_user = {
       password: password,
       email: username,
     };
-    const new_user = await LOGIN(my_user);
-    return new_user;
-    // if (user == null) {
-    //   setWrongPassword(true);
-    //   setWrongUsername(true);
-    //   //chyba
-    // } else {
-    //   await props.navigation.navigate("TabNavigator");
-    // }
-    // if user == null -> chyba
+
+    // tady ještě není v headeru token
+    // musím importovat axios
+    await axios.request(
+      {
+        url: 'http://172.26.5.28/api/user/token/login',
+        method: 'post',
+        headers: {'Content-Type': 'application/json'},
+        data: {
+          "password": "admin",
+          "username": "admin"
+        }
+      }
+    ).then((response) => {
+      console.log(response.data);
+      save('token', 'token '.concat(response.data.auth_token));
+      //console.log(get_value('token'));
+      //setToken('token '.concat(response.data.auth_token));
+    }).catch(error => {console.log(error);
+    });
+    //console.log(token);
+    await get_from_url(setUser, USER_ME_URL);
+    console.log(user);
   };
   return (
     // contentContainerStyle={{backgroundColor: colors.correct, flex: 1}}
@@ -121,13 +136,9 @@ function Login(props) {
           <View style={styles.button}>
             <BigButton
               name="PŘIHLÁSIT SE"
-              //  onPress={() => {
-              //      props.navigation.navigate("TabNavigator");
-              // //     //handleLogin;
-              //   }}
               onPress={async () => {
-                const new_user = await handleAuth();
-                setUser(new_user);
+                await handleAuth();
+                //setUser(new_user);
                 //console.log("new_user:", new_user, user);
                 //handleLogin(new_user)
               }}

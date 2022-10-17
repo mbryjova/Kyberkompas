@@ -20,7 +20,7 @@ function Module({ route, navigation }) {
     if (route.params.name == "Kybertahák") {
       module_name = "kybertahak"
     }
-    GET(setData, URL_ACTIVITIES.concat(module_name));
+    GET(setData, URL_ACTIVITIES.concat(module_name)); // tady module.id
     console.log(data, route.params.name);
   }, [activityFinished]
 
@@ -98,10 +98,10 @@ function Module({ route, navigation }) {
 
             },
           ]}
-          onPress={() => navigation.navigate(activityType[item.type], 
+          onPress={() => navigation.navigate(activityType[item.type],
             {header: item.name,
             moduleName: route.params.name,
-            setActivityFinished: setActivityFinished, 
+            setActivityFinished: setActivityFinished,
             activity: item, 
             data: data})}
         >

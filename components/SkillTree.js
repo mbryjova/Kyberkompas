@@ -3,22 +3,24 @@ import { View, Text, FlatList, TouchableOpacity, Image } from "react-native";
 import AnimatedProgressWheel from "react-native-progress-wheel";
 import colors from "../assets/colors/colors";
 import { SEMIBOLD16 } from "./atoms/typography";
-import { GET, URL_MODULES } from "../database/queries";
+//import { GET, URL_MODULES } from "../database/queries";
+import { get_from_url, MODULES_URL } from "../database/queries";
 
 //const port = process.env.PORT || 4000;
 
 function SkillTree(props) {
   const [modules, setModules] = React.useState([]);
 
-  const modules_data = require("../data/db.json").modules;
+  //const modules_data = require("../data/db.json").modules;
 
   React.useEffect(() => {
-    GET(setModules, URL_MODULES);
+    //GET(setModules, URL_MODULES);
+    get_from_url(setModules, MODULES_URL);
   }
   , [])
 
   const renderModuleItem = ({ item }) => {
-    const sum_points_percent = (item.current_score / item.max_score) * 100;
+    //const sum_points_percent = (item.current_score / item.max_score) * 100;
     return (
       <View style={{width: '50%'}}>
         <View
@@ -34,12 +36,13 @@ function SkillTree(props) {
           <TouchableOpacity
             onPress={() =>
               props.navigation.navigate("Module", {
-                name: item.name,
-                finished: item.finished_activities,
-                activities: item.activities, // nevím jestli budu posílat, zatím nepoužívám
+                name: item.title,
+                module_id: item.id // abych si pak mohla fechnout konkrétní data
+                //finished: item.finished_activities,
+                //activities: item.activities, // nevím jestli budu posílat, zatím nepoužívám
               })
             }
-            disabled={item.available == 1 ? false : true}
+            disabled={!item.available}
           >
             <View
               style={[
@@ -49,9 +52,9 @@ function SkillTree(props) {
             >
               
               <AnimatedProgressWheel
-                progress={sum_points_percent}
+                progress={item.progress}
                 backgroundColor={colors.white}
-                color={sum_points_percent == 100 ? colors.correct : (sum_points_percent == 0 ? colors.white : colors.primary)}
+                color={item.progress == 100 ? colors.correct : (item.progress == 0 ? colors.white : colors.primary)}
                 size={88}
                 width={8}
               />
@@ -69,7 +72,7 @@ function SkillTree(props) {
               }}
             />
           </TouchableOpacity>
-          <Text style={SEMIBOLD16}>{item.name}</Text>
+          <Text style={SEMIBOLD16}>{item.title}</Text>
         </View>
       </View>
     );
@@ -84,7 +87,7 @@ function SkillTree(props) {
       //style={{ alignContent: "center", alignItems: "center", paddingTop: 17 }}
     >
       <FlatList
-        data={modules}
+        data={modules.modules}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
         renderItem={renderModuleItem}

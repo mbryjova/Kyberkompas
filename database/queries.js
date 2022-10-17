@@ -1,14 +1,21 @@
 
 import axios from "axios";
 import { UserContext } from "../App";
-//import React from "react";
+import React from "react";
+import * as SecureStore from 'expo-secure-store';
+//import {useContext} from "react";
+//import { useUserContext } from "../components/context/context";
 
-//const [loggedUser, setUser] = React.useContext(UserContext);
+//const [loggedUser, setUser, token, setToken] = React.useContext(UserContext);
+
+//const context = useUserContext();
+
+const token = SecureStore.getItemAsync('token');
 
 const api = axios.create({
   baseURL: 'http://172.26.5.28/api/',
   //timeout: 1000,
-  headers: {'X-Custom-Header': 'foobar'}
+  headers: {'accept': 'application/json', 'Authorization': 'token cad8d7aa8dc1a8d07d06f0f97fcdbdf9da40752d'}
 });
 
 const URL_CHALLENGES = 'https://kyberkompas-database.herokuapp.com/challenges';
@@ -17,6 +24,27 @@ const URL_MODULES = 'https://kyberkompas-database.herokuapp.com/modules';
 const URL_SCORES = 'https://kyberkompas-database.herokuapp.com/scores/';
 const URL_BREACHES = 'https://kyberkompas-database.herokuapp.com/getbreaches_';
 const URL_INACTIVE = 'https://kyberkompas-database.herokuapp.com/inactive_challenges';
+
+const USER_ME_URL = 'user/me';
+const MODULES_URL = 'modules';
+
+const get_from_url = async (setter, url) => {
+  await api.get(url).then((response) => {
+    console.log(response.data);
+    setter(response.data);
+  }).catch(error => {console.log(error);
+  });
+
+}
+
+const post_to_url = async (url, data, setter=null) => {
+  await api.post(url, {'data': {data}}).then((response) => {
+    console.log(response.data);
+    setter(response.data);
+  }).catch(error => {console.log(error);
+  });
+
+}
 
 const GET = async (setter, url, errorSetter=null) => { // gets a list from url
     //console.log("here2", url);
@@ -87,7 +115,6 @@ const SET_SCORES = async (user_id, points, activity) => {
       "new_activities": scores.new_activities,
       "finished_challenges": scores.finished_challenges + 1
     })
-
   }
   setUser(loggedUser);
 
@@ -130,17 +157,25 @@ export {
     //PUT_PHOTO, // v profile.js
     //GET_ACTIVITIES, // v module.js
     //POST_ACTIVITY, // v aktivitách
+    //api,
     LOGIN, // v login.js
     //GET_SCORES,
     GET,
     POST,
     ACTIVITY_FINISHED,
     SET_SCORES,
+
+    // new api
+    get_from_url,
     //PUT,
     URL_CHALLENGES,
     URL_ACTIVITIES,
     URL_MODULES,
     URL_SCORES,
     URL_BREACHES,
-    URL_INACTIVE
+    URL_INACTIVE,
+
+    // new api
+    USER_ME_URL,
+    MODULES_URL
 }

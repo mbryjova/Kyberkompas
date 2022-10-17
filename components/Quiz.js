@@ -9,7 +9,9 @@ import { ACTIVITY_FINISHED, URL_ACTIVITIES } from "../database/queries";
 import {UserContext} from "../App";
 
 function Quiz(props) {
-  const allQuestions = require("../data/db.json").test_data;
+  //const allQuestions = require("../data/db.json").test_data;
+
+  const allQuestions = props.route.params.activity.questions;
   const [user, setUser] = React.useContext(UserContext);
   //const allQuestions = route.params.
 
@@ -53,7 +55,7 @@ function Quiz(props) {
         marginBottom: "15%"
       }}
       >
-        {allQuestions[currentQuestionIndex].options.map((option) => (
+        {allQuestions[currentQuestionIndex].answers.map((option) => (
           <TouchableOpacity
           style={{width: "100%", borderRadius: 100, borderWidth: 0.5, 
           borderColor: colors.blackText, height: "19%", backgroundColor: (currentOptionSelected != null && currentOptionSelected.id == option.id) ? colors.correct_light : colors.white,
@@ -65,7 +67,7 @@ function Quiz(props) {
             }} // nastavím jako selected option
           >
 
-            <Text style={[BOLD15, {textAlign: "center"}]}>{option.text}</Text>
+            <Text style={[BOLD15, {textAlign: "center"}]}>{option.answer}</Text>
           </TouchableOpacity>
         ))}
       </View>
@@ -77,11 +79,13 @@ function Quiz(props) {
     console.log("in validate", currentQuestionIndex);
     if (currentOptionSelected !== null) {
       if (
-        currentOptionSelected.logicalValue == 1
+        currentOptionSelected.is_correct
       ) {
         console.log("correct")
         // přičti body
-        console.log(currentOptionSelected.text, points + currentOptionSelected.scoreAmount);
+        console.log(currentOptionSelected.answer, points + currentOptionSelected.scoreAmount);
+
+        // budu posílat do submit
         setPoints(points + currentOptionSelected.scoreAmount); // je o jeden krok napřed
         setCorrect(true); // podle toho se potom rendruje jestli je tam napsaný správně nebo špatně
         // mělo by se zablokovat dát jinou možnost
@@ -191,6 +195,7 @@ function Quiz(props) {
               // put a zmenit aktivity
               {
               
+                // tady bude submit
               ACTIVITY_FINISHED(URL_ACTIVITIES.concat("hesla/"), props.route.params, points, user.id);
 
               props.navigation.navigate("ActivityFinished", { points: points, name: props.route.params.module_name });
