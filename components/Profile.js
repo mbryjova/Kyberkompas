@@ -90,7 +90,7 @@ function Profile(props) {
       </View>
 
       <View style={styles.namesContainer}>
-      <Text style={BOLD32}>{user.first_name} {user.last_name}</Text>
+      <Text style={BOLD32}>{user.email} {user.username}</Text>
       <Text style={[SEMIBOLD16, {marginTop: 5, color: colors.grey}]}
       onPress={handleChoosePhoto}>Změnit profilovou fotku</Text>
       </View>

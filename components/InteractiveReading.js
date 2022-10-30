@@ -24,8 +24,9 @@ import { UserContext } from "../App";
  * udělat function se statem pro každou otázku? - ok
  */
 function InteractiveReading(props) {
-  const data = require("../data/db.json").interactive_reading;
+  //const data = require("../data/db.json").interactive_reading; // jeden prvek seznamu z interactive readings .questions!
 
+  const data = props.route.params.activity.questions;
   /** index of the current item so we can slice the array */
   const [itemIndex, setItemIndex] = React.useState(0);
 
@@ -79,12 +80,12 @@ function InteractiveReading(props) {
             <Image source={require("../assets/images/testIcons/down.png")} />
           )}
 
-          <Text style={[BOLD20, {paddingLeft: 10}]}>{props.question.text}</Text>
+          <Text style={[BOLD20, {paddingLeft: 10}]}>{props.question.question}</Text>
         </TouchableOpacity>
 
         {show ? (
           // nevím jak změnit state index a points
-          props.question.options.map((option) => (
+          props.question.answers.map((option) => (
             <TouchableOpacity
               key={option.id}
               onPress={() => {
@@ -106,11 +107,11 @@ function InteractiveReading(props) {
               }}
               disabled={questionAnswered}
             >
-              <View style={[styles.optionWrapper, {backgroundColor: option.logicalValue == 1 && questionAnswered ? 
+              <View style={[styles.optionWrapper, {backgroundColor: option.is_correct && questionAnswered ? 
                 colors.correct_light : (option == currentOptionSelected ? colors.wrong_light : colors.white)}]}>
-              <Text style={[BOLD15, {textTransform: 'uppercase'}]}>{option.text}</Text>
+              <Text style={[BOLD15, {textTransform: 'uppercase'}]}>{option.answer}</Text>
               {
-                (option.logicalValue == 1 && questionAnswered ? (
+                (option.is_correct && questionAnswered ? (
                   <Image
                     source={require("../assets/images/testIcons/check.png")}
                   />
@@ -140,13 +141,13 @@ function InteractiveReading(props) {
     return (
       <View style={{alignItems: 'center'}}>
         <View style={styles.contentWrapper}>
-        <Text style={[styles.textStyle, REGULAR16]} >{item.content}</Text>
+        <Text style={[styles.textStyle, REGULAR16]} >{item.reading}</Text>
 
         </View>
         <View style={{width: '91%'}}>
           <Question
             key={item.id}
-            question={item.question}
+            question={item}
             // onPress={() => setItemIndex(itemIndex + 1)}
             // addPoints={(points) => setPoints(points)}
             index={index}

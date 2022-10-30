@@ -38,6 +38,7 @@ function SkillTree(props) {
               props.navigation.navigate("Module", {
                 name: item.title,
                 module_id: item.id // abych si pak mohla fechnout konkrétní data
+                
                 //finished: item.finished_activities,
                 //activities: item.activities, // nevím jestli budu posílat, zatím nepoužívám
               })
@@ -87,7 +88,7 @@ function SkillTree(props) {
       //style={{ alignContent: "center", alignItems: "center", paddingTop: 17 }}
     >
       <FlatList
-        data={modules.modules}
+        data={modules}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
         renderItem={renderModuleItem}

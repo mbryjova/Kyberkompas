@@ -9,22 +9,86 @@ import {
 } from "./atoms/typography";
 import colors from "../assets/colors/colors";
 import { GET, URL_ACTIVITIES } from "../database/queries";
+import {get_from_url, MODULES_URL} from '../database/queries';
+
 
 function Module({ route, navigation }) {
   const header = "aktivity";
   const [data, setData] = React.useState([]);
   const [activityFinished, setActivityFinished] = React.useState(false);
+  let data_formatted = [];
 
-  React.useEffect(() => {
-    let module_name = route.params.name;
-    if (route.params.name == "Kybertahák") {
-      module_name = "kybertahak"
-    }
-    GET(setData, URL_ACTIVITIES.concat(module_name)); // tady module.id
-    console.log(data, route.params.name);
+  React.useEffect(async () => {
+    // let module_name = route.params.name;
+    // if (route.params.name == "Kybertahák") {
+    //   module_name = "kybertahak"
+    // }
+    //GET(setData, URL_ACTIVITIES.concat(module_name)); // tady module.id
+    // console.log(data, route.params.name);
+    console.log(MODULES_URL.concat("/").concat(route.params.module_id))
+    await get_from_url(setData, MODULES_URL.concat("/").concat(route.params.module_id))
+    console.log(data);
   }, [activityFinished]
 
   )
+
+  if (data.length != 0) {
+
+    const interactive_readings = data.interactive_readings.map(item => {item.type = "interaktivní čtení"; return item});
+    const tinder_swipes = data.tinder_swipes.map(item => {item.type = "ano nebo ne"; return item});
+    const tests = data.tests.map(item => {item.type = "test"; return item});
+    const interactive_activities = data.interactive_activities.map(item => {item.type = "informační aktivita"; return item});
+
+    console.log(interactive_readings)
+    const allactivities = interactive_readings.concat(tinder_swipes, tests, interactive_activities)
+    const finished = allactivities.filter(item => item.user_activity.length != 0 && item.user_activity[0].done);
+    const not_finished = allactivities.filter(item => item.user_activity.length == 0 || (item.user_activity.length != 0 && !item.user_activity[0].done));
+    
+    //console.log(allactivities)
+    data_formatted = [
+      {
+        "id": 1,
+        "title": "následující:",
+        "data": not_finished
+      },
+      {
+        "id": 2,
+        "title": "dokončené:",
+        "data": finished
+      }
+    // {
+    //   "title": "interaktivní čtení",
+    //   "id": 1,
+    //   "data": data.interactive_readings
+    // },
+    // {
+    //   "title": "ano nebo ne",
+    //   "id": 2,
+    //   "data": data.tinder_swipes
+    // },
+    // {
+    //   "title": "test",
+    //   "id": 3,
+    //   "data": data.tests
+    // },
+    // {
+    //   "title": "informační aktivita",
+    //   "id": 4,
+    //   "data": data.interactive_activities
+    // },
+    // {
+    //   "title": "dokončené:",
+    //   "id": 5,
+    //   "data": 
+    //   data.interactive_readings.concat(data.tinder_swipes, data.tests, data.interactive_activities)
+    //   .filter(item => item.user_activity.length != 0 && item.user_activity[0].done)
+    //   //allactivities.filter(item => item.user_activity.length != 0 && item.user_activity[0].done)
+    // }
+  ]
+
+  console.log(data_formatted[1]);
+  //setData(data_formatted)
+  }
 
   const renderNoActivities = ({section}) => {
     if (section.data.length != 0) {
@@ -83,7 +147,7 @@ function Module({ route, navigation }) {
           <Text style={[EXTRABOLD12, { textTransform: "uppercase" }]}>
             {item.type}
           </Text>
-          <Text style={[BOLD20]}>{item.name}</Text>
+          <Text style={[BOLD20]}>{item.title}</Text>
           <Text style={REGULAR16}>{item.description}</Text>
         </View>
         {
@@ -99,11 +163,13 @@ function Module({ route, navigation }) {
             },
           ]}
           onPress={() => navigation.navigate(activityType[item.type],
-            {header: item.name,
+            {
+            header: item.title,
             moduleName: route.params.name,
             setActivityFinished: setActivityFinished,
-            activity: item, 
-            data: data})}
+            activity: item,
+            //data: data
+          })}
         >
           SPUSTIT
         </Text>
@@ -138,15 +204,15 @@ function Module({ route, navigation }) {
     );
   };
 
-  if (data.length == 0) {
+  if (data_formatted.length == 0) {
     return null;
   }
 
   return (
     <View style={{ backgroundColor: colors.correct, flex: 1 }}>
       <SectionList
-        sections={data}
-        keyExtractor={(item) => item.id}
+        sections={data_formatted}
+        keyExtractor={(item, index) => index}
         renderItem={renderActivityItem}
         renderSectionFooter={renderNoActivities}
         renderSectionHeader={({ section }) => (
@@ -154,7 +220,8 @@ function Module({ route, navigation }) {
           <Text
             style={[
               REGULAR16,
-              { textTransform: "capitalize",
+              { 
+              textTransform: "capitalize",
               marginBottom: "4%",
               marginLeft: "4%"
             },

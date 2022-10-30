@@ -66,15 +66,18 @@ function Login(props) {
         }
       }
     ).then((response) => {
-      console.log(response.data);
-      save('token', 'token '.concat(response.data.auth_token));
-      //console.log(get_value('token'));
+      console.log("response data:", response.data);
+      save('token', 'Token '.concat(response.data.auth_token));
+      //const value = get_value('token');
+      //console.log("token", value);
       //setToken('token '.concat(response.data.auth_token));
-    }).catch(error => {console.log(error);
+    }).catch(error => {console.log("login:", error);
     });
     //console.log(token);
+    const value = await get_value('token');
+    console.log("token", value);
     await get_from_url(setUser, USER_ME_URL);
-    console.log(user);
+    console.log("logged user:", user);
   };
   return (
     // contentContainerStyle={{backgroundColor: colors.correct, flex: 1}}

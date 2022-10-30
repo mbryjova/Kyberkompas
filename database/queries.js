@@ -10,13 +10,28 @@ import * as SecureStore from 'expo-secure-store';
 
 //const context = useUserContext();
 
-const token = SecureStore.getItemAsync('token');
+//const token = SecureStore.getItemAsync('token');
+
+const get_value = async (key) => {
+  const value = await SecureStore.getItemAsync(key);
+  console.log("token in queries:", value);
+  return value;
+}
+
+//const token = get_value('token');
 
 const api = axios.create({
   baseURL: 'http://172.26.5.28/api/',
   //timeout: 1000,
-  headers: {'accept': 'application/json', 'Authorization': 'token cad8d7aa8dc1a8d07d06f0f97fcdbdf9da40752d'}
+  // 'token cad8d7aa8dc1a8d07d06f0f97fcdbdf9da40752d'
+  headers: {'accept': 'application/json', 'Authorization': '', 'Content-Type': 'application/json'}
 });
+
+api.interceptors.request.use(async req => {
+  const token = await SecureStore.getItemAsync('token')
+  req.headers.Authorization = token;
+  return req;
+})
 
 const URL_CHALLENGES = 'https://kyberkompas-database.herokuapp.com/challenges';
 const URL_ACTIVITIES = 'https://kyberkompas-database.herokuapp.com/activities_';
@@ -29,16 +44,17 @@ const USER_ME_URL = 'user/me';
 const MODULES_URL = 'modules';
 
 const get_from_url = async (setter, url) => {
+  //console.log(token);
   await api.get(url).then((response) => {
-    console.log(response.data);
+    //console.log(response.data);
     setter(response.data);
-  }).catch(error => {console.log(error);
+  }).catch(error => {console.log("get:", error);
   });
 
 }
 
 const post_to_url = async (url, data, setter=null) => {
-  await api.post(url, {'data': {data}}).then((response) => {
+  await api.post(url, {'data': data}).then((response) => {
     console.log(response.data);
     setter(response.data);
   }).catch(error => {console.log(error);
@@ -167,6 +183,7 @@ export {
 
     // new api
     get_from_url,
+    post_to_url,
     //PUT,
     URL_CHALLENGES,
     URL_ACTIVITIES,

@@ -10,7 +10,8 @@ import { BOLD15, BOLD20, REGULAR16 } from "./atoms/typography";
 import colors from "../assets/colors/colors";
 import Swiper from "react-native-deck-swiper";
 import BigButton from "./BigButton";
-import { URL_ACTIVITIES, ACTIVITY_FINISHED } from "../database/queries";
+//import { URL_ACTIVITIES, ACTIVITY_FINISHED } from "../database/queries";
+import {post_to_url} from '../database/queries';
 import { UserContext } from "../App";
 
 function YesOrNo(props) {
@@ -31,7 +32,7 @@ function YesOrNo(props) {
   const activity = props.route.params.activity;
   const data = activity.questions;
 
-  const submit = [];
+  let submit = [];
 
   const AddAnswer = (question_id, answer_id) => {
     submit.push( {
@@ -88,7 +89,8 @@ function YesOrNo(props) {
 
   const lastQuestion = () => {
     //ACTIVITY_FINISHED(URL_ACTIVITIES.concat("hesla/"), props.route.params, points, user.id);
-    post_from_url(TINDER_SUBMIT_URL, {'answers': {submit}}, setPoints);
+    console.log(submit)
+    post_to_url('tinder_swipes/'.concat(activity.id).concat('/submit'), JSON.stringify({'answers': submit}), setPoints);
     props.navigation.navigate("ActivityFinished", { points: points.achieved_score });
   };
 
@@ -129,6 +131,7 @@ function YesOrNo(props) {
                   //
                   //setPoints(points + data[currentIndex].answers[0].scoreAmount),
                   AddAnswer(data[currentIndex].id, data[currentIndex].answers[0].id),
+                  console.log(submit);
                   setCurrentIndex(currentIndex + 1);
               }}
               disableTopSwipe={true}
