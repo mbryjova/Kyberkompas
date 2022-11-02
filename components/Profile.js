@@ -3,14 +3,15 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import * as ImagePicker from 'expo-image-picker';
 import colors from "../assets/colors/colors";
 import { BOLD20, EXTRABOLD12, SEMIBOLD16, BOLD32, BOLD15 } from "./atoms/typography";
-import {GET, PUT_PHOTO, URL_SCORES} from "../database/queries";
+import {GET, post_to_url, PUT_PHOTO, URL_SCORES} from "../database/queries";
 import {UserContext} from "../App";
 
 function Profile(props) {
 
   const [user, setUser, token, setToken] = React.useContext(UserContext);
   const [scores, setScores] = React.useState(null);
-  const [photo, setPhoto] = React.useState(null); // tady bude fotka od usera, který je přihlášený
+  const [photo, setPhoto] = React.useState(user.profile.avatar);
+  //React.useState(null); // tady bude fotka od usera, který je přihlášený
   
 
   console.log("photo:", photo, "user in profile:", user); // dám tu photo rovnou do app jako image ke current_user
@@ -34,8 +35,20 @@ function Profile(props) {
     console.log(result);
 
     if (!result.cancelled) {
-      setPhoto(result);
-      user.image = photo.path;
+      //setPhoto(result);
+
+      //user.image = photo.path;
+
+      const formdata = new FormData();
+      formdata.append('image',
+        {
+          uri: result.uri,
+          type: result.type
+        }
+      )
+
+      await post_to_url('user/set_avatar', formdata)
+      
       //PUT_PHOTO(user.id, user);
     }
   };
@@ -54,9 +67,13 @@ function Profile(props) {
     );
   }
 
-  const logOut = () => {
+  const logOut = async () => {
     setUser(null);
     props.navigation.navigate("Login");
+
+    // tady by mělo být asi něco jako loading
+    await post_to_url('user/token/logout', '')
+    //props.navigation.navigate("Login");
   }
 
   
@@ -72,7 +89,7 @@ function Profile(props) {
       <View style={styles.picture}>
       {
         photo ? (
-      <Image source={{uri: photo.uri}}
+      <Image source={{uri: photo}}
               style={styles.photo}
       />
         ) : (

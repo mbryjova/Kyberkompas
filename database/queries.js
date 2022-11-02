@@ -24,7 +24,8 @@ const api = axios.create({
   baseURL: 'http://172.26.5.28/api/',
   //timeout: 1000,
   // 'token cad8d7aa8dc1a8d07d06f0f97fcdbdf9da40752d'
-  headers: {'accept': 'application/json', 'Authorization': '', 'Content-Type': 'application/json'}
+  headers: {'accept': 'application/json', 'Authorization': ''}
+  //, 'Content-Type': 'application/json'}
 });
 
 api.interceptors.request.use(async req => {
@@ -42,6 +43,7 @@ const URL_INACTIVE = 'https://kyberkompas-database.herokuapp.com/inactive_challe
 
 const USER_ME_URL = 'user/me';
 const MODULES_URL = 'modules';
+const SIGN_UP_URL = 'user';
 
 const get_from_url = async (setter, url) => {
   //console.log(token);
@@ -56,7 +58,9 @@ const get_from_url = async (setter, url) => {
 const post_to_url = async (url, data, setter=null) => {
   await api.post(url, {'data': data}).then((response) => {
     console.log(response.data);
-    setter(response.data);
+    if (setter != null) {
+      setter(response.data);
+    }
   }).catch(error => {console.log(error);
   });
 
@@ -194,5 +198,6 @@ export {
 
     // new api
     USER_ME_URL,
-    MODULES_URL
+    MODULES_URL,
+    SIGN_UP_URL
 }

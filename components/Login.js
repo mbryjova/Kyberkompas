@@ -114,10 +114,12 @@ function Login(props) {
             <View style={{ marginBottom: wrongUsername ? 0 : 20 }}>
               <InputComp
                 onChangeText={setUsername}
-                header="EMAIL"
-                name="jmeno@email.com"
+                //header="EMAIL" // uživatelské jméno
+                //name="jmeno@email.com"
+                header="USERNAME"
+                name="Uživatelské jméno"
                 secureTextEmpty={false}
-                source={require("../assets/images/mail.png")}
+                source={require("../assets/images/user.png")} // změnit na panáček
                 wrongInput={wrongUsername}
                 error="Nesprávný e-mail"
               />
