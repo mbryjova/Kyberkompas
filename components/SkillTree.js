@@ -53,9 +53,9 @@ function SkillTree(props) {
             >
               
               <AnimatedProgressWheel
-                progress={item.progress}
+                progress={item.progress * 100}
                 backgroundColor={colors.white}
-                color={item.progress == 100 ? colors.correct : (item.progress == 0 ? colors.white : colors.primary)}
+                color={item.progress * 100 == 100 ? colors.correct : (item.progress == 0 ? colors.white : colors.primary)}
                 size={88}
                 width={8}
               />

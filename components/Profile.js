@@ -3,8 +3,9 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import * as ImagePicker from 'expo-image-picker';
 import colors from "../assets/colors/colors";
 import { BOLD20, EXTRABOLD12, SEMIBOLD16, BOLD32, BOLD15 } from "./atoms/typography";
-import {GET, post_to_url, PUT_PHOTO, URL_SCORES} from "../database/queries";
+import {GET, get_from_url, post_to_url, PUT_PHOTO, URL_SCORES} from "../database/queries";
 import {UserContext} from "../App";
+import axios from "axios";
 
 function Profile(props) {
 
@@ -20,7 +21,7 @@ function Profile(props) {
 
   React.useEffect(() => {
     //console.log(user, URL_SCORES.concat(user.id), user.anual_score);
-    GET(setScores, URL_SCORES.concat(user.id));
+    //GET(setScores, URL_SCORES.concat(user.id));
     // GET scores/contextuser.id
     //PUT_PHOTO(user.id, user);
   }, []) // potřebuju aby se to stáhlo vždycky když se změní skóre nebo property uživatele
@@ -40,14 +41,17 @@ function Profile(props) {
       //user.image = photo.path;
 
       const formdata = new FormData();
-      formdata.append('image',
+      formdata.append('file',
         {
           uri: result.uri,
           type: result.type
         }
       )
 
-      await post_to_url('user/set_avatar', formdata)
+      await post_to_url('user/set_avatar', formdata);
+      //await get_from_url(setUser, 'user/me');
+      setPhoto(result.uri)
+
       
       //PUT_PHOTO(user.id, user);
     }
@@ -77,9 +81,9 @@ function Profile(props) {
   }
 
   
-  if (scores == null) {
-    return null;
-  }
+  // if (scores == null) {
+  //   return null;
+  // }
 
   return (
     <View style={styles.profileContainer}>
@@ -107,7 +111,7 @@ function Profile(props) {
       </View>
 
       <View style={styles.namesContainer}>
-      <Text style={BOLD32}>{user.email} {user.username}</Text>
+      <Text style={BOLD32}>{user.username}</Text>
       <Text style={[SEMIBOLD16, {marginTop: 5, color: colors.grey}]}
       onPress={handleChoosePhoto}>Změnit profilovou fotku</Text>
       </View>
@@ -115,10 +119,10 @@ function Profile(props) {
       </View>
 
       <View style={styles.pointsContainer}>
-      <DoubleText text1="celkem bodů" text2={scores.total_score}/>
-      <DoubleText text1="tento týden" text2={scores.weekly_score}/>
-      <DoubleText text1="nové znalosti" text2={scores.new_activities}/>
-      <DoubleText text1="ukončené výzvy" text2={scores.finished_challenges}/>
+      <DoubleText text1="celkem bodů" text2={user.total_score}/>
+      {/* <DoubleText text1="tento týden" text2={scores.weekly_score}/> */}
+      <DoubleText text1="nové znalosti" text2={user.done_activities}/>
+      <DoubleText text1="ukončené výzvy" text2={user.done_challenges}/>
 
       </View>
 

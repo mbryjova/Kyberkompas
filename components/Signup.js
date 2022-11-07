@@ -1,12 +1,13 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView} from "react-native";
 import colors from "../assets/colors/colors";
 import { BOLD16, BOLD32, REGULAR16 } from "./atoms/typography";
 import BigButton from "./BigButton";
 import InputComp from "./InputComp";
 import Constants from "expo-constants";
 import { post_to_url, POST_USER, SIGN_UP_URL } from "../database/queries";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 /**
  * component of the sign-up screen
@@ -64,6 +65,7 @@ function Signup(props) {
   }
 
   return (
+    <KeyboardAwareScrollView>
     <View style={styles.container}>
       <View style={{width: "91%", backgroundColor: colors.primary, marginTop: "14%"}}>
       <Text style={[styles.headline, BOLD32]}>Registrace</Text>
@@ -131,10 +133,11 @@ function Signup(props) {
         <BigButton
           //onPress={() => props.navigation.navigate("TabNavigator")}
           onPress={handleSignup}
-          name="POKRAČOVAT"
+          name="Zaregistrovat se"
         />
       </View>
     </View>
+    </KeyboardAwareScrollView>
   );
 }
 
@@ -144,7 +147,9 @@ const styles = StyleSheet.create({
   button: {
     //alignSelf: "center",
     //top: 440,
-    marginTop: '60%'
+    //marginTop: '60%'
+    marginVertical: 10,
+    //marginTop: 10
   },
   container: {
     backgroundColor: colors.correct,

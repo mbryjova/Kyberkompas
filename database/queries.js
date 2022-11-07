@@ -24,8 +24,7 @@ const api = axios.create({
   baseURL: 'http://172.26.5.28/api/',
   //timeout: 1000,
   // 'token cad8d7aa8dc1a8d07d06f0f97fcdbdf9da40752d'
-  headers: {'accept': 'application/json', 'Authorization': ''}
-  //, 'Content-Type': 'application/json'}
+  headers: {'accept': 'application/json', 'Authorization': '', 'Content-Type': 'application/json'}
 });
 
 api.interceptors.request.use(async req => {
