@@ -26,8 +26,8 @@ function Login(props) {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  const [wrongPassword, setWrongPassword] = React.useState(false);
-  const [wrongUsername, setWrongUsername] = React.useState(false);
+  const [result, setResult] = React.useState(false);
+  //const [wrongUsername, setWrongUsername] = React.useState(false);
 
   const [user, setUser, token, setToken] = React.useContext(UserContext);
   //const context = useUserContext();
@@ -66,6 +66,7 @@ function Login(props) {
         }
       }
     ).then((response) => {
+      setResult(response.data)
       console.log("response data:", response.data);
       save('token', 'Token '.concat(response.data.auth_token));
       //const value = get_value('token');
@@ -111,7 +112,7 @@ function Login(props) {
 
           {/**tady bylo styles.input */}
           <View style={styles.inputWrapper}>
-            <View style={{ marginBottom: wrongUsername ? 0 : 20 }}>
+            {/* <View style={{ marginBottom: wrongUsername ? 0 : 20 }}> */}
               <InputComp
                 onChangeText={setUsername}
                 //header="EMAIL" // uživatelské jméno
@@ -119,19 +120,19 @@ function Login(props) {
                 header="USERNAME"
                 name="Uživatelské jméno"
                 secureTextEmpty={false}
-                source={require("../assets/images/user.png")} // změnit na panáček
-                wrongInput={wrongUsername}
-                error="Nesprávný e-mail"
+                source={require("../assets/images/user.png")} // změnit na panáček - ok
+                wrongInput={result.non_field_errors}
+                //error="Nesprávný e-mail"
               />
-            </View>
+            {/* </View> */}
             <InputComp
               onChangeText={setPassword}
               header="HESLO"
               name="********"
               secureTextEntry={true}
               source={require("../assets/images/lock.png")}
-              wrongInput={wrongPassword}
-              error="Nesprávné heslo"
+              wrongInput={result.non_field_errors}
+              //error="Nesprávné heslo"
             />
           </View>
         </View>
@@ -154,7 +155,7 @@ function Login(props) {
             <Text style={styles.noAccountText}>Nemáte účet?</Text>
             <Text
               style={styles.signUp}
-              onPress={() => props.navigation.navigate("Signup", { data: [] })}
+              onPress={() => props.navigation.navigate("Signup")}
             >
               Zaregistrujte se
             </Text>

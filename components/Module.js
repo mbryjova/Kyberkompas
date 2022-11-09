@@ -40,7 +40,7 @@ function Module({ route, navigation }) {
     const interactive_activities = data.interactive_activities.map(item => {item.type = "informační aktivita"; return item});
 
     console.log(interactive_readings)
-    const allactivities = interactive_readings.concat(tinder_swipes, tests, interactive_activities)
+    const allactivities = interactive_readings.concat(tinder_swipes, tests, interactive_activities).sort((a, b) => a.module_order > b.module.order ? 1 : -1);
     const finished = allactivities.filter(item => item.user_activity.length != 0 && item.user_activity[0].done);
     const not_finished = allactivities.filter(item => item.user_activity.length == 0 || (item.user_activity.length != 0 && !item.user_activity[0].done));
     
@@ -56,34 +56,6 @@ function Module({ route, navigation }) {
         "title": "dokončené:",
         "data": finished
       }
-    // {
-    //   "title": "interaktivní čtení",
-    //   "id": 1,
-    //   "data": data.interactive_readings
-    // },
-    // {
-    //   "title": "ano nebo ne",
-    //   "id": 2,
-    //   "data": data.tinder_swipes
-    // },
-    // {
-    //   "title": "test",
-    //   "id": 3,
-    //   "data": data.tests
-    // },
-    // {
-    //   "title": "informační aktivita",
-    //   "id": 4,
-    //   "data": data.interactive_activities
-    // },
-    // {
-    //   "title": "dokončené:",
-    //   "id": 5,
-    //   "data": 
-    //   data.interactive_readings.concat(data.tinder_swipes, data.tests, data.interactive_activities)
-    //   .filter(item => item.user_activity.length != 0 && item.user_activity[0].done)
-    //   //allactivities.filter(item => item.user_activity.length != 0 && item.user_activity[0].done)
-    // }
   ]
 
   console.log(data_formatted[1]);

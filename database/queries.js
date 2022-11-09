@@ -43,6 +43,8 @@ const URL_INACTIVE = 'https://kyberkompas-database.herokuapp.com/inactive_challe
 const USER_ME_URL = 'user/me';
 const MODULES_URL = 'modules';
 const SIGN_UP_URL = 'user';
+const VALID_CHALLENGES_URL = 'challenges/valid';
+const INVALID_CHALLENGES_URL = 'challenges/obsolete';
 
 const get_from_url = async (setter, url) => {
   //console.log(token);
@@ -198,5 +200,7 @@ export {
     // new api
     USER_ME_URL,
     MODULES_URL,
-    SIGN_UP_URL
+    SIGN_UP_URL,
+    VALID_CHALLENGES_URL,
+    INVALID_CHALLENGES_URL
 }

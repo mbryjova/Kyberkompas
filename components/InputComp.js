@@ -14,7 +14,7 @@ function InputComp(props) {
         <Text
           style={[
             EXTRABOLD12,
-            { color: props.wrongInput ? colors.wrong : colors.blackText },
+            { color: props.wrongInput != null ? colors.wrong : colors.blackText },
           ]}
         >
           {props.header}
@@ -23,7 +23,7 @@ function InputComp(props) {
       <View
         style={[
           styles.input,
-          { borderColor: props.wrongInput ? colors.wrong : colors.grey },
+          { borderColor: props.wrongInput != null ? colors.wrong : colors.grey },
         ]}
       >
         <Image style={styles.image} source={props.source} />
@@ -35,11 +35,11 @@ function InputComp(props) {
         />
       </View>
 
-      {props.wrongInput && (
+      {/* {props.wrongInput != null && (
         <Text style={[REGULAR14, { color: colors.wrong, marginLeft: "60%" }]}>
           {props.error}
         </Text>
-      )}
+      )} */}
     </View>
   );
 }

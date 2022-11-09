@@ -6,6 +6,7 @@ import {
   URL_BREACHES,
   ACTIVITY_FINISHED,
   URL_ACTIVITIES,
+  post_to_url,
 } from "../database/queries";
 import { BOLD16, BOLD20, REGULAR16 } from "./atoms/typography";
 import BigButton from "./BigButton";
@@ -15,30 +16,35 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 
 function APIActivity(props) {
   // proč tady mám?
-  const [wrong, setWrong] = React.useState(false);
-  const [user, setUser, token, setToken] = React.useContext(UserContext);
+  // const [wrong, setWrong] = React.useState(false);
+  // const [user, setUser, token, setToken] = React.useContext(UserContext);
 
   const [input, setInput] = React.useState("");
 
   /**
    * 1 - getting user input
    * 2 - finishig the activity
-   * 3 - account doesnt exist
+   * 3 - account doesnt exist - asi můžu smazat
    */
   const [status, setStatus] = React.useState(1);
 
-  const [breaches, setBreaches] = React.useState([]);
+  //const [breaches, setBreaches] = React.useState([]);
   const [validate, setValidate] = React.useState(false);
+  const [response, setResponse] = React.useState(null);
 
-  const [errorStatus, setErrorStatus] = React.useState(0);
+  //const [errorStatus, setErrorStatus] = React.useState(0);
   //const { screenHeight } = Dimensions.get('screen').height;
+
+  const activity = props.route.params.activity;
+
 
 
   React.useEffect(async () => {
-    console.log(errorStatus);
+    //console.log(errorStatus);
     if (validate) {
-      await GET(setBreaches, URL_BREACHES.concat(input), setErrorStatus);
-      console.log("here", errorStatus);
+      // await GET(setBreaches, URL_BREACHES.concat(input), setErrorStatus);
+      // console.log("here", errorStatus);
+      post_to_url('interactive_activity/'.concat(activity.id).concat('/submit'), {"input": {input}}, setResponse);
       setStatus(2);
     }
   }, [validate]);
@@ -47,11 +53,11 @@ function APIActivity(props) {
     <View style={styles.container}>
       
         {/* title */}
-        <Text style={[BOLD20, styles.title]}>Byl váš účet prolomen?</Text>
+        <Text style={[BOLD20, styles.title]}>{activity.title}</Text>
 
         {/* description */}
         <Text style={[REGULAR16, styles.description]}>
-          Zadejte email a zjistětě, zda byl váš učet někde prolomen.
+          {activity.description}
         </Text>
         <View style={{ width: "100%", marginTop: 5, marginBottom: 20 }}>
           <InputComp
@@ -59,9 +65,9 @@ function APIActivity(props) {
             header=""
             name=""
             secureTextEmpty={false}
-            source={require("../assets/images/mail.png")}
-            wrongInput={wrong}
-            error="Email cant be empty"
+            source={require("../assets/images/mail.png")} // nevím co dát sem
+            wrongInput={null} // zatím null
+            //error="Email cant be empty"
           />
         </View>
 
@@ -84,7 +90,23 @@ function APIActivity(props) {
       ) : null}
       {status == 2 ? (
         <View style={{ flex: 1, justifyContent: 'space-between'}}>
-          {breaches.length == 0 ? (
+            <ScrollView
+              style={{
+                borderRadius: 16,
+                backgroundColor: activity.max_score == response.achieved_score ? colors.correct_light : colors.wrong_light,
+                borderColor: activity.max_score == response.achieved_score ? colors.correct_light : colors.wrong_light,
+                //height: "40%",
+                width: "100%",
+                padding: "6%",
+                alignSelf: 'center'
+              }}
+            >
+              <Text style={REGULAR16}>
+                {response.message}
+              </Text>
+            </ScrollView>
+
+          {/* {breaches.length == 0 ? (
             <View
               style={{
                 borderRadius: 16,
@@ -133,7 +155,7 @@ function APIActivity(props) {
                 }}
               />
             </View>
-          )}
+          )} */}
           <View style={{marginBottom: 40}}>
             <BigButton
               name="dokončit"

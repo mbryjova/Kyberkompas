@@ -3,7 +3,8 @@ import { View, StyleSheet, Text, Image, FlatList } from "react-native";
 import colors from "../assets/colors/colors";
 import { EXTRABOLD12, BOLD20, REGULAR16, BOLD15, SEMIBOLD16, BOLD32 } from "./atoms/typography";
 import axios from "axios";
-import {GET, URL_CHALLENGES, URL_INACTIVE} from "../database/queries";
+//import {GET, URL_CHALLENGES, URL_INACTIVE} from "../database/queries";
+import {get_from_url, VALID_CHALLENGES_URL, INVALID_CHALLENGES_URL} from '../database/queries';
 
 /**
  * dát image přes get, získávám z databáze - někde ho získám
@@ -25,13 +26,21 @@ function Challenges(props) {
   /** getting the data */
   
   React.useEffect(() => {
-    GET(setChallenges, URL_CHALLENGES);
-    GET(setInactive, URL_INACTIVE);
+    // GET(setChallenges, URL_CHALLENGES);
+    // GET(setInactive, URL_INACTIVE);
+    get_from_url(setChallenges, VALID_CHALLENGES_URL);
+    get_from_url(setInactive, INVALID_CHALLENGES_URL);
     console.log("chall:" + challenges);
-    setChanged(false);
+    //setChanged(false);
   }
-  , [changed]);
+  , []);
 
+  const activityType = {
+    "test": "Quiz",
+    "ano nebo ne": "YesOrNo",
+    "interaktivní čtení": "InteractiveReading",
+    "informační aktivita": "APIActivity"
+  }
   /** a function for rendering the challenge item */
 
   const renderChallengeItem = ({ item }) => {
@@ -42,20 +51,21 @@ function Challenges(props) {
         <Image source={{uri: item.image}}
         style={styles.image} />
         <View style={{ marginLeft: 10, marginRight: 10 }}>
-          <Text style={[EXTRABOLD12, { marginTop: 10 }]}>{item.date_from}</Text>
+          <Text style={[EXTRABOLD12, { marginTop: 10 }]}>{item.valid_from}</Text>
           <Text style={[BOLD20, { marginBottom: 4 }]}>{item.title}</Text>
           <Text style={REGULAR16} numberOfLines={2}>
             {item.description}
           </Text>
           <Text
             onPress={() =>
-              props.navigation.navigate("Challenge", {
-                item: item,
-                name: item.title,
-                date_from: item.date_from,
-                description: item.description,
-                challenge: item.challenge,
-                setChanged: setChanged
+              props.navigation.navigate(activityType[item.activity_type], {
+                // item: item,
+                // name: item.title,
+                // date_from: item.date_from,
+                // description: item.description,
+                // challenge: item.challenge,
+                // setChanged: setChanged
+                activity: item.activity
               })
             } // jako objekt s konkrétníma parametrama {name: {item.name}, ..}
             style={[
@@ -100,8 +110,10 @@ function Challenges(props) {
       <View style={{flex: 1, backgroundColor: colors.primary}}>
       <FlatList
         data={ currentState == 3 ? inactive :
-          (currentState == 2 ? challenges.filter((item) => item.finished == 1) : 
-          challenges.filter((item) => item.finished == 0))
+          (currentState == 2 ? challenges.filter(item => item.activity.user_activity.length != 0 
+            && item.activity.user_activity[0].done) :  // toto se musí filtrovat jinak - už ok
+          challenges.filter(item => item.activity.user_activity.length == 0 || 
+            (item.activity.user_activity.length != 0 && !item.activity.user_activity[0].done)))
         }
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
