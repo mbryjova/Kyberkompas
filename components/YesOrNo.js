@@ -81,7 +81,8 @@ function YesOrNo(props) {
           </View>
           <Image
             style={styles.image}
-            source={require("../assets/images/yesno_1.png")}
+            source={{uri: activity.image}}
+            //source={require("../assets/images/yesno_1.png")} // toto je potřeba udělat ještě
           />
         </View>
     );

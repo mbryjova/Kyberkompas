@@ -23,6 +23,12 @@ function Challenges(props) {
   const [currentState, setCurrentState] = React.useState(1);
 
   const [changed, setChanged] = React.useState(false);
+
+  const finishedChallenges = challenges.filter(item => item.user_activity.length != 0 
+    && item.user_activity[0].done);
+  const unfinishedChallenges = challenges.filter(item => (item.user_activity.length == 0)
+  || (item.user_activity.length != 0 && !item.user_activity[0].done));
+
   /** getting the data */
   
   React.useEffect(() => {
@@ -36,10 +42,10 @@ function Challenges(props) {
   , []);
 
   const activityType = {
-    "test": "Quiz",
-    "ano nebo ne": "YesOrNo",
-    "interaktivní čtení": "InteractiveReading",
-    "informační aktivita": "APIActivity"
+    "api | test": "Quiz",
+    "api | tinder swipe": "YesOrNo",
+    "api | interactive reading": "InteractiveReading",
+    "api | interactive activity": "APIActivity"
   }
   /** a function for rendering the challenge item */
 
@@ -48,8 +54,9 @@ function Challenges(props) {
     // todo, upravit styl obrázku
     return (
       <View style={styles.challengeWrapper}>
-        <Image source={{uri: item.image}}
-        style={styles.image} />
+        {/* <Image source={{uri: item.image}}
+        style={styles.image} /> */}
+        <Image style={styles.image} />
         <View style={{ marginLeft: 10, marginRight: 10 }}>
           <Text style={[EXTRABOLD12, { marginTop: 10 }]}>{item.valid_from}</Text>
           <Text style={[BOLD20, { marginBottom: 4 }]}>{item.title}</Text>
@@ -110,10 +117,8 @@ function Challenges(props) {
       <View style={{flex: 1, backgroundColor: colors.primary}}>
       <FlatList
         data={ currentState == 3 ? inactive :
-          (currentState == 2 ? challenges.filter(item => item.activity.user_activity.length != 0 
-            && item.activity.user_activity[0].done) :  // toto se musí filtrovat jinak - už ok
-          challenges.filter(item => item.activity.user_activity.length == 0 || 
-            (item.activity.user_activity.length != 0 && !item.activity.user_activity[0].done)))
+          (currentState == 2 ? finishedChallenges :  // toto se musí filtrovat jinak - už ok
+          unfinishedChallenges)
         }
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}

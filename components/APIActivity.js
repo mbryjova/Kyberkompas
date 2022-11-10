@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, FlatList, Dimensions, StyleSheet } from "react-native";
+import { View, Text, FlatList, Dimensions, StyleSheet, ScrollView } from "react-native";
 import colors from "../assets/colors/colors";
 import {
   GET,
@@ -44,7 +44,7 @@ function APIActivity(props) {
     if (validate) {
       // await GET(setBreaches, URL_BREACHES.concat(input), setErrorStatus);
       // console.log("here", errorStatus);
-      post_to_url('interactive_activity/'.concat(activity.id).concat('/submit'), {"input": {input}}, setResponse);
+      post_to_url('interactive-activity/'.concat(activity.id).concat('/submit'), {"input": {input}}, setResponse);
       setStatus(2);
     }
   }, [validate]);
@@ -89,22 +89,25 @@ function APIActivity(props) {
         </View>
       ) : null}
       {status == 2 ? (
-        <View style={{ flex: 1, justifyContent: 'space-between'}}>
+        <View style={{ flex: 1, justifyContent: 'space-between', backgroundColor: colors.correct, width: '100%'}}>
+            <View
+            style={{
+              borderRadius: 16,
+              backgroundColor:  response != null && activity.max_score == response.achieved_score ? colors.correct_light : colors.wrong_light,
+              borderColor:  response != null && activity.max_score == response.achieved_score ? colors.correct_light : colors.wrong_light,
+              height: 150, // kdyby tady byly procenta tak se to mění
+              width: "100%",
+              padding: "6%",
+              alignSelf: 'center'
+            }}>
             <ScrollView
-              style={{
-                borderRadius: 16,
-                backgroundColor: activity.max_score == response.achieved_score ? colors.correct_light : colors.wrong_light,
-                borderColor: activity.max_score == response.achieved_score ? colors.correct_light : colors.wrong_light,
-                //height: "40%",
-                width: "100%",
-                padding: "6%",
-                alignSelf: 'center'
-              }}
+              
             >
               <Text style={REGULAR16}>
-                {response.message}
+                {response != null ? response.message : null}
               </Text>
             </ScrollView>
+            </View>
 
           {/* {breaches.length == 0 ? (
             <View

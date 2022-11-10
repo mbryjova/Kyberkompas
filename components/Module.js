@@ -40,7 +40,7 @@ function Module({ route, navigation }) {
     const interactive_activities = data.interactive_activities.map(item => {item.type = "informační aktivita"; return item});
 
     console.log(interactive_readings)
-    const allactivities = interactive_readings.concat(tinder_swipes, tests, interactive_activities).sort((a, b) => a.module_order > b.module.order ? 1 : -1);
+    const allactivities = interactive_readings.concat(tinder_swipes, tests, interactive_activities).sort((a, b) => a.module_order > b.module_order ? 1 : -1);
     const finished = allactivities.filter(item => item.user_activity.length != 0 && item.user_activity[0].done);
     const not_finished = allactivities.filter(item => item.user_activity.length == 0 || (item.user_activity.length != 0 && !item.user_activity[0].done));
     

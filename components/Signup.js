@@ -35,7 +35,7 @@ function Signup(props) {
           "password": password
         }, setResult);
 
-        if (result.id != null) {
+        if (result != null && result.id != null) {
           props.navigation.navigate("Login");
         } else {
           setError(result)
@@ -66,50 +66,50 @@ function Signup(props) {
       </View>
       <View style={{width: "100%", alignItems: 'center', marginTop: '14%'}}>
       <View style={styles.inputWrapper}>
-      <View style={{marginBottom: wrongUsername ? 0 : 20}}>
+      {/* <View style={{marginBottom: wrongUsername ? 0 : 20}}> */}
           <InputComp
             onChangeText={setUsername}
             header="USERNAME"
             name="Uživatelské jméno"
             source={require("../assets/images/user.png")}
-            wrongInput={error.username}
+            wrongInput={error !== null ? error.username : null}
           />
-        </View>
-        <View style={{marginBottom: wrongUsername ? 0 : 20}}>
+        {/* </View> */}
+        {/* <View style={{marginBottom: wrongUsername ? 0 : 20}}> */}
           <InputComp
             onChangeText={setEmail}
             header="EMAIL"
             name="jmeno@email.com"
             source={require("../assets/images/mail.png")}
-            wrongInput={error.email}
+            wrongInput={error !== null ? error.email : null}
           />
-        </View>
-        <View style={{marginBottom: wrongPassword ? 0 : 20}}>
+        {/* </View>
+        <View style={{marginBottom: wrongPassword ? 0 : 20}}> */}
         <InputComp
           onChangeText={setPassword}
           header="HESLO"
           name="********"
           source={require("../assets/images/lock.png")}
-          wrongInput={error.password}
+          wrongInput={error !== null ? error.password : null}
           secureTextEntry={true}
         />
 
-        </View>
+        {/* </View> */}
 
       </View>
       </View>
       {
-        error.password != null && (
+        error != null && error.password !== null && (
           renderError(error.password)
         )
       }
       {
-        error.username != null && (
+        error != null && error.username !== null && (
           renderError(error.username)
         )
       }
       {
-        error.email != null && (
+        error != null && error.email !== null && (
           renderError(error.email)
         )
       }
