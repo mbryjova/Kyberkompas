@@ -2,7 +2,7 @@ import React from "react";
 import { View, StyleSheet, Text, Image, FlatList } from "react-native";
 import colors from "../assets/colors/colors";
 import { EXTRABOLD12, BOLD20, REGULAR16, BOLD15, SEMIBOLD16, BOLD32 } from "./atoms/typography";
-import axios from "axios";
+//import axios from "axios";
 //import {GET, URL_CHALLENGES, URL_INACTIVE} from "../database/queries";
 import {get_from_url, VALID_CHALLENGES_URL, INVALID_CHALLENGES_URL} from '../database/queries';
 
@@ -24,7 +24,7 @@ function Challenges(props) {
 
   const [changed, setChanged] = React.useState(false);
 
-  const finishedChallenges = challenges.filter(item => item.user_activity.length != 0 
+  const finishedChallenges = challenges.filter(item => item.user_activity.length != 0
     && item.user_activity[0].done);
   const unfinishedChallenges = challenges.filter(item => (item.user_activity.length == 0)
   || (item.user_activity.length != 0 && !item.user_activity[0].done));
@@ -72,7 +72,9 @@ function Challenges(props) {
                 // description: item.description,
                 // challenge: item.challenge,
                 // setChanged: setChanged
-                activity: item.activity
+                from_challenge: true,
+                activity: item.activity,
+                challenge_id: item.id
               })
             } // jako objekt s konkrétníma parametrama {name: {item.name}, ..}
             style={[

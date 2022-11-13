@@ -140,6 +140,7 @@ function Module({ route, navigation }) {
             moduleName: route.params.name,
             setActivityFinished: setActivityFinished,
             activity: item,
+            from_challenge: false
             //data: data
           })}
         >

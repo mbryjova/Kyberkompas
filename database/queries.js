@@ -27,6 +27,7 @@ const api = axios.create({
   headers: {'accept': 'application/json', 'Authorization': '', 'Content-Type': 'application/json'}
 });
 
+/** before sending the request the token is added to the header */
 api.interceptors.request.use(async req => {
   const token = await SecureStore.getItemAsync('token')
   req.headers.Authorization = token;

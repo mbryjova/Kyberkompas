@@ -163,15 +163,16 @@ function APIActivity(props) {
             <BigButton
               name="dokončit"
               onPress={() => {
-                ACTIVITY_FINISHED(
-                  URL_ACTIVITIES.concat("hesla/"),
-                  props.route.params,
-                  2,
-                  user.id
-                ); // 2 points
+                // ACTIVITY_FINISHED(
+                //   URL_ACTIVITIES.concat("hesla/"),
+                //   props.route.params,
+                //   2,
+                //   user.id
+                // ); // 2 points
 
                 props.navigation.navigate("ActivityFinished", {
-                  points: 2,
+                  from_challenge: props.route.params.from_challenge,
+                  points: response.achieved_score,
                   name: props.route.params.module_name,
                 });
               }}

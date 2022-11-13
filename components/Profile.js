@@ -11,7 +11,7 @@ function Profile(props) {
 
   const [user, setUser, token, setToken] = React.useContext(UserContext);
   const [scores, setScores] = React.useState(null);
-  const [photo, setPhoto] = React.useState(user.profile.avatar);
+  const [photo, setPhoto] = React.useState(user.avatar);
   //React.useState(null); // tady bude fotka od usera, který je přihlášený
   
 
@@ -120,7 +120,7 @@ function Profile(props) {
 
       <View style={styles.pointsContainer}>
       <DoubleText text1="celkem bodů" text2={user.total_score}/>
-      {/* <DoubleText text1="tento týden" text2={scores.weekly_score}/> */}
+      <DoubleText text1="tento týden" text2={scores.weekly_score}/>
       <DoubleText text1="nové znalosti" text2={user.done_activities}/>
       <DoubleText text1="ukončené výzvy" text2={user.done_challenges}/>
 

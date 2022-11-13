@@ -34,6 +34,7 @@ function YesOrNo(props) {
 
   let submit = [];
 
+  // toto asi dám ven, aby si to mohly importovat všechny
   const AddAnswer = (question_id, answer_id) => {
     submit.push( {
       "question_id": question_id,
@@ -91,8 +92,12 @@ function YesOrNo(props) {
   const lastQuestion = () => {
     //ACTIVITY_FINISHED(URL_ACTIVITIES.concat("hesla/"), props.route.params, points, user.id);
     console.log(submit)
-    post_to_url('tinder_swipes/'.concat(activity.id).concat('/submit'), JSON.stringify({'answers': submit}), setPoints);
-    props.navigation.navigate("ActivityFinished", { points: points.achieved_score });
+    post_to_url(props.route.params.from_challenge ? 'challenges/'.concat(props.route.params.challenge_id).concat('/submit') : 
+    'tinder_swipes/'.concat(activity.id).concat('/submit'),
+    JSON.stringify({'answers': submit}), 
+    setPoints);
+    props.navigation.navigate("ActivityFinished", { points: points.achieved_score,
+      from_challenge: props.route.params.from_challenge });
   };
 
   const nextQuestion = () => {

@@ -61,8 +61,8 @@ function Login(props) {
         method: 'post',
         headers: {'Content-Type': 'application/json'},
         data: {
-          "password": "admin",
-          "username": "admin"
+          "password": {password},
+          "username": {username}
         }
       }
     ).then((response) => {

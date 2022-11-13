@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Text, Image, FlatList, TouchableOpacity } from "react-native";
 import colors from "../assets/colors/colors";
-import { GET } from "../database/queries";
+import { GET, get_from_url } from "../database/queries";
 import { BOLD16, REGULAR14, SEMIBOLD16 } from "./atoms/typography";
 
 function Leaderboard(props) {
@@ -29,9 +29,9 @@ function Leaderboard(props) {
   const URL = "https://kyberkompas-database.herokuapp.com/leaderboard_";
 
   React.useEffect(() => {
-    GET(setWeekly, URL.concat("weekly"));
-    GET(setMonthly, URL.concat("monthly"));
-    GET(setAnnual, URL.concat("annual"));
+    get_from_url(setWeekly, 'leadership-board/weekly');
+    get_from_url(setMonthly, URL.concat('leadership-board/monthly'));
+    get_from_url(setAnnual, URL.concat('leadership-board/annual'));
     console.log("here");
     //console.log(data);
   }, []
@@ -68,7 +68,7 @@ function Leaderboard(props) {
           />
           <View>
             <Text style={SEMIBOLD16}>
-              {item.first_name} {item.last_name}
+              {item.username}
             </Text>
             <Text style={[REGULAR14, { color: colors.grey }]}>
               Celkem: {item.total_score}
@@ -79,7 +79,7 @@ function Leaderboard(props) {
         <Text style={[BOLD16, { alignSelf: "center" }]}>
           {currentState == 1 && item.weekly_score + " b"}
           {currentState == 2 && item.monthly_score + " b"}
-          {currentState == 3 && item.anual_score + " b"}
+          {currentState == 3 && item.annual_score + " b"}
         </Text>
       </View>
     );
