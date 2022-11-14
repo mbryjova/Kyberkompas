@@ -98,7 +98,9 @@ function Challenges(props) {
     return null;
   }
   return (
-    <View style={{backgroundColor: colors.correct, flex: 1}}>
+    <View style={{
+      //backgroundColor: colors.correct, 
+    flex: 1}}>
       <Text style={[BOLD32, {margin: 16}]}>
         Výzvy
       </Text>
@@ -116,7 +118,9 @@ function Challenges(props) {
       <View style={{borderBottomColor: colors.blackText, borderWidth: 1, width: 343, alignSelf: "center", marginBottom: 14}}>
 
       </View>
-      <View style={{flex: 1, backgroundColor: colors.primary}}>
+      <View style={{flex: 1, 
+        //backgroundColor: colors.primary
+        }}>
       <FlatList
         data={ currentState == 3 ? inactive :
           (currentState == 2 ? finishedChallenges :  // toto se musí filtrovat jinak - už ok
@@ -150,6 +154,6 @@ const styles = StyleSheet.create({
     width: 343,
     alignSelf: "center",
     marginBottom: 14,
-    backgroundColor: colors.white,
+    //backgroundColor: colors.white,
   },
 });

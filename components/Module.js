@@ -18,7 +18,7 @@ function Module({ route, navigation }) {
   const [activityFinished, setActivityFinished] = React.useState(false);
   let data_formatted = [];
 
-  React.useEffect(async () => {
+  React.useEffect(() => {
     // let module_name = route.params.name;
     // if (route.params.name == "Kybertahák") {
     //   module_name = "kybertahak"
@@ -26,7 +26,13 @@ function Module({ route, navigation }) {
     //GET(setData, URL_ACTIVITIES.concat(module_name)); // tady module.id
     // console.log(data, route.params.name);
     console.log(MODULES_URL.concat("/").concat(route.params.module_id))
-    await get_from_url(setData, MODULES_URL.concat("/").concat(route.params.module_id))
+
+    /** takhle by se měly správně stahovat ty data i guess */
+    async function fetchData() {
+      await get_from_url(setData, MODULES_URL.concat("/").concat(route.params.module_id))
+
+    }
+    fetchData();
     console.log(data);
   }, [activityFinished]
 
@@ -149,7 +155,9 @@ function Module({ route, navigation }) {
 
           ) : (
             /** onPress = {() => spustit znovu? pokud ano -> dát na aktivitu} */
-            <View style={{flex:1, alignItems: "flex-end", backgroundColor: colors.primary, flexDirection: "row",
+            <View style={{flex:1, alignItems: "flex-end", 
+            //backgroundColor: colors.primary, 
+            flexDirection: "row",
             justifyContent: "center"
             }}>
 
@@ -182,7 +190,9 @@ function Module({ route, navigation }) {
   }
 
   return (
-    <View style={{ backgroundColor: colors.correct, flex: 1 }}>
+    <View style={{ 
+      //backgroundColor: colors.correct, 
+    flex: 1 }}>
       <SectionList
         sections={data_formatted}
         keyExtractor={(item, index) => index}

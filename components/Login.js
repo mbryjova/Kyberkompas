@@ -61,8 +61,8 @@ function Login(props) {
         method: 'post',
         headers: {'Content-Type': 'application/json'},
         data: {
-          "password": {password},
-          "username": {username}
+          "password": password,
+          "username": username
         }
       }
     ).then((response) => {
@@ -87,21 +87,27 @@ function Login(props) {
     contentContainerStyle={{minHeight: '100%'}} // minHeight - bude se to scrollovat - zajímavý?
     >
     <KeyboardAwareScrollView
-      contentContainerStyle={{ backgroundColor: colors.correct, flex: 1 }}
+      contentContainerStyle={{ 
+        //backgroundColor: colors.correct, 
+        flex: 1 }}
       enableOnAndroid={true}
       enableAutomaticScroll={(Platform.OS === 'ios')}
     >
-      <View style={{ flex: 1, backgroundColor: colors.correct }}>
+      <View style={{ flex: 1, 
+        //backgroundColor: colors.correct 
+        }}>
         <View
           style={{
-            backgroundColor: colors.wrong_light,
+            //backgroundColor: colors.wrong_light,
             flex: 0.85,
             justifyContent: "space-evenly",
             marginTop: "6%",
           }}
         >
           <Text
-            style={[styles.headline, BOLD32, { backgroundColor: colors.wrong }]}
+            style={[styles.headline, BOLD32, 
+              //{ backgroundColor: colors.wrong }
+            ]}
           >
             Vítejte v{"\n"} KYBERKOMPASU
           </Text>
@@ -138,7 +144,9 @@ function Login(props) {
         </View>
         {/* </KeyboardAwareScrollView> */}
 
-        <View style={{ backgroundColor: colors.white, flex: 0.2 }}>
+        <View style={{ 
+          //backgroundColor: colors.white, 
+          flex: 0.2 }}>
           <View style={styles.button}>
             <BigButton
               name="PŘIHLÁSIT SE"
@@ -175,7 +183,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginBottom: "5%",
-    backgroundColor: colors.wrong_light,
+    //backgroundColor: colors.wrong_light,
   },
   headline: {
     textAlign: "center",
@@ -185,8 +193,8 @@ const styles = StyleSheet.create({
   },
   inputWrapper: {
     alignSelf: "center",
-    backgroundColor: colors.primary,
-    width: "91%",
+    //backgroundColor: colors.primary,
+    width: "91%"
   },
   logo: {
     alignSelf: "center",
@@ -206,6 +214,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: colors.primary,
+    //backgroundColor: colors.primary,
   },
 });

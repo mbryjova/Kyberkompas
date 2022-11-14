@@ -30,8 +30,8 @@ function Leaderboard(props) {
 
   React.useEffect(() => {
     get_from_url(setWeekly, 'leadership-board/weekly');
-    get_from_url(setMonthly, URL.concat('leadership-board/monthly'));
-    get_from_url(setAnnual, URL.concat('leadership-board/annual'));
+    get_from_url(setMonthly, 'leadership-board/monthly');
+    get_from_url(setAnnual, 'leadership-board/annual');
     console.log("here");
     //console.log(data);
   }, []
@@ -43,7 +43,7 @@ function Leaderboard(props) {
         style={{
           height: 56,
           width: "98%",
-          backgroundColor: colors.primary,
+          //backgroundColor: colors.primary,
           flexDirection: "row",
           justifyContent: "space-around",
           marginVertical: 16,
@@ -52,18 +52,20 @@ function Leaderboard(props) {
         <View
           style={{
             flexDirection: "row",
-            backgroundColor: colors.wrong,
+            //backgroundColor: colors.wrong,
             width: "70%",
             alignItems: "center",
           }}
         >
           <Image
-            source={{ uri: item.image }}
+            source={{ uri: item.avatar }}
             style={{
               borderRadius: 12,
               height: "100%",
               width: 56,
               marginRight: 12,
+              borderColor: colors.blackText,
+              borderWidth: 0.5
             }}
           />
           <View>
@@ -86,7 +88,9 @@ function Leaderboard(props) {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: colors.correct, alignItems: 'center' }}>
+    <View style={{ flex: 1, 
+    //backgroundColor: colors.correct, 
+    alignItems: 'center' }}>
       <View
         style={{
           width: "95%",
@@ -166,11 +170,11 @@ function Leaderboard(props) {
       </View>
       <FlatList
         data={data[currentState]}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.index}
         renderItem={renderPerson}
         contentContainerStyle={{
           alignItems: "center",
-          backgroundColor: colors.blackText,
+          //backgroundColor: colors.blackText,
         }}
       />
     </View>

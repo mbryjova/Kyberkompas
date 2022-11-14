@@ -26,6 +26,9 @@ import { UserContext } from "../App";
 function InteractiveReading(props) {
   //const data = require("../data/db.json").interactive_reading; // jeden prvek seznamu z interactive readings .questions!
 
+  if (props.route.params.activity == null) {
+    return null
+  }
   const data = props.route.params.activity.questions;
   /** index of the current item so we can slice the array */
   const [itemIndex, setItemIndex] = React.useState(0);

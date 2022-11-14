@@ -59,7 +59,9 @@ function Signup(props) {
   return (
     <KeyboardAwareScrollView>
     <View style={styles.container}>
-      <View style={{width: "91%", backgroundColor: colors.primary, marginTop: "14%"}}>
+      <View style={{width: "91%", 
+      //backgroundColor: colors.primary, 
+      marginTop: "14%"}}>
       <Text style={[styles.headline, BOLD32]}>Registrace</Text>
       <Text style={REGULAR16}>Zadejte svůj email, uživatelské jméno a heslo pro registraci</Text>
 
@@ -148,7 +150,7 @@ const styles = StyleSheet.create({
     //marginTop: 10
   },
   container: {
-    backgroundColor: colors.correct,
+    //backgroundColor: colors.correct,
     flex: 1,
     alignItems: 'center',
     marginTop: Constants.statusBarHeight

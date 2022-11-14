@@ -89,7 +89,9 @@ function Profile(props) {
     <View style={styles.profileContainer}>
 
       {/**view for the profile picture */}
-      <View style={{backgroundColor: colors.correct, flex: 2, justifyContent: 'space-evenly', alignItems: 'center'}}>
+      <View style={{
+        //backgroundColor: colors.correct, 
+        flex: 2, justifyContent: 'space-evenly', alignItems: 'center'}}>
       <View style={styles.picture}>
       {
         photo ? (
@@ -120,7 +122,7 @@ function Profile(props) {
 
       <View style={styles.pointsContainer}>
       <DoubleText text1="celkem bodů" text2={user.total_score}/>
-      <DoubleText text1="tento týden" text2={scores.weekly_score}/>
+      <DoubleText text1="tento týden" text2={user.weekly_score}/>
       <DoubleText text1="nové znalosti" text2={user.done_activities}/>
       <DoubleText text1="ukončené výzvy" text2={user.done_challenges}/>
 
@@ -158,7 +160,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flex: 1,
-    backgroundColor: colors.grey,
+    //backgroundColor: colors.grey,
     alignItems: 'center',
     justifyContent: 'center'
 
@@ -171,7 +173,7 @@ const styles = StyleSheet.create({
   },
   pointsContainer: {
     flex: 2,
-    backgroundColor: colors.wrong,
+    //backgroundColor: colors.wrong,
     justifyContent: 'space-evenly',
     paddingLeft: 20
 
