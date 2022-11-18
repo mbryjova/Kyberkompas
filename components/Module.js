@@ -108,12 +108,13 @@ function Module({ route, navigation }) {
           {
             height: 179,
             width: "91%",
-            flex: 1,
+            //flex: 1,
             borderRadius: 16,
             borderWidth: 0.5,
             borderColor: colors.blackText,
             alignSelf: "center",
-            marginBottom: "4%",
+            //marginBottom: "4%",
+            marginBottom: 15,
             backgroundColor:
             section.title === "dokončené:" ? colors.correct_light : colors.white,
           },
@@ -128,6 +129,7 @@ function Module({ route, navigation }) {
         </View>
         {
           section.title == "následující:" ? (
+            <View style={{flex: 1, justifyContent: 'flex-end'}}>
         <Text
           style={[
             BOLD15,
@@ -135,7 +137,7 @@ function Module({ route, navigation }) {
               textTransform: "uppercase",
               color: colors.primary,
               textAlign: "center",
-
+              marginBottom: 30
             },
           ]}
           onPress={() => navigation.navigate(activityType[item.type],
@@ -151,6 +153,8 @@ function Module({ route, navigation }) {
           SPUSTIT
         </Text>
 
+            </View>
+
           ) : (
             /** onPress = {() => spustit znovu? pokud ano -> dát na aktivitu} */
             <View style={{flex:1, alignItems: "flex-end", 
@@ -165,17 +169,18 @@ function Module({ route, navigation }) {
                 textTransform: "uppercase",
                 color: colors.grey,
                 textAlign: "center",
-                marginBottom: "5%"
+                //marginBottom: "5%"
+                marginBottom: 30
                 //flex: 1
               },
             ]} 
             >
               dokončena
             </Text>
-            <Image
-              style={{marginBottom: "4.5%", marginLeft: "4%"}}
+            {/* <Image
+              style={{marginBottom: 30, marginLeft: 30}} // upravit na čísla
               source={require("../assets/images/testIcons/check.png")}
-            />
+            /> */}
             </View>
           )
         }
@@ -203,8 +208,10 @@ function Module({ route, navigation }) {
               REGULAR16,
               { 
               textTransform: "capitalize",
-              marginBottom: "4%",
-              marginLeft: "4%"
+              // marginBottom: "4%",
+              // marginLeft: "4%"
+              marginBottom: 15,
+              marginLeft: 20
             },
             ]}
           >
@@ -214,8 +221,11 @@ function Module({ route, navigation }) {
         )}
         ListHeaderComponent={
           <Text style={[BOLD32, { textTransform: "capitalize",
-         marginLeft: "4%",
-         marginTop: "4%"
+        //  marginLeft: "4%",
+        //  marginTop: "4%"
+         marginLeft: 20,
+         marginTop: 20,
+         marginBottom: 10
 
           }]}>
             {header}

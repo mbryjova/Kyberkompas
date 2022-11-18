@@ -3,10 +3,8 @@ import { View, Text, FlatList, TouchableOpacity, Image } from "react-native";
 import AnimatedProgressWheel from "react-native-progress-wheel";
 import colors from "../assets/colors/colors";
 import { SEMIBOLD16 } from "./atoms/typography";
-//import { GET, URL_MODULES } from "../database/queries";
 import { get_from_url, MODULES_URL } from "../database/queries";
 
-//const port = process.env.PORT || 4000;
 
 function SkillTree(props) {
   const [modules, setModules] = React.useState([]);
@@ -47,7 +45,7 @@ function SkillTree(props) {
           >
             <View
               style={[
-                { marginBottom: 15, marginTop: 20 },
+                { marginBottom: 15, marginTop: 20},
                 { transform: [{ rotate: "270deg" }] },
               ]}
             >
@@ -71,8 +69,15 @@ function SkillTree(props) {
                 borderRadius: 50,
                 alignSelf: "center",
               }}
-            />
+              />
           </TouchableOpacity>
+          {
+            !item.available &&
+            (
+            <Image style={{width:20, height: 20}} source={require("../assets/images/lock.png")}>
+
+            </Image>)
+          }
           <Text style={SEMIBOLD16}>{item.title}</Text>
         </View>
       </View>
@@ -86,6 +91,7 @@ function SkillTree(props) {
   return (
     <View
       //style={{ alignContent: "center", alignItems: "center", paddingTop: 17 }}
+      style={{paddingLeft: 5, paddingRight: 5}}
     >
       <FlatList
         data={modules}

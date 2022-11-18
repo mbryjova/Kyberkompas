@@ -22,7 +22,7 @@ function Challenges(props) {
    */
   const [currentState, setCurrentState] = React.useState(1);
 
-  const [changed, setChanged] = React.useState(false);
+  //const [changed, setChanged] = React.useState(false);
 
   const finishedChallenges = challenges.filter(item => item.user_activity.length != 0
     && item.user_activity[0].done);
@@ -50,7 +50,9 @@ function Challenges(props) {
   /** a function for rendering the challenge item */
 
   const renderChallengeItem = ({ item }) => {
-    
+
+    let from = new Date(item.valid_from)
+    let to = new Date(item.valid_to)
     // todo, upravit styl obrázku
     return (
       <View style={styles.challengeWrapper}>
@@ -58,7 +60,8 @@ function Challenges(props) {
         style={styles.image} /> */}
         <Image style={styles.image} source={{uri: item.image}} />
         <View style={{ marginLeft: 10, marginRight: 10 }}>
-          <Text style={[EXTRABOLD12, { marginTop: 10 }]}>{item.valid_from}</Text>
+          <Text style={[EXTRABOLD12, { marginTop: 10 }]}>{from.getDate() + ". " + from.getMonth() + ". " + from.getFullYear()
+          + " - " + to.getDate() + ". " + to.getMonth() + ". " + to.getFullYear()}</Text>
           <Text style={[BOLD20, { marginBottom: 4 }]}>{item.title}</Text>
           <Text style={REGULAR16} numberOfLines={2}>
             {item.description}

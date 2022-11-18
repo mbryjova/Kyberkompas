@@ -26,8 +26,9 @@ function Leaderboard(props) {
     3: annual.sort((a, b) => b.annual_score - a.annual_score)
   }
 
-  const URL = "https://kyberkompas-database.herokuapp.com/leaderboard_";
+  //const URL = "https://kyberkompas-database.herokuapp.com/leaderboard_";
 
+  // udělat nějak async
   React.useEffect(() => {
     get_from_url(setWeekly, 'leadership-board/weekly');
     get_from_url(setMonthly, 'leadership-board/monthly');

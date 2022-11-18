@@ -80,19 +80,16 @@ function InteractiveReading(props) {
             <Image source={require("../assets/images/testIcons/down.png")} />
           )}
 
-          <Text style={[BOLD20, {paddingLeft: 10}]}>{props.question.question}</Text>
+          <Text style={[BOLD20, {paddingLeft: 15}]}>{props.question.question}</Text>
         </TouchableOpacity>
 
         {show ? (
-          // nevím jak změnit state index a points
+
           props.question.answers.map((option) => (
             <TouchableOpacity
               key={option.id}
               onPress={() => {
                 console.log(option);
-                //setCurrentOptionSelected(option);
-                //setQuestionAnswered(true);
-                //questionAnswered = true;
                 AddAnswer(props.question.id, option.id, submit, setSubmit)
                 console.log(currentOptionSelected, show, questionAnswered)
                 const current = states[index]
@@ -103,7 +100,6 @@ function InteractiveReading(props) {
                 setStates(states);
                 setItemIndex(itemIndex + 1);
                 console.log(points);
-                //setPoints(points + option.scoreAmount);
                 console.log(currentOptionSelected, show, questionAnswered)
               }}
               disabled={questionAnswered}
@@ -149,8 +145,6 @@ function InteractiveReading(props) {
           <Question
             key={item.id}
             question={item}
-            // onPress={() => setItemIndex(itemIndex + 1)}
-            // addPoints={(points) => setPoints(points)}
             index={index}
             show={states[index].show}
             currentOptionSelected={states[index].currentOptionSelected}
@@ -167,7 +161,7 @@ function InteractiveReading(props) {
         ListHeaderComponent={
         <View>
           <Text style={[EXTRABOLD12, {textTransform: 'uppercase', paddingLeft: 20, paddingTop: 20}]}>{props.route.params.moduleName}</Text>
-          <Text style={[BOLD20, {paddingLeft: 20, paddingBottom: 20}]}>{props.route.params.header}</Text>
+          <Text style={[BOLD20, {paddingLeft: 20, paddingBottom: 20}]}>{activity.title}</Text>
         </View>
       }
         data={data.slice(0, itemIndex + 1)} // pokd je itemindex víc než max index akorát se vrátí všechna data
@@ -177,7 +171,7 @@ function InteractiveReading(props) {
           name="hotovo"
           onPress={async () => {
             
-            console.log(submit)
+                console.log(submit)
                 await post_to_url(props.route.params.from_challenge ? 'challenges/'.concat(props.route.params.challenge_id).concat('/submit') : 
                 'interactive-reading/'.concat(activity.id).concat('/submit'),
                 {'answers': submit},
@@ -185,8 +179,6 @@ function InteractiveReading(props) {
                 props.navigation.navigate("ActivityFinished", { points: points.achieved_score,
                   from_challenge: props.route.params.from_challenge });
           }
-            
-            //props.navigation.navigate("ActivityFinished", { points: points })
           }
         />}
         ListFooterComponentStyle={
@@ -196,14 +188,6 @@ function InteractiveReading(props) {
           }
         }
       />
-
-      {/* <Accordion
-        sections={data}
-        renderContent={renderItem}
-        activeSections={data.slice(0, itemIndex + 1)}
-        onChange={setItemIndex}
-
-      /> */}
       
     </View>
   );
@@ -224,7 +208,7 @@ const styles = StyleSheet.create({
     paddingBottom: 20
   },
   optionWrapper: {
-    width: '90%',
+    width: '100%',
     flexDirection: 'row',
     height: 45,
     borderColor: colors.blackText,

@@ -2,10 +2,6 @@ import React from "react";
 import { View, Text, FlatList, Dimensions, StyleSheet, ScrollView } from "react-native";
 import colors from "../assets/colors/colors";
 import {
-  GET,
-  URL_BREACHES,
-  ACTIVITY_FINISHED,
-  URL_ACTIVITIES,
   post_to_url,
 } from "../database/queries";
 import { BOLD16, BOLD20, REGULAR16 } from "./atoms/typography";
@@ -29,7 +25,7 @@ function APIActivity(props) {
   const [status, setStatus] = React.useState(1);
 
   //const [breaches, setBreaches] = React.useState([]);
-  const [validate, setValidate] = React.useState(false);
+  //const [validate, setValidate] = React.useState(false);
   const [response, setResponse] = React.useState(null);
 
   //const [errorStatus, setErrorStatus] = React.useState(0);
@@ -39,15 +35,15 @@ function APIActivity(props) {
 
 
 
-  React.useEffect(async () => {
-    //console.log(errorStatus);
-    if (validate) {
-      // await GET(setBreaches, URL_BREACHES.concat(input), setErrorStatus);
-      // console.log("here", errorStatus);
-      post_to_url('interactive-activity/'.concat(activity.id).concat('/submit'), {"input": {input}}, setResponse);
-      setStatus(2);
-    }
-  }, [validate]);
+  // React.useEffect(async () => {
+  //   //console.log(errorStatus);
+  //   if (validate) {
+  //     // await GET(setBreaches, URL_BREACHES.concat(input), setErrorStatus);
+  //     // console.log("here", errorStatus);
+  //     post_to_url('interactive-activity/'.concat(activity.id).concat('/submit'), {"input": {input}}, setResponse);
+  //     setStatus(2);
+  //   }
+  // }, [validate]);
 
   return (
     <View style={styles.container}>
@@ -80,9 +76,12 @@ function APIActivity(props) {
         <View style={styles.button}>
           <BigButton
             name="zkontrolovat"
-            onPress={() => {
+            onPress={async () => {
               //validate();
-              setValidate(true);
+              //setValidate(true);
+              await post_to_url('interactive-activity/'.concat(activity.id).concat('/submit'), 
+              {"input": {input}}, setResponse);
+              setStatus(2);
             }}
           />
 
@@ -95,7 +94,7 @@ function APIActivity(props) {
               borderRadius: 16,
               backgroundColor:  response != null && activity.max_score == response.achieved_score ? colors.correct_light : colors.wrong_light,
               borderColor:  response != null && activity.max_score == response.achieved_score ? colors.correct_light : colors.wrong_light,
-              height: 150, // kdyby tady byly procenta tak se to mění
+              //height: 150, // kdyby tady byly procenta tak se to mění
               width: "100%",
               padding: "6%",
               alignSelf: 'center'
@@ -109,67 +108,10 @@ function APIActivity(props) {
             </ScrollView>
             </View>
 
-          {/* {breaches.length == 0 ? (
-            <View
-              style={{
-                borderRadius: 16,
-                backgroundColor: colors.correct_light,
-                borderColor: colors.correct_light,
-                //height: "40%",
-                width: "100%",
-                padding: "6%",
-                alignSelf: 'center'
-              }}
-            >
-              <Text
-                style={[
-                  BOLD20,
-                  { textTransform: "uppercase", marginBottom: 10 },
-                ]}
-              >
-                chráněn
-              </Text>
-              <Text style={REGULAR16}>
-                Dobrý, žádný váš účet není evidovaný v databázi datových úniků.
-              </Text>
-            </View>
-          ) : (
-            <View style={{width: '100%', alignSelf: 'center'}}>
-              <FlatList
-                contentContainerStyle={{
-                  borderRadius: 16,
-                  backgroundColor: colors.wrong_light,
-                  borderColor: colors.correct_light,
-                  alignSelf: "center",
-                  //width: "90%",
-                  padding: "6%",
-                }}
-                data={breaches}
-                keyExtractor={(item) => item.Name}
-                ListHeaderComponent={() => {
-                  return (
-                    <Text style={[BOLD16, { marginBottom: 10 }]}>
-                      Váš účet je evidován v těchto únicích:
-                    </Text>
-                  );
-                }}
-                renderItem={({ item }) => {
-                  return <Text style={REGULAR16}>{item.Name}</Text>;
-                }}
-              />
-            </View>
-          )} */}
           <View style={{marginBottom: 40}}>
             <BigButton
               name="dokončit"
               onPress={() => {
-                // ACTIVITY_FINISHED(
-                //   URL_ACTIVITIES.concat("hesla/"),
-                //   props.route.params,
-                //   2,
-                //   user.id
-                // ); // 2 points
-
                 props.navigation.navigate("ActivityFinished", {
                   from_challenge: props.route.params.from_challenge,
                   points: response.achieved_score,

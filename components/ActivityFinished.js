@@ -28,9 +28,10 @@ function ActivityFinished(props) {
             </View>
             <View style={{flex: 1}}>
             <BigButton
+                //name={props.route.params.from_challenge ? "na další výzvy" : "na další aktivity"}
                 name="na další aktivity"
                 onPress={() => 
-                    props.route.params.from_challenge ? props.navigation.navigate('Challenges') :
+                    props.route.params.from_challenge ? props.navigation.navigate('Výzvy') :
                     props.navigation.navigate('Module', {name: props.route.params.name})
                 }
                 // sem dát přičtení skore a dání aktivity do dokončených?
