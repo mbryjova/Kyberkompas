@@ -8,7 +8,6 @@ import {
   REGULAR16,
 } from "./atoms/typography";
 import colors from "../assets/colors/colors";
-import { GET, URL_ACTIVITIES } from "../database/queries";
 import {get_from_url, MODULES_URL} from '../database/queries';
 
 
@@ -30,7 +29,6 @@ function Module({ route, navigation }) {
     /** takhle by se měly správně stahovat ty data i guess */
     async function fetchData() {
       await get_from_url(setData, MODULES_URL.concat("/").concat(route.params.module_id))
-
     }
     fetchData();
     console.log(data);

@@ -56,7 +56,7 @@ function Challenges(props) {
       <View style={styles.challengeWrapper}>
         {/* <Image source={{uri: item.image}}
         style={styles.image} /> */}
-        <Image style={styles.image} />
+        <Image style={styles.image} source={{uri: item.image}} />
         <View style={{ marginLeft: 10, marginRight: 10 }}>
           <Text style={[EXTRABOLD12, { marginTop: 10 }]}>{item.valid_from}</Text>
           <Text style={[BOLD20, { marginBottom: 4 }]}>{item.title}</Text>

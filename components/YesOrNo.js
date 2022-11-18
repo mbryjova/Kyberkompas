@@ -10,9 +10,9 @@ import { BOLD15, BOLD20, REGULAR16 } from "./atoms/typography";
 import colors from "../assets/colors/colors";
 import Swiper from "react-native-deck-swiper";
 import BigButton from "./BigButton";
-//import { URL_ACTIVITIES, ACTIVITY_FINISHED } from "../database/queries";
 import {post_to_url} from '../database/queries';
 import { UserContext } from "../App";
+import { AddAnswer } from "../helpers/utils";
 
 function YesOrNo(props) {
   const [currentIndex, setCurrentIndex] = React.useState(0);
@@ -32,21 +32,23 @@ function YesOrNo(props) {
   const activity = props.route.params.activity;
   const data = activity.questions;
 
-  let submit = [];
+  const [submit, setSubmit] = React.useState([]);
 
   // toto asi dám ven, aby si to mohly importovat všechny
-  const AddAnswer = (question_id, answer_id) => {
-    submit.push( {
-      "question_id": question_id,
-      "correct_answers_ids": [answer_id]
-    })
-  }
+  // const AddAnswer = (question_id, answer_id, submit) => {
+  //   let list = submit;
+  //   list.push( {
+  //     "question_id": question_id,
+  //     "correct_answers_ids": [answer_id]
+  //   })
+  //   setSubmit(list)
+  // }
 
   const Button = (props) => {
     return (
       <TouchableOpacity
         style={{
-          width: "40%",
+          width: 130,
           height: 52,
           backgroundColor: props.color,
           borderRadius: 100,
@@ -93,8 +95,8 @@ function YesOrNo(props) {
     //ACTIVITY_FINISHED(URL_ACTIVITIES.concat("hesla/"), props.route.params, points, user.id);
     console.log(submit)
     post_to_url(props.route.params.from_challenge ? 'challenges/'.concat(props.route.params.challenge_id).concat('/submit') : 
-    'tinder_swipes/'.concat(activity.id).concat('/submit'),
-    JSON.stringify({'answers': submit}), 
+    'tinder-swipes/'.concat(activity.id).concat('/submit'),
+    {'answers': submit}, 
     setPoints);
     props.navigation.navigate("ActivityFinished", { points: points.achieved_score,
       from_challenge: props.route.params.from_challenge });
@@ -125,8 +127,8 @@ function YesOrNo(props) {
                   // místo tohoto si to uložím do seznamu co pošlu backendu
                   //setPoints(points + data[currentIndex].answers[1].scoreAmount),
 
-                  AddAnswer(data[currentIndex].id, data[currentIndex].answers[1].id),
-
+                  AddAnswer(data[currentIndex].id, data[currentIndex].answers[1].id, submit, setSubmit),
+                  console.log(submit);
                   setCurrentIndex(currentIndex + 1);
               }}
               onSwipedRight={() => {
@@ -136,7 +138,7 @@ function YesOrNo(props) {
 
                   //
                   //setPoints(points + data[currentIndex].answers[0].scoreAmount),
-                  AddAnswer(data[currentIndex].id, data[currentIndex].answers[0].id),
+                  AddAnswer(data[currentIndex].id, data[currentIndex].answers[0].id, submit, setSubmit),
                   console.log(submit);
                   setCurrentIndex(currentIndex + 1);
               }}
@@ -145,7 +147,6 @@ function YesOrNo(props) {
               backgroundColor={colors.white}
               cardStyle={{width: '91%', height: '100%'}}
               containerStyle={{justifyContent: 'center'}}
-              
             />
 
               </View>
@@ -212,6 +213,8 @@ export default YesOrNo;
 const styles = StyleSheet.create({
   image: {
     marginTop: "4%",
+    height: 269,
+    width: 277
   },
   textValidation:
     {textTransform: 'uppercase'
@@ -258,15 +261,19 @@ const styles = StyleSheet.create({
     //width: "100%", // 91
     borderRadius: 16,
     alignItems: "center",
+    alignSelf: 'center',
     borderColor: colors.blackText,
     borderWidth: 0.5,
     justifyContent: 'center',
+    height: '85%',
+    width: '95%',
+    //marginBottom: 20
     //flex: 0.9
   },
   textWrapper: {
     backgroundColor: colors.primary,
-    height: "30%",
+    //height: "30%",
     width: "90%",
-    marginTop: "4%",
+    marginTop: 20,
   },
 });

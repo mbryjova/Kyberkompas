@@ -21,9 +21,9 @@ function Leaderboard(props) {
   //const data = require("../data/db.json").users.sort((a, b) => b.weekly_score - a.weekly_score);
 
   const data = {
-    1: weekly,
-    2: monthly,
-    3: annual
+    1: weekly.sort((a, b) => b.weekly_score - a.weekly_score),
+    2: monthly.sort((a, b) => b.monthly_score - a.monthly_score),
+    3: annual.sort((a, b) => b.annual_score - a.annual_score)
   }
 
   const URL = "https://kyberkompas-database.herokuapp.com/leaderboard_";

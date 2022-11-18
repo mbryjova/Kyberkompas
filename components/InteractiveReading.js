@@ -1,10 +1,12 @@
 import React from "react";
 import { View, Text, FlatList, TouchableOpacity, Image, StyleSheet } from "react-native";
 import colors from "../assets/colors/colors";
-import { BOLD15, BOLD20, REGULAR16 } from "./atoms/typography";
+import { BOLD15, BOLD20, EXTRABOLD12, REGULAR16 } from "./atoms/typography";
 import BigButton from "./BigButton";
-import { ACTIVITY_FINISHED, URL_ACTIVITIES } from "../database/queries";
-import { UserContext } from "../App";
+import { AddAnswer } from "../helpers/utils";
+import { post_to_url } from "../database/queries";
+//import { UserContext } from "../App";
+
 
 /**
  * component for interactive reading activity
@@ -26,7 +28,10 @@ import { UserContext } from "../App";
 function InteractiveReading(props) {
   //const data = require("../data/db.json").interactive_reading; // jeden prvek seznamu z interactive readings .questions!
 
-  if (props.route.params.activity == null) {
+  const activity = props.route.params.activity;
+
+  /** kvůli tomu když přijdu z výzev */
+  if (activity == null) {
     return null
   }
   const data = props.route.params.activity.questions;
@@ -39,7 +44,9 @@ function InteractiveReading(props) {
   /** active states */
   const [states, setStates] = React.useState([]);
 
-  const [user, setUser] = React.useContext(UserContext);
+  const [submit, setSubmit] = React.useState([]);
+
+  //const [user, setUser] = React.useContext(UserContext);
 
   // function arePropsEqual(prevProps, nextProps) {
   //   return prevProps.question.text === nextProps.question.text;
@@ -50,16 +57,6 @@ function InteractiveReading(props) {
    * @returns visual representation of one question
    */
   function Question(props) {
-
-    // /**if false, question isnt showed */
-    // const [show, setShow] = React.useState(false);
-
-    // /**which option did user select */
-    // const [currentOptionSelected, setCurrentOptionSelected] =
-    //   React.useState(null);
-
-    // /**if true, disabeling touchable functionality */
-    // const [questionAnswered, setQuestionAnswered] = React.useState(false);
 
     const index = props.index;
     const [show, setShow] = React.useState(states[index].show);
@@ -96,6 +93,7 @@ function InteractiveReading(props) {
                 //setCurrentOptionSelected(option);
                 //setQuestionAnswered(true);
                 //questionAnswered = true;
+                AddAnswer(props.question.id, option.id, submit, setSubmit)
                 console.log(currentOptionSelected, show, questionAnswered)
                 const current = states[index]
                 current.show = show;
@@ -105,7 +103,7 @@ function InteractiveReading(props) {
                 setStates(states);
                 setItemIndex(itemIndex + 1);
                 console.log(points);
-                setPoints(points + option.scoreAmount);
+                //setPoints(points + option.scoreAmount);
                 console.log(currentOptionSelected, show, questionAnswered)
               }}
               disabled={questionAnswered}
@@ -166,26 +164,27 @@ function InteractiveReading(props) {
   return (
     <View style={{flex: 1}}>
       <FlatList
-        ListHeaderComponent={<Text style={[BOLD20, {padding: 20}]}>{props.route.params.header}</Text>}
+        ListHeaderComponent={
+        <View>
+          <Text style={[EXTRABOLD12, {textTransform: 'uppercase', paddingLeft: 20, paddingTop: 20}]}>{props.route.params.moduleName}</Text>
+          <Text style={[BOLD20, {paddingLeft: 20, paddingBottom: 20}]}>{props.route.params.header}</Text>
+        </View>
+      }
         data={data.slice(0, itemIndex + 1)} // pokd je itemindex víc než max index akorát se vrátí všechna data
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         ListFooterComponent={<BigButton
           name="hotovo"
-          onPress={() => {
+          onPress={async () => {
             
-            // props.route.params.setActivityFinished(true);
-
-            // // 
-            // props.route.params.activity.score = points;
-            // props.route.params.data[0].data.push(props.route.params.activity);
-            // props.route.params.data[1].data = props.route.params.data[1].data.filter((item) => props.route.params.activity.id != item.id);
-
-            // POST_ACTIVITY(props.route.params.data[0], 1);
-            // POST_ACTIVITY(props.route.params.data[1], 2);
-
-            ACTIVITY_FINISHED(URL_ACTIVITIES.concat("hesla/"), props.route.params, points, user.id);
-            props.navigation.navigate("ActivityFinished", { points: points })}
+            console.log(submit)
+                await post_to_url(props.route.params.from_challenge ? 'challenges/'.concat(props.route.params.challenge_id).concat('/submit') : 
+                'interactive-reading/'.concat(activity.id).concat('/submit'),
+                {'answers': submit},
+                setPoints);
+                props.navigation.navigate("ActivityFinished", { points: points.achieved_score,
+                  from_challenge: props.route.params.from_challenge });
+          }
             
             //props.navigation.navigate("ActivityFinished", { points: points })
           }

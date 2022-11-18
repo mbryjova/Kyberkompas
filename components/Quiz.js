@@ -5,14 +5,16 @@ import BigButton from "./BigButton";
 import * as Progress from "react-native-progress";
 import { BOLD20, BOLD15, REGULAR16 } from "./atoms/typography";
 import ValidationView from "./ValidationView";
-import { ACTIVITY_FINISHED, URL_ACTIVITIES } from "../database/queries";
+import { post_to_url } from "../database/queries";
 import {UserContext} from "../App";
+import { AddAnswer } from "../helpers/utils";
 
 function Quiz(props) {
   //const allQuestions = require("../data/db.json").test_data;
 
-  const allQuestions = props.route.params.activity.questions;
-  const [user, setUser] = React.useContext(UserContext);
+  const activity = props.route.params.activity;
+  const allQuestions = activity.questions;
+  //const [user, setUser] = React.useContext(UserContext);
   //const allQuestions = route.params.
 
   /** state which contains the index of current question */
@@ -28,7 +30,7 @@ function Quiz(props) {
   /**state which contains the number of points */
   const [points, setPoints] = React.useState(0);
 
-
+  const [submit, setSubmit] = React.useState([]);
   /** state of the quiz:
    * 1 - question
    * 2 - explanation
@@ -78,6 +80,7 @@ function Quiz(props) {
     setCorrect(false);
     console.log("in validate", currentQuestionIndex);
     if (currentOptionSelected !== null) {
+      AddAnswer(allQuestions[currentQuestionIndex].id, currentOptionSelected.id, submit, setSubmit)
       if (
         currentOptionSelected.is_correct
       ) {
@@ -161,7 +164,7 @@ function Quiz(props) {
           </View>
 
           <View style={{justifyContent:'space-evenly', height: '15%', alignItems: 'center'}}>
-          <Progress.Bar progress={currentQuestionIndex / allQuestions.length} />
+          <Progress.Bar progress={(currentQuestionIndex + 1) / allQuestions.length} />
           <View style={{ backgroundColor: colors.wrong }}>
             <BigButton
               name="na další otázku"
@@ -187,35 +190,21 @@ function Quiz(props) {
 
         </View>
         <View style={{justifyContent:'space-evenly', height: '15%', alignItems: 'center'}}>
-        <Progress.Bar progress={currentQuestionIndex / allQuestions.length} />
+        <Progress.Bar progress={currentQuestionIndex + 1 / allQuestions.length} />
         <View style={{ backgroundColor: colors.wrong }}>
           <BigButton
             name="dokončit"
-            onPress={() => 
-              // put a zmenit aktivity
+            onPress={async () => 
               {
+                console.log(submit)
+                await post_to_url(props.route.params.from_challenge ? 'challenges/'.concat(props.route.params.challenge_id).concat('/submit') : 
+                'test/'.concat(activity.id).concat('/submit'),
+                {'answers': submit},
+                setPoints);
+                props.navigation.navigate("ActivityFinished", { points: points.achieved_score,
+                  from_challenge: props.route.params.from_challenge });
               
-                // tady bude submit
-              ACTIVITY_FINISHED(URL_ACTIVITIES.concat("hesla/"), props.route.params, points, user.id);
-
-              props.navigation.navigate("ActivityFinished", { points: points, name: props.route.params.module_name });
-              //props.route.params.setActivityFinished(true);
-
-              // 
-              //props.route.params.activity.score = points;
-
-              // props.route.params.data[0].data.push(props.route.params.activity);
-              // props.route.params.data[1].data = props.route.params.data[1].data.filter((item) => props.route.params.activity.id != item.id);
-
-              // POST_ACTIVITY(props.route.params.data[0], 1);
-              // POST_ACTIVITY(props.route.params.data[1], 2);
-
-              // PUT(URL_SCORES.concat(user.id), {"id": user.id, "total_score": ,
-              // "weekly_score": 16,
-              // "new_activities": 5,
-              // "finished_challenges": 3});
-              //props.navigation.navigate("ActivityFinished", { points: points })
-            }} // {next question} // potom už se ale nepůjde vracet
+            }}
           />
         </View>
           </View>

@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { View, Text, StyleSheet, ScrollView} from "react-native";
+import { View, Text, StyleSheet, ScrollView, FlatList} from "react-native";
 import colors from "../assets/colors/colors";
 import { BOLD16, BOLD32, REGULAR16 } from "./atoms/typography";
 import BigButton from "./BigButton";
@@ -8,7 +8,7 @@ import InputComp from "./InputComp";
 import Constants from "expo-constants";
 import { post_to_url, POST_USER, SIGN_UP_URL } from "../database/queries";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { FlatList } from "react-native-web";
+import axios from "axios";
 
 /**
  * component of the sign-up screen
@@ -29,31 +29,48 @@ function Signup(props) {
   //const users = props.route.params.data;
 
   const handleSignup = async () => {
-        await post_to_url(SIGN_UP_URL, {
-          "email": email,
-          "username": username,
-          "password": password
-        }, setResult);
-
-        if (result != null && result.id != null) {
+        await axios.request(
+          {
+            url: 'http://172.26.5.28/api/user/',
+            method: 'post',
+            headers: {'Content-Type': 'application/json'},
+            data: {
+              "email": email,
+              "username": username,
+              "password": password
+            }
+          }
+        ).then(
+          (response) => {
+            setResult(response);
+            console.log(response)
+          }
+        ).catch(
+          error => {
+            console.log("signup:", error);
+            setError(error.response.data);
+            console.log(error.response.data, error)
+        })
+        if (result != null) {
           props.navigation.navigate("Login");
-        } else {
-          setError(result)
         }
   }
 
   const renderError = (errorList) => {
+    return(
     <View style={{width: "91%", backgroundColor: colors.wrong_light, padding: 15, borderRadius: 16}}>
             <FlatList
               data={errorList}
-              renderItem={() => {
-                <Text style={[REGULAR16]}>
+              renderItem={({item}) => {
+                <Text style={REGULAR16}>
                 {item}
                 </Text>
               }}
             />
 
           </View>
+
+    )
   }
 
   return (
@@ -102,7 +119,7 @@ function Signup(props) {
       </View>
       {
         error != null && error.password !== null && (
-          renderError(error.password)
+            renderError(error.password)
         )
       }
       {
