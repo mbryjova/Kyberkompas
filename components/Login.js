@@ -61,20 +61,20 @@ function Login(props) {
         method: 'post',
         headers: {'Content-Type': 'application/json'},
         data: {
-          // "password": password,
-          // "username": username
-          "password": "admin",
-          "username": "admin"
+          "password": password,
+          "username": username
+          // "password": "admin",
+          // "username": "admin"
         }
       }
     ).then((response) => {
       setResult(response.data)
       console.log("response data:", response.data);
       save('token', 'Token '.concat(response.data.auth_token));
-      //const value = get_value('token');
-      //console.log("token", value);
-      //setToken('token '.concat(response.data.auth_token));
-    }).catch(error => {console.log("login:", error);
+    }).catch(error => {
+    console.log("login:", error);
+    setResult(error.response.data);
+    console.log("error:", result)
     });
     //console.log(token);
     const value = await get_value('token');
@@ -129,7 +129,7 @@ function Login(props) {
                 name="Uživatelské jméno"
                 secureTextEmpty={false}
                 source={require("../assets/images/user.png")} // změnit na panáček - ok
-                wrongInput={result.non_field_errors}
+                wrongInput={result != null && result.non_field_errors != null ? result.non_field_errors : (result != null ? result.username : null)}
                 //error="Nesprávný e-mail"
               />
             {/* </View> */}
@@ -139,7 +139,7 @@ function Login(props) {
               name="********"
               secureTextEntry={true}
               source={require("../assets/images/lock.png")}
-              wrongInput={result.non_field_errors}
+              wrongInput={result != null && result.non_field_errors != null ? result.non_field_errors : (result != null ? result.password : null)}
               //error="Nesprávné heslo"
             />
           </View>

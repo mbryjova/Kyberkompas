@@ -6,7 +6,7 @@ import { BOLD16, BOLD32, REGULAR16 } from "./atoms/typography";
 import BigButton from "./BigButton";
 import InputComp from "./InputComp";
 import Constants from "expo-constants";
-import { post_to_url, POST_USER, SIGN_UP_URL } from "../database/queries";
+//import { post_to_url, POST_USER, SIGN_UP_URL } from "../database/queries";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import axios from "axios";
 
@@ -43,6 +43,9 @@ function Signup(props) {
         ).then(
           (response) => {
             setResult(response);
+
+            // aby tam potom nesvítily červený věci
+            setError(null);
             console.log(response)
           }
         ).catch(
@@ -51,28 +54,12 @@ function Signup(props) {
             setError(error.response.data);
             console.log(error.response.data, error)
         })
-        if (result != null) {
-          props.navigation.navigate("Login");
-        }
+        // if (result != null) {
+        //   props.navigation.navigate("Login");
+        // }
   }
 
-  const renderError = (errorList) => {
-    return(
-    <View style={{width: "91%", backgroundColor: colors.wrong_light, padding: 15, borderRadius: 16}}>
-            <FlatList
-              data={errorList}
-              renderItem={({item}) => {
-                <Text style={REGULAR16}>
-                {item}
-                </Text>
-              }}
-            />
-
-          </View>
-
-    )
-  }
-
+  
   return (
     <KeyboardAwareScrollView>
     <View style={styles.container}>
@@ -118,37 +105,26 @@ function Signup(props) {
       </View>
       </View>
       {
-        error != null && error.password !== null && (
-            renderError(error.password)
-        )
-      }
-      {
-        error != null && error.username !== null && (
-          renderError(error.username)
-        )
-      }
-      {
-        error != null && error.email !== null && (
-          renderError(error.email)
-        )
-      }
-      {/* {
-        wrongUsername && (
-          <View style={{width: "91%", backgroundColor: colors.wrong_light, padding: 15, borderRadius: 16}}>
-            <Text style={[REGULAR16]}>
-            Tento e-mail už je zaregistrovaný. Zapomněli jste heslo?
-            <Text style={[BOLD16]}> Ano</Text>
-            </Text>
-            <Text style={[BOLD16]}>
-              Ano
-            </Text>
+        result != null && (
+          <View style={{
+            borderRadius: 16,
+            backgroundColor:  colors.correct_light,
+            borderColor:  colors.correct_light,
+            //height: 150, // kdyby tady byly procenta tak se to mění
+            width: "91%",
+            padding: "6%",
+            alignSelf: 'center'}}>
+          <Text>
+            ok
+          </Text>
           </View>
         )
-      } */}
+      }
+
       <View style={styles.button}>
         <BigButton
-          onPress={handleSignup}
-          name="Zaregistrovat se"
+          onPress={ result == null ? handleSignup : props.navigation.navigate("TabNavigator")}
+          name={result == null ? "Zaregistrovat se" : "Pokračovat"}
         />
       </View>
     </View>

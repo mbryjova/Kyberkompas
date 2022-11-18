@@ -9,7 +9,7 @@ import {
 
 function InputComp(props) {
   return (
-    <View>
+    <View style={{marginBottom: props.wrongInput == null ? 10 : 0}}>
       <View style={styles.textWrapper}>
         <Text
           style={[
@@ -35,11 +35,11 @@ function InputComp(props) {
         />
       </View>
 
-      {/* {props.wrongInput != null && (
-        <Text style={[REGULAR14, { color: colors.wrong, marginLeft: "60%" }]}>
-          {props.error}
+      {props.wrongInput != null && (
+        <Text style={[REGULAR14, { color: colors.wrong, alignSelf: 'flex-end' }]}>
+          {props.wrongInput[0]}
         </Text>
-      )} */}
+      )}
     </View>
   );
 }
