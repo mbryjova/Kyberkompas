@@ -121,12 +121,24 @@ function Signup(props) {
         )
       }
 
-      <View style={styles.button}>
+        { result == null &&
+          (<View style={styles.button}>
         <BigButton
-          onPress={ result == null ? handleSignup : props.navigation.navigate("TabNavigator")}
-          name={result == null ? "Zaregistrovat se" : "Pokračovat"}
+          onPress={handleSignup}
+          name={"Zaregistrovat se"}
         />
-      </View>
+      </View>)
+      }
+
+      {
+        result != null &&
+        (<View style={styles.button}>
+        <BigButton
+          onPress={() => props.navigation.navigate("Login")}
+          name={"Přihlásit se"}
+        />
+      </View>)
+      }
     </View>
     </KeyboardAwareScrollView>
   );

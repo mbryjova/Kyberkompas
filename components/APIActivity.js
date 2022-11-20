@@ -79,8 +79,9 @@ function APIActivity(props) {
             onPress={async () => {
               //validate();
               //setValidate(true);
-              await post_to_url('interactive-activity/'.concat(activity.id).concat('/submit'), 
-              {"input": {input}}, setResponse);
+              await post_to_url(props.route.params.from_challenge ? 'challenges/'.concat(props.route.params.challenge_id).concat('/submit/') :
+                'interactive-activity/'.concat(activity.id).concat('/submit/'), // udělat i s challenges
+              {input}, setResponse);
               setStatus(2);
             }}
           />
@@ -114,7 +115,7 @@ function APIActivity(props) {
               onPress={() => {
                 props.navigation.navigate("ActivityFinished", {
                   from_challenge: props.route.params.from_challenge,
-                  points: response.achieved_score,
+                  points: response.achieved_score, // ošetřit, že není null
                   name: props.route.params.module_name,
                 });
               }}

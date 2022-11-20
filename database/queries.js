@@ -58,9 +58,11 @@ const get_from_url = async (setter, url) => {
 }
 
 const post_to_url = async (url, data, setter=null) => {
-  await api.post(url, {'data': data}).then((response) => {
+  console.log(url, data)
+  await api.post(url, data).then((response) => {
     console.log(response.data);
     if (setter != null) {
+      console.log("here", response.data)
       setter(response.data);
     }
   }).catch(error => {console.log(error);

@@ -172,8 +172,8 @@ function InteractiveReading(props) {
           onPress={async () => {
             
                 console.log(submit)
-                await post_to_url(props.route.params.from_challenge ? 'challenges/'.concat(props.route.params.challenge_id).concat('/submit') : 
-                'interactive-reading/'.concat(activity.id).concat('/submit'),
+                await post_to_url(props.route.params.from_challenge ? 'challenges/'.concat(props.route.params.challenge_id).concat('/submit/') : 
+                'interactive-reading/'.concat(activity.id).concat('/submit/'),
                 {'answers': submit},
                 setPoints);
                 props.navigation.navigate("ActivityFinished", { points: points.achieved_score,

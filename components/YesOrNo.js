@@ -24,7 +24,7 @@ function YesOrNo(props) {
   const [currentState, setCurrentState] = React.useState(1);
 
   // celkový počet bodů
-  const [points, setPoints] = React.useState(0);
+  const [points, setPoints] = React.useState(null);
   const [optionSelected, setOptionSelected] = React.useState(null);
 
   const [user, setUser] = React.useContext(UserContext);
@@ -33,16 +33,7 @@ function YesOrNo(props) {
   const data = activity.questions;
 
   const [submit, setSubmit] = React.useState([]);
-
-  // toto asi dám ven, aby si to mohly importovat všechny
-  // const AddAnswer = (question_id, answer_id, submit) => {
-  //   let list = submit;
-  //   list.push( {
-  //     "question_id": question_id,
-  //     "correct_answers_ids": [answer_id]
-  //   })
-  //   setSubmit(list)
-  // }
+  const reference = React.useRef(null);
 
   const Button = (props) => {
     return (
@@ -91,15 +82,18 @@ function YesOrNo(props) {
     );
   };
 
-  const lastQuestion = () => {
+  const lastQuestion = async () => {
     //ACTIVITY_FINISHED(URL_ACTIVITIES.concat("hesla/"), props.route.params, points, user.id);
     console.log(submit)
-    post_to_url(props.route.params.from_challenge ? 'challenges/'.concat(props.route.params.challenge_id).concat('/submit') : 
-    'tinder-swipes/'.concat(activity.id).concat('/submit'),
-    {'answers': submit}, 
-    setPoints);
-    props.navigation.navigate("ActivityFinished", { points: points.achieved_score,
-      from_challenge: props.route.params.from_challenge });
+    await post_to_url(props.route.params.from_challenge ? 'challenges/'.concat(props.route.params.challenge_id).concat('/submit/') : 
+    'tinder-swipes/'.concat(activity.id).concat('/submit/'),
+    {'answers': submit}, setPoints);
+    console.log("points", points)
+    if (points != null) {
+      props.navigation.navigate("ActivityFinished", { points: points.achieved_score,
+       from_challenge: props.route.params.from_challenge });
+
+    }
   };
 
   const nextQuestion = () => {
@@ -116,6 +110,7 @@ function YesOrNo(props) {
             // flex: 0.9
             >
             <Swiper // h: 70%, w: 91%
+              ref={reference}
               cards={data}
               cardIndex={currentIndex}
               renderCard={ renderQuestion }
@@ -155,6 +150,7 @@ function YesOrNo(props) {
               <Button
                 name={data[currentIndex].answers[1].answer}
                 //name={card.options[1].text}
+                onPress={() => reference.current?.swipeLeft() }
                 color={colors.wrong_light}
                 textColor={colors.wrong}
                 borderColor={colors.wrong}
@@ -162,6 +158,7 @@ function YesOrNo(props) {
 
               <Button
                 name={data[currentIndex].answers[0].answer}
+                onPress={() => reference.current?.swipeRight() }
                 color={colors.correct_light}
                 textColor={colors.blackText}
                 borderColor={colors.correct}
@@ -214,7 +211,8 @@ const styles = StyleSheet.create({
   image: {
     marginTop: "4%",
     height: 269,
-    width: 277
+    width: 277,
+    borderRadius: 16
   },
   textValidation:
     {textTransform: 'uppercase'

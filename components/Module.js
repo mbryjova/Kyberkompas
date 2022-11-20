@@ -18,12 +18,6 @@ function Module({ route, navigation }) {
   let data_formatted = [];
 
   React.useEffect(() => {
-    // let module_name = route.params.name;
-    // if (route.params.name == "Kybertahák") {
-    //   module_name = "kybertahak"
-    // }
-    //GET(setData, URL_ACTIVITIES.concat(module_name)); // tady module.id
-    // console.log(data, route.params.name);
     console.log(MODULES_URL.concat("/").concat(route.params.module_id))
 
     /** takhle by se měly správně stahovat ty data i guess */
@@ -32,7 +26,7 @@ function Module({ route, navigation }) {
     }
     fetchData();
     console.log(data);
-  }, [activityFinished]
+  }, []
 
   )
 
