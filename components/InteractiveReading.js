@@ -39,7 +39,7 @@ function InteractiveReading(props) {
   const [itemIndex, setItemIndex] = React.useState(0);
 
   /** points of the user */
-  const [points, setPoints] = React.useState(0);
+  const [points, setPoints] = React.useState(null);
 
   /** active states */
   const [states, setStates] = React.useState([]);
@@ -176,8 +176,11 @@ function InteractiveReading(props) {
                 'interactive-reading/'.concat(activity.id).concat('/submit/'),
                 {'answers': submit},
                 setPoints);
-                props.navigation.navigate("ActivityFinished", { points: points.achieved_score,
-                  from_challenge: props.route.params.from_challenge });
+                console.log(points)
+                if (points != null) {
+                  props.navigation.navigate("ActivityFinished", { points: points.achieved_score,
+                    from_challenge: props.route.params.from_challenge });
+                }
           }
           }
         />}

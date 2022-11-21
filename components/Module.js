@@ -24,9 +24,12 @@ function Module({ route, navigation }) {
     async function fetchData() {
       await get_from_url(setData, MODULES_URL.concat("/").concat(route.params.module_id))
     }
-    fetchData();
+    const unsubscribe = navigation.addListener('focus', () => fetchData())
+    //fetchData();
     console.log(data);
-  }, []
+
+    return unsubscribe
+  }, [navigation]
 
   )
 

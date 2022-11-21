@@ -34,12 +34,16 @@ function Challenges(props) {
   React.useEffect(() => {
     // GET(setChallenges, URL_CHALLENGES);
     // GET(setInactive, URL_INACTIVE);
-    get_from_url(setChallenges, VALID_CHALLENGES_URL);
-    get_from_url(setInactive, INVALID_CHALLENGES_URL);
+    const unsubscribe = props.navigation.addListener('focus',
+      () => 
+      {get_from_url(setChallenges, VALID_CHALLENGES_URL);
+      get_from_url(setInactive, INVALID_CHALLENGES_URL);}
+    )
     console.log("chall:" + challenges);
     //setChanged(false);
+    return unsubscribe
   }
-  , []);
+  , [props.navigation]);
 
   const activityType = {
     "api | test": "Quiz",
@@ -69,12 +73,6 @@ function Challenges(props) {
           <Text
             onPress={() =>
               props.navigation.navigate(activityType[item.activity_type], {
-                // item: item,
-                // name: item.title,
-                // date_from: item.date_from,
-                // description: item.description,
-                // challenge: item.challenge,
-                // setChanged: setChanged
                 from_challenge: true,
                 activity: item.activity,
                 challenge_id: item.id
@@ -132,6 +130,11 @@ function Challenges(props) {
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
         renderItem={renderChallengeItem}
+        ListEmptyComponent={ 
+          <Text style={[BOLD20, {paddingTop: 100, textAlign: 'center'}]}>
+          žádné výzvy
+          </Text>
+        }
         
       />
 

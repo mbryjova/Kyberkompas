@@ -13,9 +13,13 @@ function SkillTree(props) {
 
   React.useEffect(() => {
     //GET(setModules, URL_MODULES);
-    get_from_url(setModules, MODULES_URL);
+    const unsubscribe = props.navigation.addListener('focus', () => 
+    get_from_url(setModules, MODULES_URL)
+    )
+
+    return unsubscribe
   }
-  , [])
+  , [props.navigation])
 
   const renderModuleItem = ({ item }) => {
     //const sum_points_percent = (item.current_score / item.max_score) * 100;

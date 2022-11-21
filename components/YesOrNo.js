@@ -254,7 +254,7 @@ const styles = StyleSheet.create({
     flex: 0.7
   },
   questionWrapper: {
-    backgroundColor: colors.correct,
+    //backgroundColor: colors.correct,
     //height: "100%", // 70
     //width: "100%", // 91
     borderRadius: 16,
@@ -269,7 +269,7 @@ const styles = StyleSheet.create({
     //flex: 0.9
   },
   textWrapper: {
-    backgroundColor: colors.primary,
+    //backgroundColor: colors.primary,
     //height: "30%",
     width: "90%",
     marginTop: 20,

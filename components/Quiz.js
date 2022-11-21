@@ -28,7 +28,7 @@ function Quiz(props) {
   const [correct, setCorrect] = React.useState(false);
 
   /**state which contains the number of points */
-  const [points, setPoints] = React.useState(0);
+  const [points, setPoints] = React.useState(null);
 
   const [submit, setSubmit] = React.useState([]);
   /** state of the quiz:
@@ -52,7 +52,9 @@ function Quiz(props) {
   const renderOption = () => {
     return (
       <View
-        style={{ marginTop: "23%", backgroundColor: colors.correct, height: "43%", width: "85%", 
+        style={{ marginTop: "23%", 
+        //backgroundColor: colors.correct, 
+        height: "43%", width: "85%", 
         justifyContent: "space-around", alignItems: "center",
         marginBottom: "15%"
       }}
@@ -119,7 +121,7 @@ function Quiz(props) {
   return (
     <View
       style={{
-        backgroundColor: colors.wrong,
+        //backgroundColor: colors.wrong,
         flex: 1
       }}
     >
@@ -135,8 +137,10 @@ function Quiz(props) {
           {renderOption()}
 
           <View style={{justifyContent:'space-evenly', height: '15%', alignItems: 'center'}}>
-          <Progress.Bar progress={currentQuestionIndex / allQuestions.length} />
-          <View style={{backgroundColor: colors.blackText}}>
+          <Progress.Bar progress={currentQuestionIndex / allQuestions.length} color={colors.primary} borderColor={colors.blackText} />
+          <View style={{
+            //backgroundColor: colors.blackText
+            }}>
             <BigButton
               name="zkontrolovat"
               onPress={() => validate()} // {validate}
@@ -149,7 +153,9 @@ function Quiz(props) {
 
       {/**vysvětlení, tlačítko na další otázku */}
       {quizState == 2 && (
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'space-evenly', backgroundColor: colors.grey}}>
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'space-evenly', 
+        //backgroundColor: colors.grey
+        }}>
 
           <View style={{width: '91%', height: '7%'}}>
           <ValidationView logicalValue={correct ? 1 : 0}>
@@ -164,8 +170,10 @@ function Quiz(props) {
           </View>
 
           <View style={{justifyContent:'space-evenly', height: '15%', alignItems: 'center'}}>
-          <Progress.Bar progress={(currentQuestionIndex + 1) / allQuestions.length} />
-          <View style={{ backgroundColor: colors.wrong }}>
+          <Progress.Bar progress={(currentQuestionIndex + 1) / allQuestions.length} color={colors.primary} borderColor={colors.blackText} />
+          <View style={{ 
+            //backgroundColor: colors.wrong 
+            }}>
             <BigButton
               name="na další otázku"
               onPress={() => {nextQuestion(), setCurrentOptionSelected(null)}} // {next question} // potom už se ale nepůjde vracet
@@ -191,7 +199,9 @@ function Quiz(props) {
         </View>
         <View style={{justifyContent:'space-evenly', height: '15%', alignItems: 'center'}}>
         <Progress.Bar progress={currentQuestionIndex + 1 / allQuestions.length} />
-        <View style={{ backgroundColor: colors.wrong }}>
+        <View style={{ 
+          //backgroundColor: colors.wrong 
+          }}>
           <BigButton
             name="dokončit"
             onPress={async () => 
@@ -201,8 +211,10 @@ function Quiz(props) {
                 'test/'.concat(activity.id).concat('/submit/'),
                 {'answers': submit},
                 setPoints);
-                props.navigation.navigate("ActivityFinished", { points: points.achieved_score,
-                  from_challenge: props.route.params.from_challenge });
+                if (points != null) {
+                  props.navigation.navigate("ActivityFinished", { points: points.achieved_score,
+                    from_challenge: props.route.params.from_challenge });
+                }
               
             }}
           />

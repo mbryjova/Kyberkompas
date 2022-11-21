@@ -89,7 +89,9 @@ function APIActivity(props) {
         </View>
       ) : null}
       {status == 2 ? (
-        <View style={{ flex: 1, justifyContent: 'space-between', backgroundColor: colors.correct, width: '100%'}}>
+        <View style={{ flex: 1, justifyContent: 'space-between', 
+        //backgroundColor: colors.correct, 
+        width: '100%'}}>
             <View
             style={{
               borderRadius: 16,
@@ -131,7 +133,7 @@ export default APIActivity;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.correct_light,
+    //backgroundColor: colors.correct_light,
     flex: 1,
     alignItems: 'center',
     width: '90%',
@@ -152,7 +154,7 @@ const styles = StyleSheet.create({
     marginBottom: 40,
     //flexDirection: 'column-reverse',
     //alignSelf: 'flex-end',
-    backgroundColor: colors.wrong,
+    //backgroundColor: colors.wrong,
 
   }
 })

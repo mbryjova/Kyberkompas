@@ -3,14 +3,13 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import * as ImagePicker from 'expo-image-picker';
 import colors from "../assets/colors/colors";
 import { BOLD20, EXTRABOLD12, SEMIBOLD16, BOLD32, BOLD15 } from "./atoms/typography";
-import {GET, get_from_url, post_to_url, PUT_PHOTO, URL_SCORES} from "../database/queries";
+import {get_from_url, post_picture, post_to_url} from "../database/queries";
 import {UserContext} from "../App";
 import axios from "axios";
 
 function Profile(props) {
 
   const [user, setUser, token, setToken] = React.useContext(UserContext);
-  const [scores, setScores] = React.useState(null);
   const [photo, setPhoto] = React.useState(user.avatar);
   //React.useState(null); // tady bude fotka od usera, který je přihlášený
   
@@ -20,11 +19,11 @@ function Profile(props) {
   //console.log(userContext)
 
   React.useEffect(() => {
-    //console.log(user, URL_SCORES.concat(user.id), user.anual_score);
-    //GET(setScores, URL_SCORES.concat(user.id));
-    // GET scores/contextuser.id
-    //PUT_PHOTO(user.id, user);
-  }, []) // potřebuju aby se to stáhlo vždycky když se změní skóre nebo property uživatele
+    const unsubscribe = props.navigation.addListener('focus', () => 
+    get_from_url(setUser, 'user/me')
+    )
+    return unsubscribe
+  }, [props.navigation]) // potřebuju aby se to stáhlo vždycky když se změní skóre nebo property uživatele
 
   const handleChoosePhoto = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -44,11 +43,13 @@ function Profile(props) {
       formdata.append('file',
         {
           uri: result.uri,
-          type: result.type
+          name: 'picture',
+          type: 'image/jpeg'
         }
       )
+      console.log(formdata)
 
-      await post_to_url('user/set_avatar', formdata);
+      await post_picture('user/set_avatar', formdata);
       //await get_from_url(setUser, 'user/me');
       setPhoto(result.uri)
 

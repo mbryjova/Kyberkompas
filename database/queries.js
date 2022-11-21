@@ -24,7 +24,11 @@ const api = axios.create({
   baseURL: 'http://172.26.5.28/api/',
   //timeout: 1000,
   // 'token cad8d7aa8dc1a8d07d06f0f97fcdbdf9da40752d'
-  headers: {'accept': 'application/json', 'Authorization': '', 'Content-Type': 'application/json'}
+  headers: {
+  'accept': 'application/json', 
+  'Authorization': '', 
+  'Content-Type': ''
+}
 });
 
 /** before sending the request the token is added to the header */
@@ -58,6 +62,7 @@ const get_from_url = async (setter, url) => {
 }
 
 const post_to_url = async (url, data, setter=null) => {
+  api.defaults.headers['Content-type'] = 'application/json';
   console.log(url, data)
   await api.post(url, data).then((response) => {
     console.log(response.data);
@@ -66,6 +71,20 @@ const post_to_url = async (url, data, setter=null) => {
       setter(response.data);
     }
   }).catch(error => {console.log(error);
+  });
+
+}
+
+const post_picture = async (url, data, setter=null) => {
+  api.defaults.headers['Content-type'] = 'multipart/form-data';
+  console.log(url, data)
+  await api.post(url, data).then((response) => {
+    console.log(response.data);
+    if (setter != null) {
+      console.log("here", response.data)
+      setter(response.data);
+    }
+  }).catch(error => {console.log(error.response);
   });
 
 }
@@ -192,6 +211,7 @@ export {
     // new api
     get_from_url,
     post_to_url,
+    post_picture,
     //PUT,
     URL_CHALLENGES,
     URL_ACTIVITIES,
