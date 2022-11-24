@@ -14,7 +14,7 @@ import {get_from_url, MODULES_URL} from '../database/queries';
 function Module({ route, navigation }) {
   const header = "aktivity";
   const [data, setData] = React.useState([]);
-  const [activityFinished, setActivityFinished] = React.useState(false);
+  //const [activityFinished, setActivityFinished] = React.useState(false);
   let data_formatted = [];
 
   React.useEffect(() => {
@@ -141,7 +141,7 @@ function Module({ route, navigation }) {
             {
             header: item.title,
             moduleName: route.params.name,
-            setActivityFinished: setActivityFinished,
+            //setActivityFinished: setActivityFinished,
             activity: item,
             from_challenge: false
             //data: data

@@ -125,7 +125,7 @@ function Login(props) {
                 onChangeText={setUsername}
                 //header="EMAIL" // uživatelské jméno
                 //name="jmeno@email.com"
-                header="USERNAME"
+                header="UŽIVATELSKÉ JMÉNO"
                 name="Uživatelské jméno"
                 secureTextEmpty={false}
                 source={require("../assets/images/user.png")} // změnit na panáček - ok

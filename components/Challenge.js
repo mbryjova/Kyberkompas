@@ -5,7 +5,7 @@ import { StyleSheet, ScrollView, Text, Image, View } from 'react-native';
 import { EXTRABOLD12, BOLD25, REGULAR16, BOLD15 } from './atoms/typography';
 import BigButton from './BigButton';
 import axios from "axios";
-import { UserContext } from '../App';
+//import { UserContext } from '../App';
 import { SET_SCORES } from '../database/queries';
 
 

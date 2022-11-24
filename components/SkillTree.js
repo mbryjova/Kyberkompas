@@ -63,8 +63,8 @@ function SkillTree(props) {
               />
             </View>
             <Image
-              source={{uri: item.image}}
-              style={{
+              source={item.available ? {uri: item.image} : require("../assets/images/lock.png")}
+              style={item.available ? {
                 position: "absolute",
                 width: 60,
                 height: 60,
@@ -72,16 +72,16 @@ function SkillTree(props) {
                 resizeMode: "cover",
                 borderRadius: 50,
                 alignSelf: "center",
-              }}
+              } : {width: 25, height: 25, position: "absolute", alignSelf: 'center', marginTop: 50}}
               />
           </TouchableOpacity>
-          {
+          {/* {
             !item.available &&
             (
             <Image style={{width:20, height: 20}} source={require("../assets/images/lock.png")}>
 
             </Image>)
-          }
+          } */}
           <Text style={SEMIBOLD16}>{item.title}</Text>
         </View>
       </View>

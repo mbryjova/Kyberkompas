@@ -75,7 +75,7 @@ function Signup(props) {
       {/* <View style={{marginBottom: wrongUsername ? 0 : 20}}> */}
           <InputComp
             onChangeText={setUsername}
-            header="USERNAME"
+            header="UŽIVATELSKÉ JMÉNO"
             name="Uživatelské jméno"
             source={require("../assets/images/user.png")}
             wrongInput={error !== null ? error.username : null}
@@ -110,12 +110,14 @@ function Signup(props) {
             borderRadius: 16,
             backgroundColor:  colors.correct_light,
             borderColor:  colors.correct_light,
+            marginTop: 15,
+            marginBottom: 15,
             //height: 150, // kdyby tady byly procenta tak se to mění
             width: "91%",
             padding: "6%",
             alignSelf: 'center'}}>
-          <Text>
-            ok
+          <Text style={REGULAR16}>
+            Uživatel byl úspěšně zaregistrován
           </Text>
           </View>
         )

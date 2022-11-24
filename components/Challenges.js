@@ -160,6 +160,6 @@ const styles = StyleSheet.create({
     width: 343,
     alignSelf: "center",
     marginBottom: 14,
-    //backgroundColor: colors.white,
+    backgroundColor: colors.white,
   },
 });

@@ -6,7 +6,7 @@ import * as Progress from "react-native-progress";
 import { BOLD20, BOLD15, REGULAR16 } from "./atoms/typography";
 import ValidationView from "./ValidationView";
 import { post_to_url } from "../database/queries";
-import {UserContext} from "../App";
+//import {UserContext} from "../App";
 import { AddAnswer } from "../helpers/utils";
 
 function Quiz(props) {
@@ -198,7 +198,7 @@ function Quiz(props) {
 
         </View>
         <View style={{justifyContent:'space-evenly', height: '15%', alignItems: 'center'}}>
-        <Progress.Bar progress={currentQuestionIndex + 1 / allQuestions.length} />
+        <Progress.Bar progress={currentQuestionIndex + 1 / allQuestions.length} color={colors.primary} />
         <View style={{ 
           //backgroundColor: colors.wrong 
           }}>
@@ -209,9 +209,10 @@ function Quiz(props) {
                 console.log(submit)
                 await post_to_url(props.route.params.from_challenge ? 'challenges/'.concat(props.route.params.challenge_id).concat('/submit/') : 
                 'test/'.concat(activity.id).concat('/submit/'),
-                {'answers': submit},
-                setPoints);
-                if (points != null) {
+                {'answers': submit}, setPoints);
+                console.log("points", points)
+                if (!Number.isNaN(points)) {
+                  console.log("points", points)
                   props.navigation.navigate("ActivityFinished", { points: points.achieved_score,
                     from_challenge: props.route.params.from_challenge });
                 }

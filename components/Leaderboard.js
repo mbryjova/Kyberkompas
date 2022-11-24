@@ -171,7 +171,7 @@ function Leaderboard(props) {
       </View>
       <FlatList
         data={data[currentState]}
-        keyExtractor={(item) => item.index}
+        keyExtractor={(item, index) => index}
         renderItem={renderPerson}
         contentContainerStyle={{
           alignItems: "center",

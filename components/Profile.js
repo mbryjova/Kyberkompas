@@ -5,7 +5,7 @@ import colors from "../assets/colors/colors";
 import { BOLD20, EXTRABOLD12, SEMIBOLD16, BOLD32, BOLD15 } from "./atoms/typography";
 import {get_from_url, post_picture, post_to_url} from "../database/queries";
 import {UserContext} from "../App";
-import axios from "axios";
+//import axios from "axios";
 
 function Profile(props) {
 
@@ -167,7 +167,8 @@ const styles = StyleSheet.create({
 
   },
   profileContainer: {
-    flex: 1
+    flex: 1,
+    //backgroundColor: colors.white
   },
   namesContainer: {
     alignItems: 'center'

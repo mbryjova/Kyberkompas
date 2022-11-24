@@ -7,7 +7,7 @@ import {
 import { BOLD16, BOLD20, REGULAR16 } from "./atoms/typography";
 import BigButton from "./BigButton";
 import InputComp from "./InputComp";
-import { UserContext } from "../App";
+//import { UserContext } from "../App";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 function APIActivity(props) {

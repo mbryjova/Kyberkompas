@@ -11,7 +11,7 @@ import colors from "../assets/colors/colors";
 import Swiper from "react-native-deck-swiper";
 import BigButton from "./BigButton";
 import {post_to_url} from '../database/queries';
-import { UserContext } from "../App";
+//import { UserContext } from "../App";
 import { AddAnswer } from "../helpers/utils";
 
 function YesOrNo(props) {
@@ -27,7 +27,7 @@ function YesOrNo(props) {
   const [points, setPoints] = React.useState(null);
   const [optionSelected, setOptionSelected] = React.useState(null);
 
-  const [user, setUser] = React.useContext(UserContext);
+  //const [user, setUser] = React.useContext(UserContext);
   //const data = require("../data/db.json").tinder_swipe;
   const activity = props.route.params.activity;
   const data = activity.questions;

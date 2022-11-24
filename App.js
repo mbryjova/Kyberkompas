@@ -44,7 +44,8 @@ const headerOptions = {
   tabBarIconStyle: { marginTop: 15 },
   tabBarStyle: { height: 80, backgroundColor: colors.white }, // velikost spodního navbaru
   tabBarActiveTintColor: colors.primary,
-  tabBarInactiveTintColor: colors.blackText,
+  tabBarInactiveTintColor: colors.blackText
+  
 };
 
 const TabNavigator = () => {
@@ -133,11 +134,6 @@ export default function App() {
   if (!fontsLoaded) {
     return <Text style={{ textAlign: "center" }}>App loading</Text>;
   }
-  // const myTheme = {
-  //   colors: {
-  //     background: colors.white,
-  //   },
-  // };
   
 
   return (
@@ -148,7 +144,7 @@ export default function App() {
           headerStyle: { height: 96 }, // nevím jak udělat nefunguje
           headerTitleStyle: BOLD20,
           headerTitleAlign: "center",
-          screenStyle: {
+          contentStyle: {
             backgroundColor: colors.white, // změní pozadí obrazovky?
           },
         }}
