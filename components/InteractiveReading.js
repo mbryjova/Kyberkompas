@@ -48,9 +48,18 @@ function InteractiveReading(props) {
 
   //const [user, setUser] = React.useContext(UserContext);
 
-  // function arePropsEqual(prevProps, nextProps) {
-  //   return prevProps.question.text === nextProps.question.text;
-  // }
+  React.useEffect(() => {
+    console.log("points", points)
+    if (points != null) {
+      props.navigation.navigate("ActivityFinished", { 
+        points: points.achieved_score,
+        from_challenge: props.route.params.from_challenge,
+        max_points: props.route.params.from_challenge ? props.route.params.challenge_max_score : activity.max_score,
+        name: props.route.params.module_name
+      });
+    }
+
+  }, [points])
   /**
    * 
    * @param {*} props 
@@ -176,11 +185,6 @@ function InteractiveReading(props) {
                 'interactive-reading/'.concat(activity.id).concat('/submit/'),
                 {'answers': submit},
                 setPoints);
-                console.log(points)
-                if (points != null) {
-                  props.navigation.navigate("ActivityFinished", { points: points.achieved_score,
-                    from_challenge: props.route.params.from_challenge });
-                }
           }
           }
         />}

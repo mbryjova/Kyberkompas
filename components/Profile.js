@@ -40,11 +40,12 @@ function Profile(props) {
       //user.image = photo.path;
 
       const formdata = new FormData();
+      let fileType = result.uri.substring(result.uri.lastIndexOf(".") + 1);
       formdata.append('file',
         {
           uri: result.uri,
-          name: 'picture',
-          type: 'image/jpeg'
+          name: 'picture.'.concat(fileType),
+          type: 'image/'.concat(fileType)
         }
       )
       console.log(formdata)
@@ -95,21 +96,15 @@ function Profile(props) {
         flex: 2, justifyContent: 'space-evenly', alignItems: 'center'}}>
       <View style={styles.picture}>
       {
-        photo ? (
+        photo != null ? (
       <Image source={{uri: photo}}
               style={styles.photo}
       />
         ) : (
-          user.image == "" ? (
             <Image
           style={{width: "100%", height: "100%"}}
           source={ require("../assets/images/profile.png") }/>
-
-          ) : 
-          <Image
-          style={styles.photo}
-          source={{ uri: user.image }}/>
-        )
+          )
       }
       </View>
 

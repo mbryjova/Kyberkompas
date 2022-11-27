@@ -8,14 +8,11 @@ import { BOLD16, BOLD20, REGULAR16 } from "./atoms/typography";
 import BigButton from "./BigButton";
 import InputComp from "./InputComp";
 //import { UserContext } from "../App";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+//import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 function APIActivity(props) {
-  // proč tady mám?
-  // const [wrong, setWrong] = React.useState(false);
-  // const [user, setUser, token, setToken] = React.useContext(UserContext);
 
-  const [input, setInput] = React.useState("");
+  const [input, setInput] = React.useState(" ");
 
   /**
    * 1 - getting user input
@@ -24,26 +21,23 @@ function APIActivity(props) {
    */
   const [status, setStatus] = React.useState(1);
 
-  //const [breaches, setBreaches] = React.useState([]);
-  //const [validate, setValidate] = React.useState(false);
   const [response, setResponse] = React.useState(null);
-
-  //const [errorStatus, setErrorStatus] = React.useState(0);
-  //const { screenHeight } = Dimensions.get('screen').height;
 
   const activity = props.route.params.activity;
 
 
 
-  // React.useEffect(async () => {
-  //   //console.log(errorStatus);
-  //   if (validate) {
-  //     // await GET(setBreaches, URL_BREACHES.concat(input), setErrorStatus);
-  //     // console.log("here", errorStatus);
-  //     post_to_url('interactive-activity/'.concat(activity.id).concat('/submit'), {"input": {input}}, setResponse);
-  //     setStatus(2);
-  //   }
-  // }, [validate]);
+  React.useEffect(() => {
+    //console.log(errorStatus);
+    const setState = () => {
+      if (response != null && response.achieved_score != null) {
+        setStatus(2)
+      }
+
+    }
+    setState()
+
+  }, [response]);
 
   return (
     <View style={styles.container}>
@@ -61,8 +55,9 @@ function APIActivity(props) {
             header=""
             name=""
             secureTextEmpty={false}
-            source={require("../assets/images/mail.png")} // nevím co dát sem
-            wrongInput={null} // zatím null
+            source={require("../assets/images/lock.png")} // nevím co dát sem
+            wrongInput={response != null ? response.input : null} // zatím null
+
             //error="Email cant be empty"
           />
         </View>
@@ -79,10 +74,13 @@ function APIActivity(props) {
             onPress={async () => {
               //validate();
               //setValidate(true);
-              await post_to_url(props.route.params.from_challenge ? 'challenges/'.concat(props.route.params.challenge_id).concat('/submit/') :
-                'interactive-activity/'.concat(activity.id).concat('/submit/'), // udělat i s challenges
-              {input}, setResponse);
-              setStatus(2);
+                await post_to_url(props.route.params.from_challenge ? 'challenges/'.concat(props.route.params.challenge_id).concat('/submit/') :
+                  'interactive-activity/'.concat(activity.id).concat('/submit/'), // udělat i s challenges
+                {input}, setResponse, setResponse);
+
+                //setStatus(2);
+
+              
             }}
           />
 
@@ -119,6 +117,7 @@ function APIActivity(props) {
                   from_challenge: props.route.params.from_challenge,
                   points: response.achieved_score, // ošetřit, že není null
                   name: props.route.params.module_name,
+                  max_points: props.route.params.from_challenge ? props.route.params.challenge_max_score : activity.max_score
                 });
               }}
             />

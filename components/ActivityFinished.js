@@ -15,13 +15,17 @@ function ActivityFinished(props) {
 
             </View>
             <Text style={[BOLD32, {color: colors.primary, marginBottom: '5%'}]}>
-                {"+" + props.route.params.points}
+                {"+ " + props.route.params.points + " b"}
             </Text>
 
             <View style={{alignItems: 'center', flex: 2, width: '91%'}}>
-                <Text style={[BOLD23, {marginBottom: '5%'}]}>
+                { props.route.params.points == props.route.params.max_points ? ( <Text style={[BOLD23, {marginBottom: '5%'}]}>
                     Aktivita dokončena!
+                </Text>) : (
+                    <Text style={[BOLD23, {marginBottom: '5%', textAlign: 'center'}]}>
+                    Na dokončení aktivity chybí {props.route.params.max_points - props.route.params.points} b.
                 </Text>
+                )}
                 <Text style={[SEMIBOLD16, {textAlign: 'center'}]}>
                 Podívejte se na další aktivity.
                 </Text>

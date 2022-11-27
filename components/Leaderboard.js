@@ -1,8 +1,8 @@
 import React from "react";
 import { View, StyleSheet, Text, Image, FlatList, TouchableOpacity } from "react-native";
 import colors from "../assets/colors/colors";
-import { GET, get_from_url } from "../database/queries";
-import { BOLD16, REGULAR14, SEMIBOLD16 } from "./atoms/typography";
+import { get_from_url } from "../database/queries";
+import { BOLD16, REGULAR14, SEMIBOLD16, BOLD20 } from "./atoms/typography";
 
 function Leaderboard(props) {
   /**
@@ -30,12 +30,18 @@ function Leaderboard(props) {
 
   // udělat nějak async
   React.useEffect(() => {
-    get_from_url(setWeekly, 'leadership-board/weekly');
-    get_from_url(setMonthly, 'leadership-board/monthly');
-    get_from_url(setAnnual, 'leadership-board/annual');
+      const unsubscribe = props.navigation.addListener('focus',
+      () => 
+      {
+      get_from_url(setWeekly, 'leadership-board/weekly');
+      get_from_url(setMonthly, 'leadership-board/monthly');
+      get_from_url(setAnnual, 'leadership-board/annual');
+      }
+    )
     console.log("here");
     //console.log(data);
-  }, []
+    return unsubscribe
+  }, [props.navigation]
   )
 
   const renderPerson = ({ item }) => {
@@ -46,7 +52,7 @@ function Leaderboard(props) {
           width: "98%",
           //backgroundColor: colors.primary,
           flexDirection: "row",
-          justifyContent: "space-around",
+          justifyContent: "space-around", // toto je asi špatně
           marginVertical: 16,
         }}
       >
@@ -90,6 +96,7 @@ function Leaderboard(props) {
 
   return (
     <View style={{ flex: 1, 
+      //backgroundColor: colors.white,
     //backgroundColor: colors.correct, 
     alignItems: 'center' }}>
       <View
@@ -128,7 +135,8 @@ function Leaderboard(props) {
         </TouchableOpacity>
         <TouchableOpacity
         onPress={() => 
-          {setCurrentState(2);
+          { {setCurrentState(2);
+          }
           }
         }
         style={
@@ -177,6 +185,14 @@ function Leaderboard(props) {
           alignItems: "center",
           //backgroundColor: colors.blackText,
         }}
+        ListEmptyComponent={() => 
+        // <Text style={[BOLD20, {paddingTop: 100, textAlign: 'center'}]}>
+        // žádní uživatelé
+        // </Text>
+        <Text style={{textAlign: 'center'}}>
+          App Loading...
+        </Text>
+        }
       />
     </View>
   );

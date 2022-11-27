@@ -12,11 +12,11 @@ import * as SecureStore from 'expo-secure-store';
 
 //const token = SecureStore.getItemAsync('token');
 
-const get_value = async (key) => {
-  const value = await SecureStore.getItemAsync(key);
-  console.log("token in queries:", value);
-  return value;
-}
+// const get_value = async (key) => {
+//   const value = await SecureStore.getItemAsync(key);
+//   console.log("token in queries:", value);
+//   return value;
+// }
 
 //const token = get_value('token');
 
@@ -54,14 +54,14 @@ const INVALID_CHALLENGES_URL = 'challenges/obsolete';
 const get_from_url = async (setter, url) => {
   //console.log(token);
   await api.get(url).then((response) => {
-    //console.log(response.data);
+    //console.log("in get");
     setter(response.data);
   }).catch(error => {console.log("get:", error);
   });
 
 }
 
-const post_to_url = async (url, data, setter=null) => {
+const post_to_url = async (url, data, setter=null, errorSetter=null) => {
   api.defaults.headers['Content-type'] = 'application/json';
   console.log(url, data)
   await api.post(url, data).then((response) => {
@@ -70,7 +70,11 @@ const post_to_url = async (url, data, setter=null) => {
       console.log("here", response.data)
       setter(response.data);
     }
-  }).catch(error => {console.log(error);
+  }).catch(error => {
+    if (errorSetter != null) {
+      errorSetter(error.response.data)
+    }
+    console.log(error);
   });
 
 }
@@ -84,7 +88,8 @@ const post_picture = async (url, data, setter=null) => {
       console.log("here", response.data)
       setter(response.data);
     }
-  }).catch(error => {console.log(error.response);
+  }).catch(error => {
+    //console.log(error.response);
   });
 
 }

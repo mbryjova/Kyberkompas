@@ -115,6 +115,9 @@ function SkillTree(props) {
           //paddingTop: 17, 
           //backgroundColor: colors.correct_light
         }} // upravit
+        ListEmptyComponent={
+          () => <Text style={{textAlign: 'center'}}>App Loading</Text>
+        }
         //style={{alignContent: 'center', alignItems: 'center'}}
       />
     </View>

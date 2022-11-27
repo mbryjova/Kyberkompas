@@ -39,6 +39,19 @@ function Quiz(props) {
 
   const [quizState, setQuizState] = React.useState(1);
 
+  React.useEffect(() => {
+    console.log("points", points)
+    if (points != null) {
+      props.navigation.navigate("ActivityFinished", { 
+        points: points.achieved_score,
+        from_challenge: props.route.params.from_challenge,
+        max_points: props.route.params.from_challenge ? props.route.params.challenge_max_score : activity.max_score,
+        name: props.route.params.module_name 
+      });
+    }
+
+  }, [points])
+
   const renderQuestion = () => {
     return (
       <View style={{alignSelf: "center", marginTop: "15%"}}>
@@ -91,7 +104,7 @@ function Quiz(props) {
         console.log(currentOptionSelected.answer, points + currentOptionSelected.scoreAmount);
 
         // budu posílat do submit
-        setPoints(points + currentOptionSelected.scoreAmount); // je o jeden krok napřed
+        //setPoints(points + currentOptionSelected.scoreAmount); // je o jeden krok napřed
         setCorrect(true); // podle toho se potom rendruje jestli je tam napsaný správně nebo špatně
         // mělo by se zablokovat dát jinou možnost
       }
@@ -210,12 +223,12 @@ function Quiz(props) {
                 await post_to_url(props.route.params.from_challenge ? 'challenges/'.concat(props.route.params.challenge_id).concat('/submit/') : 
                 'test/'.concat(activity.id).concat('/submit/'),
                 {'answers': submit}, setPoints);
-                console.log("points", points)
-                if (!Number.isNaN(points)) {
-                  console.log("points", points)
-                  props.navigation.navigate("ActivityFinished", { points: points.achieved_score,
-                    from_challenge: props.route.params.from_challenge });
-                }
+                // console.log("points", points)
+                // if (!Number.isNaN(points)) {
+                //   console.log("points", points)
+                //   props.navigation.navigate("ActivityFinished", { points: points.achieved_score,
+                //     from_challenge: props.route.params.from_challenge });
+                // }
               
             }}
           />
