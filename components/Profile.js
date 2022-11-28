@@ -117,10 +117,10 @@ function Profile(props) {
       </View>
 
       <View style={styles.pointsContainer}>
-      <DoubleText text1="celkem bodů" text2={user.total_score}/>
-      <DoubleText text1="tento týden" text2={user.weekly_score}/>
-      <DoubleText text1="nové znalosti" text2={user.done_activities}/>
-      <DoubleText text1="ukončené výzvy" text2={user.done_challenges}/>
+      <DoubleText text1="celkem bodů" text2={Math.round(user.total_score, 2)}/>
+      <DoubleText text1="tento týden" text2={Math.round(user.weekly_score)}/>
+      <DoubleText text1="nové znalosti" text2={Math.round(user.done_activities)}/>
+      <DoubleText text1="ukončené výzvy" text2={Math.round(user.done_challenges)}/>
 
       </View>
 

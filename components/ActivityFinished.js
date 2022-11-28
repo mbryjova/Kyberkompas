@@ -15,7 +15,7 @@ function ActivityFinished(props) {
 
             </View>
             <Text style={[BOLD32, {color: colors.primary, marginBottom: '5%'}]}>
-                {"+ " + props.route.params.points + " b"}
+                {"+ " + Math.round(props.route.params.points) + " b"}
             </Text>
 
             <View style={{alignItems: 'center', flex: 2, width: '91%'}}>
@@ -23,7 +23,7 @@ function ActivityFinished(props) {
                     Aktivita dokončena!
                 </Text>) : (
                     <Text style={[BOLD23, {marginBottom: '5%', textAlign: 'center'}]}>
-                    Na dokončení aktivity chybí {props.route.params.max_points - props.route.params.points} b.
+                    Na dokončení aktivity chybí {Math.round(props.route.params.max_points - props.route.params.points)} b.
                 </Text>
                 )}
                 <Text style={[SEMIBOLD16, {textAlign: 'center'}]}>

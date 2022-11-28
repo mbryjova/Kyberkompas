@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Text, Image, FlatList } from "react-native";
+import { View, StyleSheet, Text, Image, FlatList, Alert } from "react-native";
 import colors from "../assets/colors/colors";
 import { EXTRABOLD12, BOLD20, REGULAR16, BOLD15, SEMIBOLD16, BOLD32 } from "./atoms/typography";
 //import axios from "axios";
@@ -37,7 +37,10 @@ function Challenges(props) {
     const unsubscribe = props.navigation.addListener('focus',
       () => 
       {get_from_url(setChallenges, VALID_CHALLENGES_URL);
-      get_from_url(setInactive, INVALID_CHALLENGES_URL);}
+      get_from_url(setInactive, INVALID_CHALLENGES_URL);
+      setInactive(inactive.map(item => {item.inactive = true; return item}))
+      console.log(inactive)
+    }
     )
     console.log("chall:", challenges);
     //setChanged(false);
@@ -73,15 +76,30 @@ function Challenges(props) {
           <Text style={REGULAR16} numberOfLines={2}>
             {item.description}
           </Text>
-          <Text
-            onPress={() =>
+          {item.user_activity.length != 0
+            && item.user_activity[0].done ? (
+                <Text style={[
+                  BOLD15,
+                  {
+                    textAlign: "center",
+                    color: colors.grey,
+                    textTransform: "uppercase",
+                    paddingTop: 40,
+                  },
+                ]}>
+                  dokončena
+                </Text>
+    ) : (<Text
+            onPress={ 
+            () =>
                props.navigation.navigate(activityType[item.activity_type], {
                 from_challenge: true,
                 activity: item.activity,
                 challenge_id: item.id,
                 challenge_max_score: item.max_score
               })
-            } // jako objekt s konkrétníma parametrama {name: {item.name}, ..}
+            }
+            // jako objekt s konkrétníma parametrama {name: {item.name}, ..}
             style={[
               BOLD15,
               {
@@ -93,7 +111,8 @@ function Challenges(props) {
             ]}
           >
             více
-          </Text>
+          </Text>)
+          }
         </View>
       </View>
     );

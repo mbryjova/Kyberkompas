@@ -80,15 +80,15 @@ function Leaderboard(props) {
               {item.username}
             </Text>
             <Text style={[REGULAR14, { color: colors.grey }]}>
-              Celkem: {item.total_score}
+              Celkem: {Math.round(item.total_score)}
             </Text>
           </View>
         </View>
 
         <Text style={[BOLD16, { alignSelf: "center" }]}>
-          {currentState == 1 && item.weekly_score + " b"}
-          {currentState == 2 && item.monthly_score + " b"}
-          {currentState == 3 && item.annual_score + " b"}
+          {currentState == 1 && Math.round(item.weekly_score) + " b"}
+          {currentState == 2 && Math.round(item.monthly_score) + " b"}
+          {currentState == 3 && Math.round(item.annual_score) + " b"}
         </Text>
       </View>
     );

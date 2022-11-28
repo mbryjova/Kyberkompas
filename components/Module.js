@@ -140,7 +140,7 @@ function Module({ route, navigation }) {
           onPress={() => navigation.navigate(activityType[item.type],
             {
             header: item.title,
-            moduleName: route.params.name,
+            module_name: route.params.name,
             //setActivityFinished: setActivityFinished,
             activity: item,
             from_challenge: false

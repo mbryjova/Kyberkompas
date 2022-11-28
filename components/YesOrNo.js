@@ -37,6 +37,7 @@ function YesOrNo(props) {
 
   React.useEffect(() => {
     console.log("points", points)
+    console.log(activity.image)
     if (points != null) {
       props.navigation.navigate("ActivityFinished", { 
         points: points.achieved_score,
@@ -88,7 +89,7 @@ function YesOrNo(props) {
           </View>
           <Image
             style={styles.image}
-            source={{uri: activity.image}}
+            source={{uri: props.route.params.from_challenge ? "http://172.26.5.28".concat(activity.image) : activity.image}}
             //source={require("../assets/images/yesno_1.png")} // toto je potřeba udělat ještě
           />
         </View>

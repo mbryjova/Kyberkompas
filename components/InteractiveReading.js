@@ -35,6 +35,7 @@ function InteractiveReading(props) {
     return null
   }
   const data = props.route.params.activity.questions;
+  const data_length = data.length;
   /** index of the current item so we can slice the array */
   const [itemIndex, setItemIndex] = React.useState(0);
 
@@ -51,7 +52,7 @@ function InteractiveReading(props) {
   React.useEffect(() => {
     console.log("points", points)
     if (points != null) {
-      props.navigation.navigate("ActivityFinished", { 
+      props.navigation.navigate("ActivityFinished", {
         points: points.achieved_score,
         from_challenge: props.route.params.from_challenge,
         max_points: props.route.params.from_challenge ? props.route.params.challenge_max_score : activity.max_score,
@@ -176,7 +177,9 @@ function InteractiveReading(props) {
         data={data.slice(0, itemIndex + 1)} // pokd je itemindex víc než max index akorát se vrátí všechna data
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
-        ListFooterComponent={<BigButton
+        ListFooterComponent={ 
+        data_length < (itemIndex + 1) ? (
+        <BigButton
           name="hotovo"
           onPress={async () => {
             
@@ -187,13 +190,17 @@ function InteractiveReading(props) {
                 setPoints);
           }
           }
-        />}
+        />
+        ) : null
+      }
+      
         ListFooterComponentStyle={
           {
             alignSelf: 'center',
             paddingVertical: '5%'
           }
         }
+        //style={{paddingBottom: 30}}
       />
       
     </View>

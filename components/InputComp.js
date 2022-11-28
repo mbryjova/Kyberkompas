@@ -36,7 +36,9 @@ function InputComp(props) {
       </View>
 
       {props.wrongInput != null && (
-        <Text style={[REGULAR14, { color: colors.wrong, alignSelf: 'flex-end' }]}>
+        <Text style={[REGULAR14, { color: colors.wrong, 
+        alignSelf: 'flex-end'
+        }]}>
           {props.wrongInput[0]}
         </Text>
       )}

@@ -28,7 +28,6 @@ function APIActivity(props) {
 
 
   React.useEffect(() => {
-    //console.log(errorStatus);
     const setState = () => {
       if (response != null && response.achieved_score != null) {
         setStatus(2)
@@ -56,7 +55,7 @@ function APIActivity(props) {
             name=""
             secureTextEmpty={false}
             source={require("../assets/images/lock.png")} // nevím co dát sem
-            wrongInput={response != null ? response.input : null} // zatím null
+            wrongInput={response != null ? (response.input == null ? [response.detail] : response.input) : null} // zatím null
 
             //error="Email cant be empty"
           />
@@ -117,7 +116,8 @@ function APIActivity(props) {
                   from_challenge: props.route.params.from_challenge,
                   points: response.achieved_score, // ošetřit, že není null
                   name: props.route.params.module_name,
-                  max_points: props.route.params.from_challenge ? props.route.params.challenge_max_score : activity.max_score
+                  max_points: response.achieved_score
+                  //max_points: props.route.params.from_challenge ? props.route.params.challenge_max_score : activity.max_score
                 });
               }}
             />
