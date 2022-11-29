@@ -98,7 +98,7 @@ function SkillTree(props) {
       style={{paddingLeft: 5, paddingRight: 5}}
     >
       <FlatList
-        data={modules.reverse()}
+        data={modules}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
         renderItem={renderModuleItem}

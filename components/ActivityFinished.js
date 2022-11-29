@@ -6,6 +6,11 @@ import BigButton from './BigButton';
 
 function ActivityFinished(props) {
 
+    // let points = Math.round(props.route.params.points - props.route.params.user_points);
+    // if (points < 0) {
+    //     points = 0
+    // }
+
     return (
         <View style={{flex: 1, justifyContent: 'space-around', alignItems: 'center'}}>
             <View style={{margin: '8%'}}>

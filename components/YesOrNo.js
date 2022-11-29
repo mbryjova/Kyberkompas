@@ -43,7 +43,8 @@ function YesOrNo(props) {
         points: points.achieved_score,
         from_challenge: props.route.params.from_challenge,
         max_points: props.route.params.from_challenge ? props.route.params.challenge_max_score : activity.max_score,
-        name: props.route.params.module_name 
+        name: props.route.params.module_name,
+        user_points: activity.user_activity != null && activity.user_activity.length != 0 ? activity.user_activity[0].score : 0
       });
     }
 
@@ -89,7 +90,7 @@ function YesOrNo(props) {
           </View>
           <Image
             style={styles.image}
-            source={{uri: props.route.params.from_challenge ? "http://172.26.5.28".concat(activity.image) : activity.image}}
+            source={{uri: props.route.params.from_challenge ? "http://172.26.5.28".concat(data[currentIndex].image) : data[currentIndex].image}}
             //source={require("../assets/images/yesno_1.png")} // toto je potřeba udělat ještě
           />
         </View>

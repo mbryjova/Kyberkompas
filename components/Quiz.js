@@ -46,7 +46,8 @@ function Quiz(props) {
         points: points.achieved_score,
         from_challenge: props.route.params.from_challenge,
         max_points: props.route.params.from_challenge ? props.route.params.challenge_max_score : activity.max_score,
-        name: props.route.params.module_name 
+        name: props.route.params.module_name,
+        user_points: activity.user_activity != null && activity.user_activity.length != 0 ? activity.user_activity[0].score : 0 
       });
     }
 

@@ -84,7 +84,7 @@ function Signup(props) {
         {/* <View style={{marginBottom: wrongUsername ? 0 : 20}}> */}
           <InputComp
             onChangeText={setEmail}
-            header="EMAIL"
+            header="EMAIL (nepovinné)"
             name="jmeno@email.com"
             source={require("../assets/images/mail.png")}
             wrongInput={error !== null ? error.email : null}
