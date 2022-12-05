@@ -1,21 +1,22 @@
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet, ScrollViewBase } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet} from "react-native";
 import colors from "../assets/colors/colors";
 import BigButton from "./BigButton";
 import * as Progress from "react-native-progress";
 import { BOLD20, BOLD15, REGULAR16 } from "./atoms/typography";
 import ValidationView from "./ValidationView";
 import { post_to_url } from "../database/queries";
-//import {UserContext} from "../App";
 import { AddAnswer } from "../helpers/utils";
 
+/**
+ * 
+ * @param {*} props 
+ * @returns 
+ */
 function Quiz(props) {
-  //const allQuestions = require("../data/db.json").test_data;
 
   const activity = props.route.params.activity;
   const allQuestions = activity.questions;
-  //const [user, setUser] = React.useContext(UserContext);
-  //const allQuestions = route.params.
 
   /** state which contains the index of current question */
   const [currentQuestionIndex, setCurrentQuestionIndex] = React.useState(0);
@@ -76,7 +77,8 @@ function Quiz(props) {
         {allQuestions[currentQuestionIndex].answers.map((option) => (
           <TouchableOpacity
           style={{width: "100%", borderRadius: 100, borderWidth: 0.5, 
-          borderColor: colors.blackText, height: "19%", backgroundColor: (currentOptionSelected != null && currentOptionSelected.id == option.id) ? colors.correct_light : colors.white,
+          borderColor: colors.blackText, height: "19%", 
+          backgroundColor: (currentOptionSelected != null && currentOptionSelected.id == option.id) ? colors.correct_light : colors.white,
         justifyContent: "center"}}
             key={option.id}
             onPress={() => {
@@ -94,25 +96,25 @@ function Quiz(props) {
 
   const validate = () => {
     setCorrect(false);
-    console.log("in validate", currentQuestionIndex);
+    //console.log("in validate", currentQuestionIndex);
     if (currentOptionSelected !== null) {
       AddAnswer(allQuestions[currentQuestionIndex].id, currentOptionSelected.id, submit, setSubmit)
       if (
         currentOptionSelected.is_correct
       ) {
-        console.log("correct")
+       // console.log("correct")
         // přičti body
-        console.log(currentOptionSelected.answer, points + currentOptionSelected.scoreAmount);
+       // console.log(currentOptionSelected.answer, points + currentOptionSelected.scoreAmount);
 
         // budu posílat do submit
         //setPoints(points + currentOptionSelected.scoreAmount); // je o jeden krok napřed
         setCorrect(true); // podle toho se potom rendruje jestli je tam napsaný správně nebo špatně
         // mělo by se zablokovat dát jinou možnost
       }
-      console.log("after if");
-      console.log(points);
+      // console.log("after if");
+      // console.log(points);
       currentQuestionIndex + 1 == allQuestions.length ? (
-        console.log("here"),
+       // console.log("here"),
         setQuizState(3)
 
       ) : (setQuizState(2)) // explanation
@@ -123,15 +125,7 @@ function Quiz(props) {
       setCurrentQuestionIndex(currentQuestionIndex + 1), setQuizState(1)    
   };
 
-  const handleFinish = () => {
-    props.route.params.setActivityFinished(true);
-    //PUT activity finished
-    //PUT /scores/cotextuser.id {"total_score": + points,
-      // "weekly_score": + points,
-      // "monthly_score": + points,
-      // "anual_score": + points}
-  }
-
+  
   return (
     <View
       style={{
@@ -220,16 +214,10 @@ function Quiz(props) {
             name="dokončit"
             onPress={async () => 
               {
-                console.log(submit)
+                //console.log(submit)
                 await post_to_url(props.route.params.from_challenge ? 'challenges/'.concat(props.route.params.challenge_id).concat('/submit/') : 
                 'test/'.concat(activity.id).concat('/submit/'),
                 {'answers': submit}, setPoints);
-                // console.log("points", points)
-                // if (!Number.isNaN(points)) {
-                //   console.log("points", points)
-                //   props.navigation.navigate("ActivityFinished", { points: points.achieved_score,
-                //     from_challenge: props.route.params.from_challenge });
-                // }
               
             }}
           />

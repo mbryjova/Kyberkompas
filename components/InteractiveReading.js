@@ -5,28 +5,11 @@ import { BOLD15, BOLD20, EXTRABOLD12, REGULAR16 } from "./atoms/typography";
 import BigButton from "./BigButton";
 import { AddAnswer } from "../helpers/utils";
 import { post_to_url } from "../database/queries";
-//import { UserContext } from "../App";
-
 
 /**
  * component for interactive reading activity
- *
- * co potřebuji vědět: počet options - to se asi vyřeší v render options - ok
- *
- * udělat políčko pro option jako shared component
- *
- * asi bude seznam kartičk s textem a seznam otázek a jejich odpovědí - ok
- *
- * udělat jako seznam jak jdou text/otázky za sebou, objekt bude mít flag jestli je text nebo otázka, podle toho se rendruje - ok
- *
- * bude stav item index a podle toho tolik prvních items se vyfiltruje -> potom simple if jestli je to otázka nebo text - ok
- *
- * onPress u option vytrigruje přidání dalších částí
- *
- * udělat function se statem pro každou otázku? - ok
  */
 function InteractiveReading(props) {
-  //const data = require("../data/db.json").interactive_reading; // jeden prvek seznamu z interactive readings .questions!
 
   const activity = props.route.params.activity;
 
@@ -36,18 +19,24 @@ function InteractiveReading(props) {
   }
   const data = props.route.params.activity.questions;
   const data_length = data.length;
+
   /** index of the current item so we can slice the array */
   const [itemIndex, setItemIndex] = React.useState(0);
 
-  /** points of the user */
+  /** points of the user, set to the answer from the server */
   const [points, setPoints] = React.useState(null);
 
-  /** active states */
+  /** list of objects {show: false, currentOptionSelected: null, 
+      questionAnswered: false} which represent availabe questions
+      - show is false when the question is hidden
+      - currentOptionSelected is null when no option from question is selected, otherwise the option
+      - questionAnswered is false when question havent been answered yet, otherwise yes
+  */
   const [states, setStates] = React.useState([]);
 
+  /** array to be send to server, with question id and selected answer*/
   const [submit, setSubmit] = React.useState([]);
 
-  //const [user, setUser] = React.useContext(UserContext);
 
   React.useEffect(() => {
     console.log("points", points)
@@ -100,18 +89,15 @@ function InteractiveReading(props) {
             <TouchableOpacity
               key={option.id}
               onPress={() => {
-                console.log(option);
                 AddAnswer(props.question.id, option.id, submit, setSubmit)
-                console.log(currentOptionSelected, show, questionAnswered)
                 const current = states[index]
                 current.show = show;
                 current.currentOptionSelected = option;
                 current.questionAnswered = true;
+
                 states[index] = current;
                 setStates(states);
                 setItemIndex(itemIndex + 1);
-                console.log(points);
-                console.log(currentOptionSelected, show, questionAnswered)
               }}
               disabled={questionAnswered}
             >
@@ -141,9 +127,12 @@ function InteractiveReading(props) {
   };
 
   
-  
+  /**
+   * 
+   * @param {*} param
+   * @returns 
+   */
   const renderItem = ({ item, index }) => {
-    console.log(states[index]);
     states.push({show: false, currentOptionSelected: null, 
       questionAnswered: false});
     return (
@@ -201,14 +190,12 @@ function InteractiveReading(props) {
             paddingVertical: '5%'
           }
         }
-        //style={{paddingBottom: 30}}
       />
       
     </View>
   );
 }
 
-//export default React.memo(Question);
 export default InteractiveReading;
 
 const styles = StyleSheet.create({

@@ -1,7 +1,5 @@
 import React from "react";
 import {
-  View,
-  Pressable,
   Text,
   StyleSheet,
   TouchableOpacity,
@@ -9,9 +7,12 @@ import {
 
 import colors from "../assets/colors/colors";
 
-/*
-Component representing the big yellow button
-*/
+/**
+ * 
+ * @param props.name
+ * @param props.onPress
+ * @returns component representing the big yellow button
+ */
 
 function BigButton(props) {
   return (

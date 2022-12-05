@@ -11,33 +11,37 @@ import colors from "../assets/colors/colors";
 import Swiper from "react-native-deck-swiper";
 import BigButton from "./BigButton";
 import {post_to_url} from '../database/queries';
-//import { UserContext } from "../App";
 import { AddAnswer } from "../helpers/utils";
 
 function YesOrNo(props) {
+
+  /** index of current card in the array data */
   const [currentIndex, setCurrentIndex] = React.useState(0);
   /**
    * 1 - question
    * 2 - explanation
-   * 3 - last question - asi zrušit
    */
   const [currentState, setCurrentState] = React.useState(1);
 
-  // celkový počet bodů
+  /** here is the response from the backend, conatining points */
   const [points, setPoints] = React.useState(null);
+
+  /** selected option for current question */
   const [optionSelected, setOptionSelected] = React.useState(null);
 
-  //const [user, setUser] = React.useContext(UserContext);
-  //const data = require("../data/db.json").tinder_swipe;
+  /** activity send from module and its data */
   const activity = props.route.params.activity;
   const data = activity.questions;
 
+  /** array send to the server with answers of the user */
   const [submit, setSubmit] = React.useState([]);
+
+  /** reference for referencing the swiper in buttons yes/no */
   const reference = React.useRef(null);
 
   React.useEffect(() => {
-    console.log("points", points)
-    console.log(activity.image)
+    // console.log("points", points)
+    // console.log(activity.image)
     if (points != null) {
       props.navigation.navigate("ActivityFinished", { 
         points: points.achieved_score,
@@ -91,24 +95,16 @@ function YesOrNo(props) {
           <Image
             style={styles.image}
             source={{uri: props.route.params.from_challenge ? "http://172.26.5.28".concat(data[currentIndex].image) : data[currentIndex].image}}
-            //source={require("../assets/images/yesno_1.png")} // toto je potřeba udělat ještě
+            
           />
         </View>
     );
   };
 
   const lastQuestion = async () => {
-    //ACTIVITY_FINISHED(URL_ACTIVITIES.concat("hesla/"), props.route.params, points, user.id);
-    console.log(submit)
     await post_to_url(props.route.params.from_challenge ? 'challenges/'.concat(props.route.params.challenge_id).concat('/submit/') : 
     'tinder-swipes/'.concat(activity.id).concat('/submit/'),
     {'answers': submit}, setPoints);
-    // console.log("points", points)
-    // if (points != null) {
-    //   props.navigation.navigate("ActivityFinished", { points: points.achieved_score,
-    //    from_challenge: props.route.params.from_challenge });
-
-    // }
   };
 
   const nextQuestion = () => {
@@ -134,9 +130,6 @@ function YesOrNo(props) {
                   setCurrentState(2),
                   setOptionSelected(data[currentIndex].answers[1]),
 
-                  // místo tohoto si to uložím do seznamu co pošlu backendu
-                  //setPoints(points + data[currentIndex].answers[1].scoreAmount),
-
                   AddAnswer(data[currentIndex].id, data[currentIndex].answers[1].id, submit, setSubmit),
                   console.log(submit);
                   setCurrentIndex(currentIndex + 1);
@@ -146,8 +139,6 @@ function YesOrNo(props) {
                   setCurrentState(2),
                   setOptionSelected(data[currentIndex].answers[0]),
 
-                  //
-                  //setPoints(points + data[currentIndex].answers[0].scoreAmount),
                   AddAnswer(data[currentIndex].id, data[currentIndex].answers[0].id, submit, setSubmit),
                   console.log(submit);
                   setCurrentIndex(currentIndex + 1);
@@ -164,7 +155,6 @@ function YesOrNo(props) {
             <View style={styles.buttonWrapper}>
               <Button
                 name={data[currentIndex].answers[1].answer}
-                //name={card.options[1].text}
                 onPress={() => reference.current?.swipeLeft() }
                 color={colors.wrong_light}
                 textColor={colors.wrong}
@@ -212,7 +202,6 @@ function YesOrNo(props) {
           <BigButton
             name="pokračovat"
             onPress={data.length == currentIndex ? lastQuestion : nextQuestion}
-                //optionSelected.logicalValue == 1 ? setPoints(points + optionSelected.scoreAmount) : null}
           ></BigButton>
         </View>
       )}

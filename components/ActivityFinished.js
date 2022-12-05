@@ -4,12 +4,16 @@ import colors from '../assets/colors/colors';
 import { BOLD23, BOLD32, SEMIBOLD16 } from './atoms/typography';
 import BigButton from './BigButton';
 
+/**
+ * 
+ * @param props.route.params.max_points - max points for the activity
+ * @param props.route.params.points - points user got from activity
+ * @param props.route.params.name - name of the module we came from
+ * @param props.route.params.from_challenge - if we came from challenge
+ * 
+ * @returns component for rendering the screen of finished activity
+ */
 function ActivityFinished(props) {
-
-    // let points = Math.round(props.route.params.points - props.route.params.user_points);
-    // if (points < 0) {
-    //     points = 0
-    // }
 
     return (
         <View style={{flex: 1, justifyContent: 'space-around', alignItems: 'center'}}>
@@ -37,14 +41,11 @@ function ActivityFinished(props) {
             </View>
             <View style={{flex: 1}}>
             <BigButton
-                //name={props.route.params.from_challenge ? "na další výzvy" : "na další aktivity"}
                 name="na další aktivity"
                 onPress={() => 
                     props.route.params.from_challenge ? props.navigation.navigate('Výzvy') :
                     props.navigation.navigate('Module', {name: props.route.params.name})
                 }
-                // sem dát přičtení skore a dání aktivity do dokončených?
-                //onPress={() => props.navigation.navigate('TabNavigator', {screen: 'SkillTree'})}
             />
 
             </View>

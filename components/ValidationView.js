@@ -4,6 +4,11 @@ import {View, StyleSheet, Image, Text} from 'react-native';
 import colors from '../assets/colors/colors';
 import { BOLD15 } from './atoms/typography';
 
+/**
+ * 
+ * @param {*} props 
+ * @returns 
+ */
 function ValidationView(props) {
     return (
         <View style={[{backgroundColor: props.logicalValue == 1 ? colors.correct_light : colors.wrong_light,

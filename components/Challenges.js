@@ -118,9 +118,9 @@ function Challenges(props) {
     );
   };
 
-  if (challenges.length == 0) {
-    return null;
-  }
+  // if (challenges.length == 0) {
+  //   return null;
+  // }
   return (
     <View style={{
       //backgroundColor: colors.correct, 
