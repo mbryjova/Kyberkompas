@@ -186,7 +186,8 @@ function YesOrNo(props) {
                         <Image
                         style={{marginLeft: '0%'}}
                         source={require('../assets/images/testIcons/check.png')}/>
-                    </View>) :
+                    </View>
+                    ) :
                     <View style={{flexDirection: 'row'}}>
                         <Text style={[styles.textValidation, BOLD15]}>špatně</Text>
                         <Image source={require('../assets/images/testIcons/cross.png')}/>
@@ -225,12 +226,12 @@ const styles = StyleSheet.create({
   validation: {
     height: "7%",
     width: '91%',
-    borderRadius: 100,
+    borderRadius: 100, // když bych toto smazala
     //borderColor: colors.correct,
     //backgroundColor: colors.correct_light,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 0.5,
+    borderWidth: 0.5, // když bych toto smazala
     marginTop: '5%'
   },
   explanation: {

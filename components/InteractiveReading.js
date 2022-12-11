@@ -7,13 +7,15 @@ import { AddAnswer } from "../helpers/utils";
 import { post_to_url } from "../database/queries";
 
 /**
- * component for interactive reading activity
+ * 
+ * @param {*} props 
+ * @returns component that renders the interactive reading
  */
 function InteractiveReading(props) {
 
   const activity = props.route.params.activity;
 
-  /** kvůli tomu když přijdu z výzev */
+  /** if I come from challenges and the activity is null */
   if (activity == null) {
     return null
   }
@@ -39,21 +41,22 @@ function InteractiveReading(props) {
 
 
   React.useEffect(() => {
-    console.log("points", points)
+    //console.log("points", points)
     if (points != null) {
       props.navigation.navigate("ActivityFinished", {
         points: points.achieved_score,
         from_challenge: props.route.params.from_challenge,
         max_points: props.route.params.from_challenge ? props.route.params.challenge_max_score : activity.max_score,
         name: props.route.params.module_name,
-        user_points: activity.user_activity != null && activity.user_activity.length != 0 ? activity.user_activity[0].score : 0
+        //user_points: activity.user_activity != null && activity.user_activity.length != 0 ? activity.user_activity[0].score : 0
       });
     }
 
   }, [points])
   /**
    * 
-   * @param {*} props 
+   * @param props.index index of the question
+   * @param props.question object representing the question
    * @returns visual representation of one question
    */
   function Question(props) {
@@ -129,8 +132,9 @@ function InteractiveReading(props) {
   
   /**
    * 
-   * @param {*} param
-   * @returns 
+   * @param props.item item from flatlist
+   * @param props.index index of the item
+   * @returns one interactive reading item - textbox + question
    */
   const renderItem = ({ item, index }) => {
     states.push({show: false, currentOptionSelected: null, 
@@ -171,9 +175,11 @@ function InteractiveReading(props) {
         data_length < (itemIndex + 1) ? (
         <BigButton
           name="hotovo"
+
+          /* sending submit list  to server */
           onPress={async () => {
             
-                console.log(submit)
+                //console.log(submit)
                 await post_to_url(props.route.params.from_challenge ? 'challenges/'.concat(props.route.params.challenge_id).concat('/submit/') : 
                 'interactive-reading/'.concat(activity.id).concat('/submit/'),
                 {'answers': submit},

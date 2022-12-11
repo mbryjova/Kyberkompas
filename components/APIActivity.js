@@ -12,6 +12,7 @@ import InputComp from "./InputComp";
 /**
  * 
  * @param props.route.params.from_challenge - if user came from challenge
+ * @param props.route.params.challenge_id - id of the challenge
  * @param props.route.params.module_name - module name
  * @returns component for rendering the API Activity
  */
@@ -41,7 +42,6 @@ function APIActivity(props) {
       if (response != null && response.achieved_score != null) {
         setStatus(2)
       }
-
     }
     setState()
 
@@ -69,12 +69,7 @@ function APIActivity(props) {
             
           />
         </View>
-
-      {/* {status == 3 ? (
-        <View>
-          <Text>doesnt exist</Text>
-        </View>
-      ) : null} */}
+      
       {status == 1 ? (
         <View style={styles.button}>
           {/* submits input to the server */}

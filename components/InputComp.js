@@ -3,10 +3,19 @@ import { TextInput, StyleSheet, View, Text, Image } from "react-native";
 import colors from "../assets/colors/colors";
 import {
   EXTRABOLD12,
-  REGULAR12,
   REGULAR14,
 } from "../components/atoms/typography";
 
+/**
+ * @param props.wrongInput list of wrong input texts
+ * @param props.header
+ * @param props.source source of the icon
+ * @param props.name
+ * @param props.onChangeText
+ * @param props.secureTextEntry true if it is the password
+ * 
+ * @returns component for rendering the input component
+ */
 function InputComp(props) {
   return (
     <View style={{marginBottom: props.wrongInput == null ? 10 : 0}}>

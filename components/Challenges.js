@@ -1,18 +1,15 @@
 import React from "react";
-import { View, StyleSheet, Text, Image, FlatList, Alert } from "react-native";
+import { View, StyleSheet, Text, Image, FlatList } from "react-native";
 import colors from "../assets/colors/colors";
 import { EXTRABOLD12, BOLD20, REGULAR16, BOLD15, SEMIBOLD16, BOLD32 } from "./atoms/typography";
-//import axios from "axios";
-//import {GET, URL_CHALLENGES, URL_INACTIVE} from "../database/queries";
 import {get_from_url, VALID_CHALLENGES_URL, INVALID_CHALLENGES_URL} from '../database/queries';
 
 /**
- * dát image přes get, získávám z databáze - někde ho získám
- * udělat že kliknu na minulé a bude to click handler, ne navigator mezi stránkama, použít filtr, udělat si stav co je vybraný
+ * 
+ * @param {*} props 
+ * @returns component that renders challenges screen
  */
-
 function Challenges(props) {
-  //const ch_data = require("../data/db.json");
   const [challenges, setChallenges] = React.useState([]);
   const [inactive, setInactive] = React.useState([]);
   /**
@@ -22,18 +19,17 @@ function Challenges(props) {
    */
   const [currentState, setCurrentState] = React.useState(1);
 
-  //const [changed, setChanged] = React.useState(false);
 
+  /** fisnihed challenges */
   const finishedChallenges = challenges.filter(item => item.user_activity.length != 0
     && item.user_activity[0].done);
+
+  /** challenges not done on full score */
   const unfinishedChallenges = challenges.filter(item => (item.user_activity.length == 0)
   || (item.user_activity.length != 0 && !item.user_activity[0].done));
 
   /** getting the data */
-  
   React.useEffect(() => {
-    // GET(setChallenges, URL_CHALLENGES);
-    // GET(setInactive, URL_INACTIVE);
     const unsubscribe = props.navigation.addListener('focus',
       () => 
       {get_from_url(setChallenges, VALID_CHALLENGES_URL);
@@ -42,32 +38,36 @@ function Challenges(props) {
       console.log(inactive)
     }
     )
-    console.log("chall:", challenges);
-    //setChanged(false);
+    //console.log("chall:", challenges);
     return unsubscribe
   }
   , [props.navigation]);
 
+  /**
+   * map for activity type
+   */
   const activityType = {
     "api | test": "Quiz",
     "api | tinder swipe": "YesOrNo",
     "api | interactive reading": "InteractiveReading",
     "api | interactive activity": "APIActivity"
   }
-  /** a function for rendering the challenge item */
 
+  
+  /**
+   * 
+   * @param {*} item representing one item from flatlist
+   * @returns component that renders one challenge
+   */
   const renderChallengeItem = ({ item }) => {
 
     const from = new Date(item.valid_from)
     const to = new Date(item.valid_to)
     const month_from = from.getMonth() + 1;
     const month_to = to.getMonth() + 1
-    //console.log(from.getMonth() + 1)
-    // todo, upravit styl obrázku
+
     return (
       <View style={styles.challengeWrapper}>
-        {/* <Image source={{uri: item.image}}
-        style={styles.image} /> */}
         <Image style={styles.image} source={{uri: item.image}} />
         <View style={{ marginLeft: 10, marginRight: 10 }}>
           <Text style={[EXTRABOLD12, { marginTop: 10 }]}>{from.getDate() + ". " + month_from + ". " + from.getFullYear()
@@ -90,7 +90,8 @@ function Challenges(props) {
                   dokončena
                 </Text>
     ) : (<Text
-            onPress={ 
+            /* navigating to the activity with these route parameters */
+            onPress={
             () =>
                props.navigation.navigate(activityType[item.activity_type], {
                 from_challenge: true,
@@ -99,7 +100,7 @@ function Challenges(props) {
                 challenge_max_score: item.max_score
               })
             }
-            // jako objekt s konkrétníma parametrama {name: {item.name}, ..}
+
             style={[
               BOLD15,
               {
@@ -118,9 +119,6 @@ function Challenges(props) {
     );
   };
 
-  // if (challenges.length == 0) {
-  //   return null;
-  // }
   return (
     <View style={{
       //backgroundColor: colors.correct, 
@@ -128,6 +126,7 @@ function Challenges(props) {
       <Text style={[BOLD32, {margin: 16}]}>
         Výzvy
       </Text>
+      {/* changes the state of the screen */}
       <View style={{width: 343, flexDirection: "row", justifyContent: "space-evenly", marginBottom: 8}}>
         <Text onPress={() =>{ setCurrentState(1)}} style={[SEMIBOLD16, {color: currentState == 1 ? colors.blackText : colors.grey}]}>
           Nadcházející
@@ -147,7 +146,7 @@ function Challenges(props) {
         }}>
       <FlatList
         data={ currentState == 3 ? inactive :
-          (currentState == 2 ? finishedChallenges :  // toto se musí filtrovat jinak - už ok
+          (currentState == 2 ? finishedChallenges : 
           unfinishedChallenges)
         }
         keyExtractor={(item) => item.id}

@@ -1,10 +1,9 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { StyleSheet, Text, View, Image } from "react-native";
+import { Text, Image } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { BOLD20, REGULAR12 } from "./components/atoms/typography";
 import React from 'react';
-//import { UserContextProvider } from "./components/context/context";
 
 import {
   useFonts,

@@ -2,31 +2,32 @@ import React from "react";
 import { View, StyleSheet, Text, Image, FlatList, TouchableOpacity } from "react-native";
 import colors from "../assets/colors/colors";
 import { get_from_url } from "../database/queries";
-import { BOLD16, REGULAR14, SEMIBOLD16, BOLD20 } from "./atoms/typography";
+import { BOLD16, REGULAR14, SEMIBOLD16 } from "./atoms/typography";
 
+
+/**
+ * 
+ * @param {*} props 
+ * @returns component that renders the leaderboard screen
+ */
 function Leaderboard(props) {
   /**
-   * 1 - týden
-   * 2 - měsíc
-   * 3 - rok
+   * 1 - week
+   * 2 - month
+   * 3 - year
    */
   const [currentState, setCurrentState] = React.useState(1);
   const [weekly, setWeekly] = React.useState([]);
   const [monthly, setMonthly] = React.useState([]);
   const [annual, setAnnual] = React.useState([]);
-  // if (data.length == []) {
-  //   data = GET_USERS(setData);
-  //   data.sort((a, b) => b.weekly_score - a.weekly_score);
-  // }
-  //const data = require("../data/db.json").users.sort((a, b) => b.weekly_score - a.weekly_score);
 
+  /* map for  getting correct data*/
   const data = {
     1: weekly.sort((a, b) => b.weekly_score - a.weekly_score),
     2: monthly.sort((a, b) => b.monthly_score - a.monthly_score),
     3: annual.sort((a, b) => b.annual_score - a.annual_score)
   }
 
-  //const URL = "https://kyberkompas-database.herokuapp.com/leaderboard_";
 
   // udělat nějak async
   React.useEffect(() => {
@@ -38,7 +39,7 @@ function Leaderboard(props) {
       get_from_url(setAnnual, 'leadership-board/annual');
       }
     )
-    console.log("here");
+    //console.log("here");
     //console.log(data);
     return unsubscribe
   }, [props.navigation]
