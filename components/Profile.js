@@ -4,7 +4,7 @@ import * as ImagePicker from 'expo-image-picker';
 import colors from "../assets/colors/colors";
 import { BOLD20, EXTRABOLD12, SEMIBOLD16, BOLD32, BOLD15 } from "./atoms/typography";
 import {get_from_url, post_picture, post_to_url} from "../database/queries";
-import {UserContext} from "../App";
+import { UserContext } from "./context/context";
 //import axios from "axios";
 
 function Profile(props) {

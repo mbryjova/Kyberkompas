@@ -13,8 +13,8 @@ import { BOLD32 } from "./atoms/typography";
 import BigButton from "./BigButton";
 import InputComp from "./InputComp";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { UserContext } from "../App";
-//import { UserContext } from "./context/context";
+//import { UserContext } from "../App";
+import { UserContext } from "./context/context";
 import { get_from_url, USER_ME_URL } from "../database/queries";
 import * as SecureStore from 'expo-secure-store';
 

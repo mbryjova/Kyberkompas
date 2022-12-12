@@ -4,6 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { BOLD20, REGULAR12 } from "./components/atoms/typography";
 import React from 'react';
+import { UserContext } from "./components/context/context";
 
 import {
   useFonts,
@@ -20,7 +21,6 @@ import {
   SkillTree,
   Leaderboard,
   Profile,
-  Challenge,
   Module,
   Quiz,
   ActivityFinished,
@@ -116,7 +116,7 @@ const TabNavigator = () => {
   );
 };
 
-export const UserContext = React.createContext();
+//export const UserContext = React.createContext();
 
 export default function App() {
 
@@ -128,7 +128,7 @@ export default function App() {
   });
 
   const [user, setUser] = React.useState(null);
-  const [token, setToken] = React.useState(null);
+  //const [token, setToken] = React.useState(null);
 
   if (!fontsLoaded) {
     return <Text style={{ textAlign: "center" }}>App loading</Text>;
@@ -136,7 +136,7 @@ export default function App() {
   
 
   return (
-    <UserContext.Provider value={[user, setUser, token, setToken]}>
+    <UserContext.Provider value={[user, setUser]}>
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
@@ -163,13 +163,13 @@ export default function App() {
           component={TabNavigator}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Challenge"
           component={Challenge}
           options={{
             title: "Výzva",
           }}
-        />
+        /> */}
         <Stack.Screen
           name="Module"
           component={Module}

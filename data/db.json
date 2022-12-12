@@ -1,4 +1,202 @@
 {
+  "scores": [
+    {
+      "id": 1,
+      "total_score": 500,
+      "weekly_score": 16,
+      "new_activities": 5,
+      "finished_challenges": 3
+    },
+    {
+      "id": 2,
+      "total_score": 500,
+      "weekly_score": 16,
+      "new_activities": 5,
+      "finished_challenges": 3
+    }
+  ],
+  "getbreaches_rob23@gmail.com": [
+    {"Name":"000webhost"},
+    {"Name":"17Media"}
+  ],
+  "getbreaches_lucyb56@gmail.com": [
+  
+  ],
+  "leaderboard_weekly": [
+    {
+      "id": 1,
+      "first_name": "Robert",
+      "last_name": "Schwartz",
+      "total_score": 500,
+      "weekly_score": 16,
+      "image": "https://i.imgur.com/OMDNWaT.png"
+    },
+    {
+      "id": 2,
+      "first_name": "Lucy",
+      "last_name": "Ballmer",
+      "total_score": 409,
+      "weekly_score": 15,
+      "image": "https://i.imgur.com/tezvHjo.png"
+    },
+    {
+      "id": 3,
+      "first_name": "Anna",
+      "last_name": "Smith",
+      "total_score": 406,
+      "weekly_score": 15,
+      "image": "https://i.imgur.com/7hyRw1q.png"
+    },
+    {
+      "id": 4,
+      "first_name": "Robert",
+      "last_name": "Brown",
+      "total_score": 400,
+      "weekly_score": 13,
+      "image": "https://i.imgur.com/oaVNPFC.png"
+    },
+    {
+      "id": 5,
+      "first_name": "Roger",
+      "last_name": "Bacon",
+      "total_score": 200,
+      "weekly_score": 10,
+      "image": "https://i.imgur.com/oaVNPFC.png"
+    },
+    {
+      "id": 6,
+      "first_name": "Roger",
+      "last_name": "Bacon",
+      "total_score": 200,
+      "weekly_score": 10,
+      "image": "https://i.imgur.com/oaVNPFC.png"
+    },
+    {
+      "id": 7,
+      "first_name": "Roger",
+      "last_name": "Bacon",
+      "total_score": 200,
+      "weekly_score": 10,
+      "image": "https://i.imgur.com/oaVNPFC.png"
+    }
+  ],
+  "leaderboard_monthly": [
+  {
+      "id": 1,
+      "first_name": "Robert",
+      "last_name": "Schwartz",
+      "total_score": 500,
+      "monthly_score": 100,
+      "image": "https://i.imgur.com/OMDNWaT.png"
+    },
+    {
+      "id": 2,
+      "first_name": "Lucy",
+      "last_name": "Ballmer",
+      "total_score": 409,
+      "monthly_score": 90,
+      "image": "https://i.imgur.com/tezvHjo.png"
+    },
+    {
+      "id": 3,
+      "first_name": "Anna",
+      "last_name": "Smith",
+      "total_score": 406,
+      "monthly_score": 80,
+      "image": "https://i.imgur.com/7hyRw1q.png"
+    },
+    {
+      "id": 4,
+      "first_name": "Robert",
+      "last_name": "Brown",
+      "total_score": 400,
+      "monthly_score": 70,
+      "image": "https://i.imgur.com/oaVNPFC.png"
+    },
+    {
+      "id": 5,
+      "first_name": "Roger",
+      "last_name": "Bacon",
+      "total_score": 200,
+      "monthly_score": 69,
+      "image": "https://i.imgur.com/oaVNPFC.png"
+    },
+    {
+      "id": 6,
+      "first_name": "Roger",
+      "last_name": "Bacon",
+      "total_score": 200,
+      "monthly_score": 65,
+      "image": "https://i.imgur.com/oaVNPFC.png"
+    },
+    {
+      "id": 7,
+      "first_name": "Roger",
+      "last_name": "Bacon",
+      "total_score": 200,
+      "monthly_score": 60,
+      "image": "https://i.imgur.com/oaVNPFC.png"
+    }
+  ],
+  "leaderboard_annual": [
+  {
+      "id": 1,
+      "first_name": "Robert",
+      "last_name": "Schwartz",
+      "total_score": 500,
+      "anual_score": 350,
+      "image": "https://i.imgur.com/OMDNWaT.png"
+    },
+    {
+      "id": 2,
+      "first_name": "Lucy",
+      "last_name": "Ballmer",
+      "total_score": 409,
+       "anual_score": 300,
+      "image": "https://i.imgur.com/tezvHjo.png"
+    },
+    {
+      "id": 3,
+      "first_name": "Anna",
+      "last_name": "Smith",
+      "total_score": 406,
+      "anual_score": 120,
+      "image": "https://i.imgur.com/7hyRw1q.png"
+    },
+    {
+      "id": 4,
+      "first_name": "Robert",
+      "last_name": "Brown",
+      "total_score": 400,
+       "anual_score": 110,
+      "image": "https://i.imgur.com/oaVNPFC.png"
+    },
+    {
+      "id": 5,
+      "first_name": "Roger",
+      "last_name": "Bacon",
+      "total_score": 200,
+      "anual_score": 100,
+      "image": "https://i.imgur.com/oaVNPFC.png"
+    },
+    {
+      "id": 6,
+      "first_name": "Roger",
+      "last_name": "Bacon",
+      "total_score": 200,
+      "anual_score": 65,
+      "image": "https://i.imgur.com/oaVNPFC.png"
+    },
+    {
+      "id": 7,
+      "first_name": "Roger",
+      "last_name": "Bacon",
+      "total_score": 200,
+      "anual_score": 60,
+      "image": "https://i.imgur.com/oaVNPFC.png"
+    }
+    
+  ],
   "users": [
     {
       "id": 1,
@@ -6,11 +204,11 @@
       "last_name": "Schwartz",
       "email": "rob23@gmail.com",
       "total_score": 500,
-      "weekly_score": 10,
+      "weekly_score": 16,
       "monthly_score": 100,
       "anual_score": 150,
-      "image": "",
-      "password": "12345"
+      "image": "https://i.imgur.com/OMDNWaT.png",
+      "password": "$2a$10$XNbSXgARy8BrGRfUa6gNQ.UeQGMSAdHxVvtb03b.yfE/iyR4eRZBi"
     },
     {
       "id": 2,
@@ -21,8 +219,8 @@
       "weekly_score": 10,
       "monthly_score": 100,
       "anual_score": 150,
-      "image": "",
-      "password": "123"
+      "image": "https://i.imgur.com/tezvHjo.png",
+      "password": "$2a$10$XNbSXgARy8BrGRfUa6gNQ.UeQGMSAdHxVvtb03b.yfE/iyR4eRZBi"
     },
     {
       "id": 3,
@@ -33,8 +231,8 @@
       "weekly_score": 15,
       "monthly_score": 100,
       "anual_score": 160,
-      "image": "",
-      "password": "123"
+      "image": "https://i.imgur.com/7hyRw1q.png",
+      "password": "$2a$10$XNbSXgARy8BrGRfUa6gNQ.UeQGMSAdHxVvtb03b.yfE/iyR4eRZBi"
     },
     {
       "id": 4,
@@ -45,8 +243,8 @@
       "weekly_score": 1,
       "monthly_score": 100,
       "anual_score": 150,
-      "image": "",
-      "password": "12345"
+      "image": "https://i.imgur.com/oaVNPFC.png",
+      "password": "$2a$10$XNbSXgARy8BrGRfUa6gNQ.UeQGMSAdHxVvtb03b.yfE/iyR4eRZBi"
     },
     {
       "id": 5,
@@ -57,8 +255,8 @@
       "weekly_score": 10,
       "monthly_score": 100,
       "anual_score": 150,
-      "image": "",
-      "password": "12345"
+      "image": "https://i.imgur.com/oaVNPFC.png",
+      "password": "$2a$10$XNbSXgARy8BrGRfUa6gNQ.UeQGMSAdHxVvtb03b.yfE/iyR4eRZBi"
     },
     {
       "id": 6,
@@ -69,8 +267,8 @@
       "weekly_score": 10,
       "monthly_score": 100,
       "anual_score": 150,
-      "image": "",
-      "password": "12345"
+      "image": "https://i.imgur.com/oaVNPFC.png",
+      "password": "$2a$10$XNbSXgARy8BrGRfUa6gNQ.UeQGMSAdHxVvtb03b.yfE/iyR4eRZBi"
     },
     {
       "id": 7,
@@ -81,19 +279,18 @@
       "weekly_score": 10,
       "monthly_score": 100,
       "anual_score": 150,
-      "image": "",
-      "password": "12345"
+      "image": "https://i.imgur.com/oaVNPFC.png",
+      "password": "$2a$10$XNbSXgARy8BrGRfUa6gNQ.UeQGMSAdHxVvtb03b.yfE/iyR4eRZBi"
     }
   ],
   "challenges": [
     {
       "id": 1,
       "date_from": "4.10.2021",
-      "date_to": "15.11.2021",
       "point_amount": "10",
       "title": "Vytvoř si frázové heslo",
       "description": "Za celou lekci jsme vás nepřesvědčili a petr1984 pořád považujete za bezpečné heslo? Pojďme si vyzkoušet za jak dlouho by se takové heslo prolomilo a případně jak jej vylepšit.",
-      "image": "../assets/images/challenge1.png",
+      "image": "https://i.imgur.com/5IzYEAV.png",
       "finished": 1,
       "challenge": {
         "time": 15,
@@ -105,11 +302,10 @@
     {
       "id": 2,
       "date_from": "6.9.2021",
-      "date_to": "15.11.2022",
       "point_amount": "10",
       "title": "Poznáš phishing?",
       "description": "Nejčastější typy phishingových zpráv bývají informace o nutnosti provedení nějakého úkonu, jako změna hesla nebo nutnost se někam přihlásit.",
-      "image": "../assets/images/challenge2.png",
+      "image": "https://i.imgur.com/5IzYEAV.png",
       "finished": 0,
       "challenge": {
         "time": 15,
@@ -120,11 +316,10 @@
     {
       "id": 3,
       "date_from": "6.10.2021",
-      "date_to": "15.11.2021",
       "point_amount": "10",
       "title": "Zkontroluj sílu svého hesla",
       "description": "Za celou lekci jsme vás nepřesvědčili a petr1984 pořád považujete za bezpečné heslo? Pojďme si vyzkoušet za jak dlouho by se takové heslo prolomilo a případně jak jej vylepšit.",
-      "image": "../assets/images/challenge1.png",
+      "image": "https://i.imgur.com/5IzYEAV.png",
       "finished": 1,
       "challenge": {
         "time": 15,
@@ -135,11 +330,10 @@
     {
       "id": 4,
       "date_from": "4.10.2021",
-      "date_to": "15.11.2022",
       "point_amount": "10",
       "title": "Zkontroluj sílu svého hesla",
       "description": "Za celou lekci jsme vás nepřesvědčili a petr1984 pořád považujete za bezpečné heslo? Pojďme si vyzkoušet za jak dlouho by se takové heslo prolomilo a případně jak jej vylepšit.",
-      "image": "../assets/images/challenge1.png",
+      "image": "https://i.imgur.com/ZRnoSh2.png",
       "finished": 0,
       "challenge": {
         "time": 15,
@@ -150,12 +344,41 @@
     {
       "id": 5,
       "date_from": "7.10.2021",
-      "date_to": "15.11.2022",
       "point_amount": "10",
       "title": "Zkontroluj sílu svého hesla",
       "description": "Za celou lekci jsme vás nepřesvědčili a petr1984 pořád považujete za bezpečné heslo? Pojďme si vyzkoušet za jak dlouho by se takové heslo prolomilo a případně jak jej vylepšit.",
-      "image": "../assets/images/challenge1.png",
+      "image": "https://i.imgur.com/ZRnoSh2.png",
       "finished": 1,
+      "challenge": {
+        "time": 15,
+        "textboxes": ["Část básně, scenerie cestou do práce, vzpomínka z dětství – to všechno může být základ frázového hesla. Tři až čtyři slova postačí. Pokud chcete heslo dovést k dokonalosti, přidejte na náhodná místa zástupné znaky (mezera, čísla, interpunkce, symboly). V našem příkladě trhatfialkyB00Mdynamitem jsme díky citoslovci B00M dostali do hesla číslice i velká písmena, a to na netradiční místo.", 
+        "Další příklady frázových hesel: H0OPskočilzajícpřes2pole, 3karatovýprstenodM., 10%šancevsázcesPetrem, 8_polibšosKosům, třistaTřicet3stříbrných..."
+        ]}
+    }
+  ],
+  "inactive_challenges": [
+    {
+      "id": 4,
+      "date_from": "4.10.2000",
+      "point_amount": 0,
+      "title": "Zkontroluj sílu svého hesla",
+      "description": "Za celou lekci jsme vás nepřesvědčili a petr1984 pořád považujete za bezpečné heslo? Pojďme si vyzkoušet za jak dlouho by se takové heslo prolomilo a případně jak jej vylepšit.",
+      "image": "https://i.imgur.com/ZRnoSh2.png",
+      "finished": 0,
+      "challenge": {
+        "time": 15,
+        "textboxes": ["Část básně, scenerie cestou do práce, vzpomínka z dětství – to všechno může být základ frázového hesla. Tři až čtyři slova postačí. Pokud chcete heslo dovést k dokonalosti, přidejte na náhodná místa zástupné znaky (mezera, čísla, interpunkce, symboly). V našem příkladě trhatfialkyB00Mdynamitem jsme díky citoslovci B00M dostali do hesla číslice i velká písmena, a to na netradiční místo.", 
+        "Další příklady frázových hesel: H0OPskočilzajícpřes2pole, 3karatovýprstenodM., 10%šancevsázcesPetrem, 8_polibšosKosům, třistaTřicet3stříbrných..."
+        ]}
+    },
+    {
+      "id": 5,
+      "date_from": "3.10.2006",
+      "point_amount": 0,
+      "title": "Zkontroluj sílu svého hesla",
+      "description": "Za celou lekci jsme vás nepřesvědčili a petr1984 pořád považujete za bezpečné heslo? Pojďme si vyzkoušet za jak dlouho by se takové heslo prolomilo a případně jak jej vylepšit.",
+      "image": "https://i.imgur.com/ZRnoSh2.png",
+      "finished": 0,
       "challenge": {
         "time": 15,
         "textboxes": ["Část básně, scenerie cestou do práce, vzpomínka z dětství – to všechno může být základ frázového hesla. Tři až čtyři slova postačí. Pokud chcete heslo dovést k dokonalosti, přidejte na náhodná místa zástupné znaky (mezera, čísla, interpunkce, symboly). V našem příkladě trhatfialkyB00Mdynamitem jsme díky citoslovci B00M dostali do hesla číslice i velká písmena, a to na netradiční místo.", 
@@ -167,120 +390,127 @@
     {
       "id": 1,
       "name": "Hesla",
-      "image": "",
+      "image": "https://i.imgur.com/ZRnoSh2.png",
       "current_score": 30,
       "available": 1,
       "max_score": 70
-
     },
     {
       "id": 2,
       "name": "Phishing",
-      "image": "",
-      "current_score": 30,
-      "available": 1,
+      "image": "https://i.imgur.com/5IzYEAV.png",
+      "current_score": 0,
+      "available": 0,
       "max_score": 100
     },
     {
       "id": 3,
       "name": "Kybertahák",
-      "image": "",
+      "image": "https://i.imgur.com/ZZEs3WW.jpg",
       "current_score": 30,
       "available": 1,
       "max_score": 30
     },
     {
       "id": 4,
-      "name": "Hesla",
-      "image": "",
-      "current_score": 30,
-      "available": 1,
+      "name": "Bezpečná komunikace",
+      "image": "https://i.imgur.com/RYXfrUl.jpg",
+      "current_score": 0,
+      "available": 0,
       "max_score": 35
     },
     {
       "id": 5,
-      "name": "Phishing",
-      "image": "",
+      "name": "Zabezpečení zařízení",
+      "image": "https://i.imgur.com/Tv2MRnL.jpg",
       "current_score": 0,
       "available": 0,
       "max_score": 30
     },
     {
       "id": 6,
-      "name": "Kybertahák",
-      "image": "",
+      "name": "Hlášení incidentů",
+      "image": "https://i.imgur.com/XBUojzg.jpg",
       "current_score": 0,
-      "available": 1,
+      "available": 0,
       "max_score": 70
     },
     {
       "id": 7,
       "name": "Sebeobrana",
-      "image": "",
-      "current_score": 30,
-      "available": 1,
-      "max_score": 70
-    },
-    {
-      "id": 8,
-      "name": "Sebeobrana",
-      "image": "",
-      "current_score": 30,
-      "available": 1,
-      "max_score": 70
-    },
-    {
-      "id": 9,
-      "name": "Sebeobrana",
-      "image": "",
-      "current_score": 30,
-      "available": 1,
+      "image": "https://i.imgur.com/QixjYvh.jpg",
+      "current_score": 0,
+      "available": 0,
       "max_score": 70
     }
   ],
-  "activities": [
-    {
-      "title": "dokončené:",
-      "id": 1,
-      "data": [{
-        "id": 1,
-        "type": "test",
-        "name": "Hesla základy",
-        "description": "Zkontroluj si svoji znalost ohledně základů funkce hesel.",
-        "status": "dokončené",
-        "score": 4
-      }, {
-        "id": 10,
-        "type": "test",
-        "name": "Hesla základy",
-        "description": "Zkontroluj si svoji znalost ohledně základů funkce hesel.",
-        "status": "dokončené",
-        "score": 4
-      }]
-    },
+  "activities_kybertahak": [
     {
       "title": "následující:",
+      "id": 1,
+      "data": []
+    },
+    {
+      "title": "dokončené:",
       "id": 2,
+      "data": [ {
+        "id": 1,
+        "type": "test",
+        "name": "Opakování hesel",
+        "description": "Zkontroluj si svoji znalost z modulu hesla.",
+        "status": 1,
+        "score": 4
+    },
+    {
+        "id": 2,
+        "type": "ano nebo ne",
+        "name": "Zabezpečení",
+        "description": "Znáte 5 nejdůležitějších typů zabezpečení?",
+        "status": 1,
+        "score": 4
+    },
+    {
+        "id": 3,
+        "type": "interaktivní čtení",
+        "name": "Spektrum manipulace",
+        "description": "Zopakuj si na co dát pozor při pohybování na internetu.",
+        "status": 1,
+        "score": 4
+    },
+    {
+        "id": 4,
+        "type": "test",
+        "name": "Bezpečná komunikace",
+        "description": "Projdi si znovu základy bezpečné komunikace.",
+        "status": 1,
+        "score": 4
+    }]
+    }
+  ],
+  "activities_hesla": [
+    {
+      "title": "následující:",
+      "id": 1,
       "data": [{
         "id": 2,
         "type": "informační aktivita",
         "name": "Zkontroluj sílu svého hesla",
         "description": "Zkontroluj zda tvůj účet nebyl narušen při datovém úniku.",
-        "status": "následující",
+        "status": 0,
         "score": 3
       }, {
         "id": 3,
         "type": "interaktivní čtení",
         "name": "Jak vytvořit silné heslo",
         "description": "Přečti si informace, jak správně vytvořit silné frázové heslo.",
-        "status": "následující",
+        "status": 0,
         "score": 1
       }, {
         "id": 4,
         "type": "test",
         "name": "Co nepatří mezi frázová hesla",
         "description": "Zkontroluj si své znalosti ohledně frázových hesel.",
-        "status": "následující",
+        "status": 0,
         "score": 5
       },
       {
@@ -288,27 +518,23 @@
         "type": "ano nebo ne",
         "name": "Jde o správné tvrzení?",
         "description": "Zkuste si rychlou ano/ne aktivitu, kde se dozvíte něco nového.",
-        "status": "následující",
-        "score": 8
-      },
-      {
-        "id": 6,
-        "type": "ano nebo ne",
-        "name": "Jde o správné tvrzení?",
-        "description": "Zkuste si rychlou ano/ne aktivitu, kde se dozvíte něco nového.",
-        "status": "následující",
-        "score": 8
-      },
-      {
-        "id": 7,
-        "type": "ano nebo ne",
-        "name": "Jde o správné tvrzení?",
-        "description": "Zkuste si rychlou ano/ne aktivitu, kde se dozvíte něco nového.",
-        "status": "následující",
+        "status": 0,
         "score": 8
       }
     ]
 
+    },
+    {
+      "title": "dokončené:",
+      "id": 2,
+      "data": [{
+        "id": 1,
+        "type": "test",
+        "name": "Hesla základy",
+        "description": "Zkontroluj si svoji znalost ohledně základů funkce hesel.",
+        "status": 1,
+        "score": 4
+      }]
     }
   ],
   "test_data": [

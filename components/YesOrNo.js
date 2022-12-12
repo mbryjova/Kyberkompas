@@ -12,6 +12,7 @@ import Swiper from "react-native-deck-swiper";
 import BigButton from "./BigButton";
 import {post_to_url} from '../database/queries';
 import { AddAnswer } from "../helpers/utils";
+import ValidationView from "./ValidationView";
 
 function YesOrNo(props) {
 
@@ -176,10 +177,12 @@ function YesOrNo(props) {
 
       {currentState == 2 && (
         <View style={{flex: 1, justifyContent: 'space-evenly', alignItems: 'center'}}>
-            <View style={[{backgroundColor: optionSelected.is_correct ? colors.correct_light : colors.wrong_light,
-                borderColor: optionSelected.is_correct ? colors.correct : colors.wrong
-            }, styles.validation]}>
-                {optionSelected.is_correct
+            <View style={[
+            //   {backgroundColor: optionSelected.is_correct ? colors.correct_light : colors.wrong_light,
+            //     borderColor: optionSelected.is_correct ? colors.correct : colors.wrong
+            // }, 
+            styles.validation]}>
+                {/* {optionSelected.is_correct
                 ? (
                     <View style={{flexDirection: 'row', justifyContent: 'flex-start'}}>
                         <Text style={[styles.textValidation, BOLD15]}>správně</Text> 
@@ -193,7 +196,10 @@ function YesOrNo(props) {
                         <Image source={require('../assets/images/testIcons/cross.png')}/>
 
                     </View>
-                }
+                } */}
+                <ValidationView logicalValue={optionSelected.is_correct ? 1 : 0}>
+
+                </ValidationView>
             </View>
             <View style={styles.explanation}>
           <Text style={[REGULAR16]}>
@@ -231,7 +237,7 @@ const styles = StyleSheet.create({
     //backgroundColor: colors.correct_light,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 0.5, // když bych toto smazala
+    //borderWidth: 0.5, // když bych toto smazala
     marginTop: '5%'
   },
   explanation: {
