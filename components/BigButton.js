@@ -1,14 +1,10 @@
 import React from "react";
-import {
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { Text, StyleSheet, TouchableOpacity } from "react-native";
 
 import colors from "../assets/colors/colors";
 
 /**
- * 
+ *
  * @param props.name
  * @param props.onPress
  * @returns component representing the big yellow button
@@ -44,6 +40,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontFamily: "Mulish_700Bold",
     fontSize: 15,
-    textTransform: 'uppercase'
+    textTransform: "uppercase",
   },
 });

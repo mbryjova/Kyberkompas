@@ -36,12 +36,12 @@ const Tab = createBottomTabNavigator();
 const headerOptions = {
   headerTitleStyle: BOLD20,
   headerStyle: {
-    height: 96, // velikost horního navbaru
+    height: 96,
   },
   headerTitleAlign: "center",
-  tabBarLabelStyle: [REGULAR12, { marginBottom: 15 }], // ten text by měl být tlustší, margin bottom aby to líp sedělo k ikonce
+  tabBarLabelStyle: [REGULAR12, { marginBottom: 15 }],
   tabBarIconStyle: { marginTop: 15 },
-  tabBarStyle: { height: 80, backgroundColor: colors.white }, // velikost spodního navbaru
+  tabBarStyle: { height: 80, backgroundColor: colors.white },
   tabBarActiveTintColor: colors.primary,
   tabBarInactiveTintColor: colors.blackText
   
@@ -69,7 +69,7 @@ const TabNavigator = () => {
       />
       <Tab.Screen
         name="Znalosti"
-        component={SkillTree} // nevím jestli dát do samostatnýho stacku? nevím
+        component={SkillTree}
         options={{
           tabBarIcon: (tabInfo) => (
             <Image
@@ -116,7 +116,6 @@ const TabNavigator = () => {
   );
 };
 
-//export const UserContext = React.createContext();
 
 export default function App() {
 
@@ -128,7 +127,6 @@ export default function App() {
   });
 
   const [user, setUser] = React.useState(null);
-  //const [token, setToken] = React.useState(null);
 
   if (!fontsLoaded) {
     return <Text style={{ textAlign: "center" }}>App loading</Text>;
@@ -140,11 +138,11 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
-          headerStyle: { height: 96 }, // nevím jak udělat nefunguje
+          headerStyle: { height: 96 },
           headerTitleStyle: BOLD20,
           headerTitleAlign: "center",
           contentStyle: {
-            backgroundColor: colors.white, // změní pozadí obrazovky?
+            backgroundColor: colors.white,
           },
         }}
       >
@@ -163,13 +161,6 @@ export default function App() {
           component={TabNavigator}
           options={{ headerShown: false }}
         />
-        {/* <Stack.Screen
-          name="Challenge"
-          component={Challenge}
-          options={{
-            title: "Výzva",
-          }}
-        /> */}
         <Stack.Screen
           name="Module"
           component={Module}

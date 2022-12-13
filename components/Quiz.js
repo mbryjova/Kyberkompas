@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet} from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import colors from "../assets/colors/colors";
 import BigButton from "./BigButton";
 import * as Progress from "react-native-progress";
@@ -9,12 +9,11 @@ import { post_to_url } from "../database/queries";
 import { AddAnswer } from "../helpers/utils";
 
 /**
- * 
- * @param {*} props 
- * @returns 
+ *
+ * @param {*} props
+ * @returns component that renders the quiz activity
  */
 function Quiz(props) {
-
   const activity = props.route.params.activity;
   const allQuestions = activity.questions;
 
@@ -41,23 +40,29 @@ function Quiz(props) {
   const [quizState, setQuizState] = React.useState(1);
 
   React.useEffect(() => {
-    console.log("points", points)
+    console.log("points", points);
     if (points != null) {
-      props.navigation.navigate("ActivityFinished", { 
+      props.navigation.navigate("ActivityFinished", {
         points: points.achieved_score,
         from_challenge: props.route.params.from_challenge,
-        max_points: props.route.params.from_challenge ? props.route.params.challenge_max_score : activity.max_score,
+        max_points: props.route.params.from_challenge
+          ? props.route.params.challenge_max_score
+          : activity.max_score,
         name: props.route.params.module_name,
-        user_points: activity.user_activity != null && activity.user_activity.length != 0 ? activity.user_activity[0].score : 0 
+        user_points:
+          activity.user_activity != null && activity.user_activity.length != 0
+            ? activity.user_activity[0].score
+            : 0,
       });
     }
-
-  }, [points])
+  }, [points]);
 
   const renderQuestion = () => {
     return (
-      <View style={{alignSelf: "center", marginTop: "15%", marginHorizontal: 7}}>
-        <Text style={[BOLD20, {textAlign: 'center'}]}>
+      <View
+        style={{ alignSelf: "center", marginTop: "15%", marginHorizontal: 7 }}
+      >
+        <Text style={[BOLD20, { textAlign: "center" }]}>
           {allQuestions[currentQuestionIndex].question}
         </Text>
       </View>
@@ -67,27 +72,38 @@ function Quiz(props) {
   const renderOption = () => {
     return (
       <View
-        style={{ marginTop: "23%", 
-        //backgroundColor: colors.correct, 
-        height: "43%", width: "85%", 
-        justifyContent: "space-around", alignItems: "center",
-        marginBottom: "15%"
-      }}
+        style={{
+          marginTop: "23%",
+          height: "43%",
+          width: "85%",
+          justifyContent: "space-around",
+          alignItems: "center",
+          marginBottom: "15%",
+        }}
       >
         {allQuestions[currentQuestionIndex].answers.map((option) => (
           <TouchableOpacity
-          style={{width: "100%", borderRadius: 100, borderWidth: 0.5, 
-          borderColor: colors.blackText, height: "19%", 
-          backgroundColor: (currentOptionSelected != null && currentOptionSelected.id == option.id) ? colors.correct_light : colors.white,
-        justifyContent: "center"}}
+            style={{
+              width: "100%",
+              borderRadius: 100,
+              borderWidth: 0.5,
+              borderColor: colors.blackText,
+              height: "19%",
+              backgroundColor:
+                currentOptionSelected != null &&
+                currentOptionSelected.id == option.id
+                  ? colors.correct_light
+                  : colors.white,
+              justifyContent: "center",
+            }}
             key={option.id}
             onPress={() => {
               setCurrentOptionSelected(option);
-              console.log(option);
-            }} // nastavím jako selected option
+            }}
           >
-
-            <Text style={[BOLD15, {textAlign: "center"}]}>{option.answer}</Text>
+            <Text style={[BOLD15, { textAlign: "center" }]}>
+              {option.answer}
+            </Text>
           </TouchableOpacity>
         ))}
       </View>
@@ -96,134 +112,148 @@ function Quiz(props) {
 
   const validate = () => {
     setCorrect(false);
-    //console.log("in validate", currentQuestionIndex);
     if (currentOptionSelected !== null) {
-      AddAnswer(allQuestions[currentQuestionIndex].id, currentOptionSelected.id, submit, setSubmit)
-      if (
-        currentOptionSelected.is_correct
-      ) {
-       // console.log("correct")
-        // přičti body
-       // console.log(currentOptionSelected.answer, points + currentOptionSelected.scoreAmount);
-
-        // budu posílat do submit
-        //setPoints(points + currentOptionSelected.scoreAmount); // je o jeden krok napřed
-        setCorrect(true); // podle toho se potom rendruje jestli je tam napsaný správně nebo špatně
-        // mělo by se zablokovat dát jinou možnost
+      AddAnswer(
+        allQuestions[currentQuestionIndex].id,
+        currentOptionSelected.id,
+        submit,
+        setSubmit
+      );
+      if (currentOptionSelected.is_correct) {
+        setCorrect(true);
       }
-      // console.log("after if");
-      // console.log(points);
-      currentQuestionIndex + 1 == allQuestions.length ? (
-       // console.log("here"),
-        setQuizState(3)
-
-      ) : (setQuizState(2)) // explanation
+      currentQuestionIndex + 1 == allQuestions.length
+        ? setQuizState(3)
+        : setQuizState(2);
     }
   };
 
   const nextQuestion = () => {
-      setCurrentQuestionIndex(currentQuestionIndex + 1), setQuizState(1)    
+    setCurrentQuestionIndex(currentQuestionIndex + 1), setQuizState(1);
   };
 
-  
   return (
     <View
       style={{
-        //backgroundColor: colors.wrong,
-        flex: 1
+        flex: 1,
       }}
     >
-
-       {/* otázka a odpovědi - tlačítko zkontrolovat */}
+      {/* questions with answers */}
       {quizState == 1 && (
-        <View style={{ 
-          flex: 1, 
-          //backgroundColor: colors.correct_light, 
-          alignItems: "center"
-        }}>
+        <View
+          style={{
+            flex: 1,
+            alignItems: "center",
+          }}
+        >
           {renderQuestion()}
           {renderOption()}
 
-          <View style={{justifyContent:'space-evenly', height: '15%', alignItems: 'center'}}>
-          <Progress.Bar progress={currentQuestionIndex / allQuestions.length} color={colors.primary} borderColor={colors.blackText} />
-          <View style={{
-            //backgroundColor: colors.blackText
-            }}>
-            <BigButton
-              name="zkontrolovat"
-              onPress={() => validate()} // {validate}
-            />
-
-          </View>
-          </View>
-        </View>
-      )}
-
-      {/**vysvětlení, tlačítko na další otázku */}
-      {quizState == 2 && (
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'space-evenly', 
-        //backgroundColor: colors.grey
-        }}>
-
-          <View style={{width: '91%', height: '7%'}}>
-          <ValidationView logicalValue={correct ? 1 : 0}>
-
-          </ValidationView>
-
-          </View>
-          
-          <View style={styles.explanationWrapper}>
-          <Text style={[REGULAR16]}>{currentOptionSelected.explanation}</Text>
-
-          </View>
-
-          <View style={{justifyContent:'space-evenly', height: '15%', alignItems: 'center'}}>
-          <Progress.Bar progress={(currentQuestionIndex + 1) / allQuestions.length} color={colors.primary} borderColor={colors.blackText} />
-          <View style={{ 
-            //backgroundColor: colors.wrong 
-            }}>
-            <BigButton
-              name="na další otázku"
-              onPress={() => {nextQuestion(), setCurrentOptionSelected(null)}} // {next question} // potom už se ale nepůjde vracet
-            />
-          </View>
-            </View>
-        </View>
-      )}
-
-      {/** poslední otázka, jdu na dokončit */}
-      {quizState == 3 && (
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'space-evenly'}}>
-        <View style={{width: '91%', height: '7%'}}>
-        <ValidationView logicalValue={correct ? 1 : 0}>
-
-        </ValidationView>
-
-        </View>
-        
-        <View style={styles.explanationWrapper}>
-        <Text style={[REGULAR16]}>{currentOptionSelected.explanation}</Text>
-
-        </View>
-        <View style={{justifyContent:'space-evenly', height: '15%', alignItems: 'center'}}>
-        <Progress.Bar progress={currentQuestionIndex + 1 / allQuestions.length} color={colors.primary} />
-        <View style={{ 
-          //backgroundColor: colors.wrong 
-          }}>
-          <BigButton
-            name="dokončit"
-            onPress={async () => 
-              {
-                //console.log(submit)
-                await post_to_url(props.route.params.from_challenge ? 'challenges/'.concat(props.route.params.challenge_id).concat('/submit/') : 
-                'test/'.concat(activity.id).concat('/submit/'),
-                {'answers': submit}, setPoints);
-              
+          <View
+            style={{
+              justifyContent: "space-evenly",
+              height: "15%",
+              alignItems: "center",
             }}
-          />
-        </View>
+          >
+            <Progress.Bar
+              progress={currentQuestionIndex / allQuestions.length}
+              color={colors.primary}
+              borderColor={colors.blackText}
+            />
+            <View style={{}}>
+              <BigButton name="zkontrolovat" onPress={() => validate()} />
+            </View>
           </View>
-      </View>
+        </View>
+      )}
+
+      {/**explanation */}
+      {quizState == 2 && (
+        <View
+          style={{
+            flex: 1,
+            alignItems: "center",
+            justifyContent: "space-evenly",
+          }}
+        >
+          <View style={{ width: "91%", height: "7%" }}>
+            <ValidationView logicalValue={correct ? 1 : 0}></ValidationView>
+          </View>
+
+          <View style={styles.explanationWrapper}>
+            <Text style={[REGULAR16]}>{currentOptionSelected.explanation}</Text>
+          </View>
+
+          <View
+            style={{
+              justifyContent: "space-evenly",
+              height: "15%",
+              alignItems: "center",
+            }}
+          >
+            <Progress.Bar
+              progress={(currentQuestionIndex + 1) / allQuestions.length}
+              color={colors.primary}
+              borderColor={colors.blackText}
+            />
+            <View style={{}}>
+              <BigButton
+                name="na další otázku"
+                onPress={() => {
+                  nextQuestion(), setCurrentOptionSelected(null);
+                }}
+              />
+            </View>
+          </View>
+        </View>
+      )}
+
+      {/** last question */}
+      {quizState == 3 && (
+        <View
+          style={{
+            flex: 1,
+            alignItems: "center",
+            justifyContent: "space-evenly",
+          }}
+        >
+          <View style={{ width: "91%", height: "7%" }}>
+            <ValidationView logicalValue={correct ? 1 : 0}></ValidationView>
+          </View>
+
+          <View style={styles.explanationWrapper}>
+            <Text style={[REGULAR16]}>{currentOptionSelected.explanation}</Text>
+          </View>
+          <View
+            style={{
+              justifyContent: "space-evenly",
+              height: "15%",
+              alignItems: "center",
+            }}
+          >
+            <Progress.Bar
+              progress={currentQuestionIndex + 1 / allQuestions.length}
+              color={colors.primary}
+            />
+            <View style={{}}>
+              <BigButton
+                name="dokončit"
+                onPress={async () => {
+                  await post_to_url(
+                    props.route.params.from_challenge
+                      ? "challenges/"
+                          .concat(props.route.params.challenge_id)
+                          .concat("/submit/")
+                      : "test/".concat(activity.id).concat("/submit/"),
+                    { answers: submit },
+                    setPoints
+                  );
+                }}
+              />
+            </View>
+          </View>
+        </View>
       )}
     </View>
   );
@@ -233,12 +263,12 @@ export default Quiz;
 
 const styles = StyleSheet.create({
   explanationWrapper: {
-    width: '91%',
-    height: '40%',
+    width: "91%",
+    height: "40%",
     padding: 10,
     borderRadius: 16,
     borderColor: colors.blackText,
     borderWidth: 0.5,
-    marginBottom: '15%'
-  }
-})
+    marginBottom: "15%",
+  },
+});

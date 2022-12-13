@@ -1,10 +1,7 @@
 import React from "react";
 import { TextInput, StyleSheet, View, Text, Image } from "react-native";
 import colors from "../assets/colors/colors";
-import {
-  EXTRABOLD12,
-  REGULAR14,
-} from "../components/atoms/typography";
+import { EXTRABOLD12, REGULAR14 } from "../components/atoms/typography";
 
 /**
  * @param props.wrongInput list of wrong input texts
@@ -13,17 +10,19 @@ import {
  * @param props.name
  * @param props.onChangeText
  * @param props.secureTextEntry true if it is the password
- * 
+ *
  * @returns component for rendering the input component
  */
 function InputComp(props) {
   return (
-    <View style={{marginBottom: props.wrongInput == null ? 10 : 0}}>
+    <View style={{ marginBottom: props.wrongInput == null ? 10 : 0 }}>
       <View style={styles.textWrapper}>
         <Text
           style={[
             EXTRABOLD12,
-            { color: props.wrongInput != null ? colors.wrong : colors.blackText },
+            {
+              color: props.wrongInput != null ? colors.wrong : colors.blackText,
+            },
           ]}
         >
           {props.header}
@@ -32,7 +31,9 @@ function InputComp(props) {
       <View
         style={[
           styles.input,
-          { borderColor: props.wrongInput != null ? colors.wrong : colors.grey },
+          {
+            borderColor: props.wrongInput != null ? colors.wrong : colors.grey,
+          },
         ]}
       >
         <Image style={styles.image} source={props.source} />
@@ -40,14 +41,14 @@ function InputComp(props) {
           placeholder={props.name}
           onChangeText={props.onChangeText}
           secureTextEntry={props.secureTextEntry}
-          style={{width: '100%'}}
+          style={{ width: "100%" }}
         />
       </View>
 
       {props.wrongInput != null && (
-        <Text style={[REGULAR14, { color: colors.wrong, 
-        alignSelf: 'flex-end'
-        }]}>
+        <Text
+          style={[REGULAR14, { color: colors.wrong, alignSelf: "flex-end" }]}
+        >
           {props.wrongInput[0]}
         </Text>
       )}

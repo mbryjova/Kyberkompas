@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text, FlatList, TouchableOpacity, Image, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+} from "react-native";
 import colors from "../assets/colors/colors";
 import { BOLD15, BOLD20, EXTRABOLD12, REGULAR16 } from "./atoms/typography";
 import BigButton from "./BigButton";
@@ -7,17 +14,16 @@ import { AddAnswer } from "../helpers/utils";
 import { post_to_url } from "../database/queries";
 
 /**
- * 
- * @param {*} props 
+ *
+ * @param {*} props
  * @returns component that renders the interactive reading
  */
 function InteractiveReading(props) {
-
   const activity = props.route.params.activity;
 
   /** if I come from challenges and the activity is null */
   if (activity == null) {
-    return null
+    return null;
   }
   const data = props.route.params.activity.questions;
   const data_length = data.length;
@@ -39,37 +45,37 @@ function InteractiveReading(props) {
   /** array to be send to server, with question id and selected answer*/
   const [submit, setSubmit] = React.useState([]);
 
-
   React.useEffect(() => {
-    //console.log("points", points)
     if (points != null) {
       props.navigation.navigate("ActivityFinished", {
         points: points.achieved_score,
         from_challenge: props.route.params.from_challenge,
-        max_points: props.route.params.from_challenge ? props.route.params.challenge_max_score : activity.max_score,
+        max_points: props.route.params.from_challenge
+          ? props.route.params.challenge_max_score
+          : activity.max_score,
         name: props.route.params.module_name,
-        //user_points: activity.user_activity != null && activity.user_activity.length != 0 ? activity.user_activity[0].score : 0
       });
     }
-
-  }, [points])
+  }, [points]);
   /**
-   * 
+   *
    * @param props.index index of the question
    * @param props.question object representing the question
    * @returns visual representation of one question
    */
   function Question(props) {
-
     const index = props.index;
     const [show, setShow] = React.useState(states[index].show);
 
     /**which option did user select */
-    const [currentOptionSelected, setCurrentOptionSelected] =
-      React.useState(states[index].currentOptionSelected);
+    const [currentOptionSelected, setCurrentOptionSelected] = React.useState(
+      states[index].currentOptionSelected
+    );
 
     /**if true, disabeling touchable functionality */
-    const [questionAnswered, setQuestionAnswered] = React.useState(states[index].questionAnswered);
+    const [questionAnswered, setQuestionAnswered] = React.useState(
+      states[index].questionAnswered
+    );
 
     return (
       <View style={styles.questionWrapper}>
@@ -83,17 +89,18 @@ function InteractiveReading(props) {
             <Image source={require("../assets/images/testIcons/down.png")} />
           )}
 
-          <Text style={[BOLD20, {paddingLeft: 15}]}>{props.question.question}</Text>
+          <Text style={[BOLD20, { paddingLeft: 15 }]}>
+            {props.question.question}
+          </Text>
         </TouchableOpacity>
 
         {show ? (
-
           props.question.answers.map((option) => (
             <TouchableOpacity
               key={option.id}
               onPress={() => {
-                AddAnswer(props.question.id, option.id, submit, setSubmit)
-                const current = states[index]
+                AddAnswer(props.question.id, option.id, submit, setSubmit);
+                const current = states[index];
                 current.show = show;
                 current.currentOptionSelected = option;
                 current.questionAnswered = true;
@@ -104,11 +111,23 @@ function InteractiveReading(props) {
               }}
               disabled={questionAnswered}
             >
-              <View style={[styles.optionWrapper, {backgroundColor: option.is_correct && questionAnswered ? 
-                colors.correct_light : (option == currentOptionSelected ? colors.wrong_light : colors.white)}]}>
-              <Text style={[BOLD15, {textTransform: 'uppercase'}]}>{option.answer}</Text>
-              {
-                (option.is_correct && questionAnswered ? (
+              <View
+                style={[
+                  styles.optionWrapper,
+                  {
+                    backgroundColor:
+                      option.is_correct && questionAnswered
+                        ? colors.correct_light
+                        : option == currentOptionSelected
+                        ? colors.wrong_light
+                        : colors.white,
+                  },
+                ]}
+              >
+                <Text style={[BOLD15, { textTransform: "uppercase" }]}>
+                  {option.answer}
+                </Text>
+                {option.is_correct && questionAnswered ? (
                   <Image
                     source={require("../assets/images/testIcons/check.png")}
                   />
@@ -116,9 +135,7 @@ function InteractiveReading(props) {
                   <Image
                     source={require("../assets/images/testIcons/cross.png")}
                   />
-                ) : null)
-
-              }
+                ) : null}
               </View>
             </TouchableOpacity>
           ))
@@ -127,25 +144,26 @@ function InteractiveReading(props) {
         )}
       </View>
     );
-  };
+  }
 
-  
   /**
-   * 
+   *
    * @param props.item item from flatlist
    * @param props.index index of the item
    * @returns one interactive reading item - textbox + question
    */
   const renderItem = ({ item, index }) => {
-    states.push({show: false, currentOptionSelected: null, 
-      questionAnswered: false});
+    states.push({
+      show: false,
+      currentOptionSelected: null,
+      questionAnswered: false,
+    });
     return (
-      <View style={{alignItems: 'center'}}>
+      <View style={{ alignItems: "center" }}>
         <View style={styles.contentWrapper}>
-        <Text style={[styles.textStyle, REGULAR16]} >{item.reading}</Text>
-
+          <Text style={[styles.textStyle, REGULAR16]}>{item.reading}</Text>
         </View>
-        <View style={{width: '91%'}}>
+        <View style={{ width: "91%" }}>
           <Question
             key={item.id}
             question={item}
@@ -160,44 +178,52 @@ function InteractiveReading(props) {
   };
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <FlatList
         ListHeaderComponent={
-        <View>
-          <Text style={[EXTRABOLD12, {textTransform: 'uppercase', paddingLeft: 20, paddingTop: 20}]}>{props.route.params.moduleName}</Text>
-          <Text style={[BOLD20, {paddingLeft: 20, paddingBottom: 20}]}>{activity.title}</Text>
-        </View>
-      }
-        data={data.slice(0, itemIndex + 1)} // pokd je itemindex víc než max index akorát se vrátí všechna data
+          <View>
+            <Text
+              style={[
+                EXTRABOLD12,
+                { textTransform: "uppercase", paddingLeft: 20, paddingTop: 20 },
+              ]}
+            >
+              {props.route.params.moduleName}
+            </Text>
+            <Text style={[BOLD20, { paddingLeft: 20, paddingBottom: 20 }]}>
+              {activity.title}
+            </Text>
+          </View>
+        }
+        data={data.slice(0, itemIndex + 1)}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
-        ListFooterComponent={ 
-        data_length < (itemIndex + 1) ? (
-        <BigButton
-          name="hotovo"
-
-          /* sending submit list  to server */
-          onPress={async () => {
-            
-                //console.log(submit)
-                await post_to_url(props.route.params.from_challenge ? 'challenges/'.concat(props.route.params.challenge_id).concat('/submit/') : 
-                'interactive-reading/'.concat(activity.id).concat('/submit/'),
-                {'answers': submit},
-                setPoints);
-          }
-          }
-        />
-        ) : null
-      }
-      
-        ListFooterComponentStyle={
-          {
-            alignSelf: 'center',
-            paddingVertical: '5%'
-          }
+        ListFooterComponent={
+          data_length < itemIndex + 1 ? (
+            <BigButton
+              name="hotovo"
+              /* sending submit list  to server */
+              onPress={async () => {
+                await post_to_url(
+                  props.route.params.from_challenge
+                    ? "challenges/"
+                        .concat(props.route.params.challenge_id)
+                        .concat("/submit/")
+                    : "interactive-reading/"
+                        .concat(activity.id)
+                        .concat("/submit/"),
+                  { answers: submit },
+                  setPoints
+                );
+              }}
+            />
+          ) : null
         }
+        ListFooterComponentStyle={{
+          alignSelf: "center",
+          paddingVertical: "5%",
+        }}
       />
-      
     </View>
   );
 }
@@ -206,32 +232,30 @@ export default InteractiveReading;
 
 const styles = StyleSheet.create({
   contentWrapper: {
-    width: '91%',
+    width: "91%",
     borderColor: colors.blackText,
     borderWidth: 0.5,
-    borderRadius: 16
+    borderRadius: 16,
   },
   textStyle: {
     padding: 10,
-    paddingBottom: 20
+    paddingBottom: 20,
   },
   optionWrapper: {
-    width: '100%',
-    flexDirection: 'row',
+    width: "100%",
+    flexDirection: "row",
     height: 45,
     borderColor: colors.blackText,
     borderWidth: 0.5,
     borderRadius: 100,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: 15,
-    alignSelf: 'center'
+    alignSelf: "center",
   },
   questionWrapper: {
-    width: '100%',
-    //backgroundColor: colors.primary,
-    //backgroundColor: colors.correct,
+    width: "100%",
     padding: 10,
-    justifyContent: 'space-evenly'
-  }
-})
+    justifyContent: "space-evenly",
+  },
+});
