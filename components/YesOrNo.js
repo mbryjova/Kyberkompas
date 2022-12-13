@@ -132,7 +132,6 @@ function YesOrNo(props) {
               cardIndex={currentIndex}
               renderCard={renderQuestion}
               onSwipedLeft={() => {
-                console.log("explanation"),
                   setCurrentState(2),
                   setOptionSelected(data[currentIndex].answers[1]),
                   AddAnswer(
@@ -141,11 +140,10 @@ function YesOrNo(props) {
                     submit,
                     setSubmit
                   ),
-                  console.log(submit);
                 setCurrentIndex(currentIndex + 1);
               }}
               onSwipedRight={() => {
-                console.log("explanation"),
+                
                   setCurrentState(2),
                   setOptionSelected(data[currentIndex].answers[0]),
                   AddAnswer(
@@ -154,7 +152,7 @@ function YesOrNo(props) {
                     submit,
                     setSubmit
                   ),
-                  console.log(submit);
+                  
                 setCurrentIndex(currentIndex + 1);
               }}
               disableTopSwipe={true}

@@ -40,7 +40,6 @@ function Quiz(props) {
   const [quizState, setQuizState] = React.useState(1);
 
   React.useEffect(() => {
-    console.log("points", points);
     if (points != null) {
       props.navigation.navigate("ActivityFinished", {
         points: points.achieved_score,

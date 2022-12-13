@@ -53,7 +53,7 @@ function Challenges(props) {
           return item;
         })
       );
-      console.log(inactive);
+      
     });
     return unsubscribe;
   }, [props.navigation]);

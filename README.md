@@ -2,8 +2,9 @@ Jak spustit program přes klient Expo Go na vlastním zařízení Android:
 
 1. Zkontrolujete, že máte Node.js, případně stáhněte zde: https://nodejs.org/en/ LTS
 2. nainstalujte expo-cli příkazem: `npm install -g expo-cli`
-3. spusťte v terminálu příkaz v adresáři projektu: `npm install`
+3. spusťte v terminálu příkaz v adresáři projektu: `npm install --legacy-peer-deps`
 4. spusťte v terminálu příkaz v adresáři projektu: `expo start --tunnel`
+   (pokud se zeptá expo na instalaci balíčku @expo/ngrok, dejte Y, jako yes)
 
 Kvůli adrese kde běží server je potřeba na mobilu i počítači mít zapnutou VPN FI MU (nebo být v síti FI).
 VPN: https://www.fi.muni.cz/tech/unix/vpn.html.cs
@@ -13,7 +14,7 @@ VPN: https://www.fi.muni.cz/tech/unix/vpn.html.cs
    pro vstup do aplikace se zaregistrujte (email není povinný)
 
 Jak spustit testovací server (není v aktuálním stavu potřeba pro správný běh aplikace):
-pozn.: atributy v kódu i adresa serveru je již jiná, data z tohoto serveru jsem využívala v dřívějším vývoji.
+pozn.: atributy v kódu i adresa serveru je již jiná, data z tohoto serveru jsem využívala v dřívějším vývoji
 
 1. běžte v terminálu do adresáře Kyberkompas
 2. máte-li nainstalovaný node.js nainstalujte json-server příkazem: `npm i -g json-server`
