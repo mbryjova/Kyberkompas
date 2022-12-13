@@ -108,7 +108,7 @@ function APIActivity(props) {
             </ScrollView>
             </View>
 
-          <View style={{marginBottom: 40}}>
+          <View style={{marginBottom: 40, alignSelf: 'center'}}>
             {/* navigates to ActivityFinished screen */}
             <BigButton
               name="dokončit"

@@ -56,8 +56,8 @@ function Quiz(props) {
 
   const renderQuestion = () => {
     return (
-      <View style={{alignSelf: "center", marginTop: "15%"}}>
-        <Text style={BOLD20}>
+      <View style={{alignSelf: "center", marginTop: "15%", marginHorizontal: 7}}>
+        <Text style={[BOLD20, {textAlign: 'center'}]}>
           {allQuestions[currentQuestionIndex].question}
         </Text>
       </View>
